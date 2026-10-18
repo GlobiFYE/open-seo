@@ -1,5 +1,5 @@
 {
-  "appName": "OpenSEO",
+  "appName": "MericSEO",
   "actions": {
     "dismiss": "Dismiss",
     "cancel": "Cancel",
@@ -32,7 +32,7 @@
     "clearAll": "Clear all",
     "search": "Search",
     "openSetupGuide": "Open setup guide",
-    "backToApp": "Back to OpenSEO"
+    "backToApp": "Back to MericSEO"
   },
   "theme": {
     "label": "Theme",
@@ -51,10 +51,10 @@
   },
   "setup": {
     "helpPage": "help page",
-    "missingKeyBanner": "Setup needed: add your DataForSEO API key to use OpenSEO features. See the quick steps on the <helpLink />.",
+    "missingKeyBanner": "Setup needed: add your DataForSEO API key to use MericSEO features. See the quick steps on the <helpLink />.",
     "unverifiedBanner": "We could not verify your DataForSEO setup. If features are not working, check the setup steps on the <helpLink />.",
     "modalTitle": "One quick setup step",
-    "modalDescription": "Add your DataForSEO API key to start using OpenSEO.",
+    "modalDescription": "Add your DataForSEO API key to start using MericSEO.",
     "openGuide": "Open setup guide"
   },
   "billingRedirect": "Redirecting you to billing so you can start a hosted subscription.",

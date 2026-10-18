@@ -1,5 +1,5 @@
 {
-  "appName": "OpenSEO",
+  "appName": "MericSEO",
   "actions": {
     "dismiss": "Kapat",
     "cancel": "Vazgeç",
@@ -32,7 +32,7 @@
     "clearAll": "Tümünü temizle",
     "search": "Ara",
     "openSetupGuide": "Kurulum rehberini aç",
-    "backToApp": "OpenSEO'ya dön"
+    "backToApp": "MericSEO'ya dön"
   },
   "theme": {
     "label": "Tema",
@@ -51,10 +51,10 @@
   },
   "setup": {
     "helpPage": "yardım sayfasındaki",
-    "missingKeyBanner": "Kurulum gerekiyor: OpenSEO özelliklerini kullanmak için DataForSEO API anahtarınızı ekleyin. Kısa adımlar için <helpLink /> rehbere göz atın.",
+    "missingKeyBanner": "Kurulum gerekiyor: MericSEO özelliklerini kullanmak için DataForSEO API anahtarınızı ekleyin. Kısa adımlar için <helpLink /> rehbere göz atın.",
     "unverifiedBanner": "DataForSEO kurulumunuzu doğrulayamadık. Özellikler çalışmıyorsa <helpLink /> kurulum adımlarını kontrol edin.",
     "modalTitle": "Tek bir kurulum adımı kaldı",
-    "modalDescription": "OpenSEO'yu kullanmaya başlamak için DataForSEO API anahtarınızı ekleyin.",
+    "modalDescription": "MericSEO'yu kullanmaya başlamak için DataForSEO API anahtarınızı ekleyin.",
     "openGuide": "Kurulum rehberini aç"
   },
   "billingRedirect": "Aboneliğinizi başlatabilmeniz için faturalandırma sayfasına yönlendiriliyorsunuz.",

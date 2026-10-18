@@ -4,8 +4,8 @@
   "generic": "Bir sorun oluştu. Lütfen tekrar deneyin.",
   "codes": {
     "UNAUTHENTICATED": "Lütfen giriş yapıp tekrar deneyin.",
-    "AUTH_CONFIG_MISSING": "OpenSEO kimlik doğrulaması yapılandırılmamış. Cloudflare Access için README'deki kurulum adımlarını izleyin.",
-    "PAYMENT_REQUIRED": "OpenSEO'yu kullanabilmek için aktif bir abonelik gerekiyor.",
+    "AUTH_CONFIG_MISSING": "MericSEO kimlik doğrulaması yapılandırılmamış. Cloudflare Access için README'deki kurulum adımlarını izleyin.",
+    "PAYMENT_REQUIRED": "MericSEO'yu kullanabilmek için aktif bir abonelik gerekiyor.",
     "INSUFFICIENT_CREDITS": "Bu işlem için yeterli krediniz yok. Devam etmek için planınızı yükseltin veya kredi satın alın.",
     "AUDIT_RENDERING_UNAVAILABLE": "Bu kurulumda JavaScript rendering yapılandırılmamış. Yöneticinizden bir renderer etkinleştirmesini isteyin.",
     "FORBIDDEN": "Bu içeriğe erişim yetkiniz yok.",

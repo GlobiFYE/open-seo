@@ -8,10 +8,10 @@
   "appearance": "Appearance",
   "theme": "Theme",
   "language": "Language",
-  "languageDescription": "Choose the language of the OpenSEO interface.",
+  "languageDescription": "Choose the language of the MericSEO interface.",
   "analytics": {
     "title": "Analytics",
-    "label": "Help improve OpenSEO",
+    "label": "Help improve MericSEO",
     "description": "Share analytics and usage data.",
     "toggle": "Enable product analytics",
     "failed": "We couldn't update your analytics setting.",

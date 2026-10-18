@@ -84,7 +84,7 @@ function AiPage() {
       <div className="mx-auto max-w-7xl">
         <PageHeader
           title="Agent setup"
-          description="The most powerful way to use OpenSEO is through the AI agent you already use. Set it up once, then ask it anything."
+          description="The most powerful way to use MericSEO is through the AI agent you already use. Set it up once, then ask it anything."
         />
 
         <Tabs
@@ -109,7 +109,7 @@ function AiPage() {
                     <h2>Set up your agent</h2>
                   </CardTitle>
                   <CardDescription>
-                    Paste the setup prompt into your agent to connect OpenSEO
+                    Paste the setup prompt into your agent to connect MericSEO
                     and install its SEO skills. It will guide you through any
                     manual steps.
                   </CardDescription>
@@ -159,7 +159,7 @@ function AiPage() {
                   </CardTitle>
                   <CardDescription>
                     Already connected? Paste the update prompt into your agent
-                    to get the latest OpenSEO skills while preserving your
+                    to get the latest MericSEO skills while preserving your
                     connection settings and personal edits.
                   </CardDescription>
                 </CardHeader>

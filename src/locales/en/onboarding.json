@@ -25,8 +25,8 @@
   },
   "agent": {
     "title": "Set up your agent",
-    "description": "Paste this prompt into your agent to automatically configure OpenSEO for you.",
-    "pluginName": "OpenSEO plugin",
+    "description": "Paste this prompt into your agent to automatically configure MericSEO for you.",
+    "pluginName": "MericSEO plugin",
     "pluginDetail": "MCP connection + SEO skills",
     "copyPrompt": "Copy setup prompt",
     "promptCopied": "Setup prompt copied",

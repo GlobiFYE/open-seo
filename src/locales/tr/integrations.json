@@ -43,7 +43,7 @@
   },
   "removal": {
     "title": "Google hesabı kaldırılsın mı?",
-    "description": "Bu işlem, hesabın OpenSEO'daki {{provider}} bağlantısını kaldırır. İstediğiniz zaman yeniden bağlayabilirsiniz.",
+    "description": "Bu işlem, hesabın MericSEO'daki {{provider}} bağlantısını kaldırır. İstediğiniz zaman yeniden bağlayabilirsiniz.",
     "checking": "Bağlı projeler kontrol ediliyor…",
     "checkFailed": "Bağlı projeler kontrol edilemedi.",
     "affects_one": "Bu işlem {{provider}} bağlantısını {{count}} projeden de kaldıracak.",

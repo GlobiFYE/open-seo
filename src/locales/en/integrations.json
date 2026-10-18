@@ -43,7 +43,7 @@
   },
   "removal": {
     "title": "Remove Google account?",
-    "description": "This removes the account’s {{provider}} connection from OpenSEO. You can reconnect it anytime.",
+    "description": "This removes the account’s {{provider}} connection from MericSEO. You can reconnect it anytime.",
     "checking": "Checking connected projects…",
     "checkFailed": "Couldn't check connected projects.",
     "affects_one": "This will also disconnect {{provider}} from {{count}} project.",

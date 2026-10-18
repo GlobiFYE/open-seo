@@ -8,10 +8,10 @@
   "appearance": "Görünüm",
   "theme": "Tema",
   "language": "Dil",
-  "languageDescription": "OpenSEO arayüzünün dilini seçin.",
+  "languageDescription": "MericSEO arayüzünün dilini seçin.",
   "analytics": {
     "title": "Analitik",
-    "label": "OpenSEO'nun gelişmesine katkı sağlayın",
+    "label": "MericSEO'nun gelişmesine katkı sağlayın",
     "description": "Analitik ve kullanım verilerini paylaşın.",
     "toggle": "Ürün analitiğini etkinleştir",
     "failed": "Analitik ayarınız güncellenemedi.",

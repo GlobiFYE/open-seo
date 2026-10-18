@@ -84,7 +84,7 @@ function OAuthConsentPage() {
       <CardHeader className="flex flex-col items-center text-center">
         <img
           src="/transparent-logo.png"
-          alt="OpenSEO"
+          alt="MericSEO"
           className="size-10 rounded-lg"
         />
         <CardTitle className="mt-5 text-xl">

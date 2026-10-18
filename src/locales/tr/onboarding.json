@@ -25,8 +25,8 @@
   },
   "agent": {
     "title": "Agent'ınızı kurun",
-    "description": "OpenSEO'yu otomatik olarak yapılandırması için bu prompt'u agent'ınıza yapıştırın.",
-    "pluginName": "OpenSEO eklentisi",
+    "description": "MericSEO'yu otomatik olarak yapılandırması için bu prompt'u agent'ınıza yapıştırın.",
+    "pluginName": "MericSEO eklentisi",
     "pluginDetail": "MCP bağlantısı + SEO becerileri",
     "copyPrompt": "Kurulum prompt'unu kopyala",
     "promptCopied": "Kurulum prompt'u kopyalandı",
