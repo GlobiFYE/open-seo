@@ -1,14 +1,15 @@
 import type { ReactNode, Ref } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "cn";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/client/components/ui/button";
 
 export function WizardFooter({
   onBack,
   onSkip,
-  skipLabel = "Skip",
+  skipLabel,
   onContinue,
-  continueLabel = "Continue",
+  continueLabel,
   continueDisabled = false,
   continueAction,
   continueRef,
@@ -24,6 +25,7 @@ export function WizardFooter({
   continueRef?: Ref<HTMLButtonElement>;
   className?: string;
 }) {
+  const { t } = useTranslation();
   return (
     <div
       className={cn(
@@ -38,7 +40,7 @@ export function WizardFooter({
           className="gap-1.5 px-0 text-xs font-normal text-muted-foreground hover:bg-transparent"
           onClick={onBack}
         >
-          <ArrowLeft className="size-3.5" /> Back
+          <ArrowLeft className="size-3.5" /> {t("actions.back")}
         </Button>
       ) : (
         <span />
@@ -51,7 +53,7 @@ export function WizardFooter({
             className="h-8 px-3 text-xs font-semibold text-foreground/55"
             onClick={onSkip}
           >
-            {skipLabel}
+            {skipLabel ?? t("actions.skip")}
           </Button>
         ) : null}
         {continueAction ?? (
@@ -62,7 +64,7 @@ export function WizardFooter({
             onClick={onContinue}
             disabled={continueDisabled || !onContinue}
           >
-            {continueLabel}
+            {continueLabel ?? t("actions.continue")}
             <ArrowRight className="size-4" />
           </Button>
         )}

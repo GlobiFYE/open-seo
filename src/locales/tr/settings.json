@@ -1,0 +1,23 @@
+{
+  "title": "Ayarlar",
+  "sections": "Ayar bölümleri",
+  "tabs": {
+    "personal": "Kişisel",
+    "organization": "Organizasyon"
+  },
+  "appearance": "Görünüm",
+  "theme": "Tema",
+  "language": "Dil",
+  "languageDescription": "OpenSEO arayüzünün dilini seçin.",
+  "analytics": {
+    "title": "Analitik",
+    "label": "OpenSEO'nun gelişmesine katkı sağlayın",
+    "description": "Analitik ve kullanım verilerini paylaşın.",
+    "toggle": "Ürün analitiğini etkinleştir",
+    "failed": "Analitik ayarınız güncellenemedi.",
+    "enabled": "Analitik etkinleştirildi",
+    "disabled": "Analitik devre dışı bırakıldı"
+  },
+  "about": "Hakkında",
+  "version": "Sürüm"
+}

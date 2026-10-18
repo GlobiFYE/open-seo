@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/client/components/ui/button";
 import { AuthPageCard, AuthPageShell } from "@/client/features/auth/AuthPage";
 import { googleAuthErrorCopy } from "@/client/features/integrations/googleAuthErrorCopy";
@@ -21,6 +22,7 @@ export const Route = createFileRoute("/auth-error")({
  * attributed to a specific flow return to the connect surface instead.
  */
 function AuthErrorPage() {
+  const { t } = useTranslation("auth");
   const { error } = Route.useSearch();
   const copy = googleAuthErrorCopy(error ?? "unknown");
 
@@ -32,7 +34,7 @@ function AuthErrorPage() {
         footer={
           error ? (
             <p className="font-mono text-xs text-muted-foreground">
-              Code: {error}
+              {t("authError.code", { code: error })}
             </p>
           ) : undefined
         }
@@ -43,7 +45,7 @@ function AuthErrorPage() {
           variant="secondary"
           className="w-full"
         >
-          Back to OpenSEO
+          {t("authError.backToApp")}
         </Button>
       </AuthPageCard>
     </AuthPageShell>

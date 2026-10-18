@@ -1,3 +1,5 @@
+import { i18n } from "@/i18n/config";
+import { useTranslation } from "react-i18next";
 import {
   flexRender,
   getCoreRowModel,
@@ -77,7 +79,7 @@ export function useSelectionAnchor(): MutableRefObject<SelectionAnchor | null> {
 export function makeSelectionColumn<TData>(
   anchorRef: MutableRefObject<SelectionAnchor | null>,
   /** Names each row checkbox for screen readers. */
-  rowLabel: (row: Row<TData>) => string = () => "Select row",
+  rowLabel: (row: Row<TData>) => string = () => i18n.t("table.selectRow"),
 ): ColumnDef<TData> {
   return {
     id: "select",
@@ -92,7 +94,7 @@ export function makeSelectionColumn<TData>(
         }
         disabled={!table.getRowModel().rows.some((row) => row.getCanSelect())}
         onCheckedChange={(checked) => table.toggleAllRowsSelected(checked)}
-        aria-label="Select all rows"
+        aria-label={i18n.t("table.selectAll")}
       />
     ),
     cell: ({ row, table }) => (
@@ -194,6 +196,7 @@ export function DataTable<TData>({
   /** Details shown in a full-width row under an expanded row. */
   renderExpandedRow?: (row: Row<TData>) => ReactNode;
 }) {
+  const { t } = useTranslation();
   const columns = table.getVisibleLeafColumns();
   const rows = table.getRowModel().rows;
 
@@ -248,8 +251,8 @@ export function DataTable<TData>({
                     <EmptyState
                       kind="filtered"
                       variant="plain"
-                      title="No rows match these filters"
-                      description="Change or clear the filters to see more rows."
+                      title={t("table.noMatchesTitle")}
+                      description={t("table.noMatchesDescription")}
                       action={
                         onClearFilters ? (
                           <Button
@@ -257,7 +260,7 @@ export function DataTable<TData>({
                             size="sm"
                             onClick={onClearFilters}
                           >
-                            Clear filters
+                            {t("actions.clearFilters")}
                           </Button>
                         ) : undefined
                       }

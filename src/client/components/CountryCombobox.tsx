@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Combobox,
   ComboboxContent,
@@ -7,17 +9,27 @@ import {
   ComboboxList,
 } from "@/client/components/ui/combobox";
 import { LOCATION_OPTIONS } from "@/shared/keyword-locations";
+import { localizeCountryOptions } from "@/i18n/format";
+import { getCurrentLocale } from "@/i18n/config";
 
 type LocationOption = (typeof LOCATION_OPTIONS)[number];
+type LocalizedLocationOption = LocationOption & { englishLabel: string };
 
 // Matches the start of the name or of any word in it, so "uni" finds United
 // States, not Tunisia, and "united states" still finds United States.
-function matchesCountry(option: LocationOption, query: string) {
-  const needle = query.trim().toLowerCase();
-  const label = option.label.toLowerCase();
+function matchesLabel(label: string, needle: string) {
+  const lower = label.toLowerCase();
   return (
-    label.startsWith(needle) ||
-    label.split(/[\s-]+/).some((word) => word.startsWith(needle)) ||
+    lower.startsWith(needle) ||
+    lower.split(/[\s-]+/).some((word) => word.startsWith(needle))
+  );
+}
+
+function matchesCountry(option: LocalizedLocationOption, query: string) {
+  const needle = query.trim().toLowerCase();
+  return (
+    matchesLabel(option.label, needle) ||
+    matchesLabel(option.englishLabel, needle) ||
     option.shortLabel.toLowerCase().startsWith(needle)
   );
 }
@@ -35,11 +47,18 @@ export function CountryCombobox({
   /** Defaults to the full country list. */
   options?: readonly LocationOption[];
 }) {
-  const country = options.find((option) => option.code === value) ?? null;
+  const { t } = useTranslation();
+  const locale = getCurrentLocale();
+  const localizedOptions = useMemo(
+    () => localizeCountryOptions(options, locale),
+    [options, locale],
+  );
+  const country =
+    localizedOptions.find((option) => option.code === value) ?? null;
 
   return (
     <Combobox
-      items={options}
+      items={localizedOptions}
       value={country}
       itemToStringLabel={(option) => option.label}
       autoHighlight
@@ -51,10 +70,10 @@ export function CountryCombobox({
       <ComboboxInput
         id={id}
         className="w-full"
-        placeholder="Search countries"
+        placeholder={t("location.searchCountries")}
       />
       <ComboboxContent>
-        <ComboboxEmpty>No countries match.</ComboboxEmpty>
+        <ComboboxEmpty>{t("location.noCountries")}</ComboboxEmpty>
         <ComboboxList>
           {(option: LocationOption) => (
             <ComboboxItem key={option.code} value={option}>

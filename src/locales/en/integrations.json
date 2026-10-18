@@ -1,0 +1,56 @@
+{
+  "providers": {
+    "gsc": "Search Console",
+    "ga4": "Google Analytics"
+  },
+  "picker": {
+    "googleAccount": "Google account · {{suffix}}",
+    "saveProperty": "Save property",
+    "manageAccounts": "Manage Google accounts",
+    "chooseProperty": "Choose property",
+    "selectProperty": "Select a property…",
+    "propertiesRegion": "Google properties",
+    "searchLabel": "Search properties or accounts",
+    "searchPlaceholder": "Search properties or accounts…",
+    "loadingProperties": "Loading properties…",
+    "loadPropertiesFailed": "Couldn't load properties.",
+    "removeAccount": "Remove account",
+    "removeAccountLabel": "Remove {{account}}",
+    "connectionExpired": "Connection expired",
+    "reconnect": "Reconnect",
+    "reconnectLabel": "Reconnect {{account}}",
+    "apiDisabled": "Search Console API isn't enabled",
+    "propertiesUnavailable": "Couldn't load properties",
+    "gscNeedsAccess": "Ask the property owner for Full access, or verify ownership in Search Console.",
+    "noVerifiedAccess": "No verified access",
+    "noMatches": "No matching properties or accounts",
+    "addAccountHint": "Add a Google account to find properties.",
+    "addAccount": "Add Google account",
+    "openingGoogle": "Opening Google…"
+  },
+  "gscHelp": {
+    "notFoundTitle": "We couldn’t find your website",
+    "checked": "We checked {{accounts}}.",
+    "addSite_one": "Add your site to Search Console, or ask whoever manages it to give this account access.",
+    "addSite_other": "Add your site to Search Console, or ask whoever manages it to give one of these accounts access.",
+    "openSearchConsole": "Open Search Console ↗",
+    "setupGuide": "Setup guide",
+    "loadFailed": "Couldn't load Search Console websites.",
+    "differentAccount": "Use a different Google account",
+    "noMatchesInAccount": "No matching properties in this account",
+    "noWebsites": "No websites found for this account. <guideLink>Add a website or get access</guideLink>, then refresh the list.",
+    "noProperties": "No properties available"
+  },
+  "removal": {
+    "title": "Remove Google account?",
+    "description": "This removes the account’s {{provider}} connection from OpenSEO. You can reconnect it anytime.",
+    "checking": "Checking connected projects…",
+    "checkFailed": "Couldn't check connected projects.",
+    "affects_one": "This will also disconnect {{provider}} from {{count}} project.",
+    "affects_other": "This will also disconnect {{provider}} from {{count}} projects.",
+    "noImpact": "No projects will be affected.",
+    "removed": "Google account removed",
+    "submit": "Remove account"
+  },
+  "dismiss": "Dismiss"
+}

@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { AlertTriangle, ExternalLink } from "lucide-react";
+import { Trans, useTranslation } from "react-i18next";
 import { AppBanner } from "@/client/layout/AppBanner";
 import { dataforseoHelpLinkOptions } from "@/client/navigation/items";
 import { Button } from "@/client/components/ui/button";
@@ -19,28 +20,27 @@ function SeoApiStatusBanners({
   shouldShowSeoApiWarning: boolean;
   seoApiKeyStatusError: boolean;
 }) {
+  const { t } = useTranslation();
   const icon = <AlertTriangle className="size-4 shrink-0" />;
   const helpLink = (
     <Link
       {...dataforseoHelpLinkOptions}
       className="font-medium text-primary underline-offset-4 hover:underline"
     >
-      help page
+      {t("setup.helpPage")}
     </Link>
   );
   return (
     <>
       {shouldShowSeoApiWarning ? (
         <AppBanner variant="warning" icon={icon}>
-          Setup needed: add your DataForSEO API key to use OpenSEO features. See
-          the quick steps on the {helpLink}.
+          <Trans i18nKey="setup.missingKeyBanner" components={{ helpLink }} />
         </AppBanner>
       ) : null}
 
       {seoApiKeyStatusError ? (
         <AppBanner variant="info" icon={icon}>
-          We could not verify your DataForSEO setup. If features are not
-          working, check the setup steps on the {helpLink}.
+          <Trans i18nKey="setup.unverifiedBanner" components={{ helpLink }} />
         </AppBanner>
       ) : null}
     </>
@@ -48,6 +48,7 @@ function SeoApiStatusBanners({
 }
 
 function MissingSeoSetupModal({ onClose }: { onClose: () => void }) {
+  const { t } = useTranslation();
   return (
     <Dialog open onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-lg">
@@ -56,21 +57,19 @@ function MissingSeoSetupModal({ onClose }: { onClose: () => void }) {
             <AlertTriangle className="size-5" />
           </div>
           <div className="space-y-2">
-            <DialogTitle>One quick setup step</DialogTitle>
-            <DialogDescription>
-              Add your DataForSEO API key to start using OpenSEO.
-            </DialogDescription>
+            <DialogTitle>{t("setup.modalTitle")}</DialogTitle>
+            <DialogDescription>{t("setup.modalDescription")}</DialogDescription>
           </div>
         </DialogHeader>
         <DialogFooter>
           <Button variant="ghost" onClick={onClose}>
-            Dismiss
+            {t("actions.dismiss")}
           </Button>
           <Button
             nativeButton={false}
             render={<Link {...dataforseoHelpLinkOptions} onClick={onClose} />}
           >
-            Open setup guide
+            {t("setup.openGuide")}
             <ExternalLink className="size-4" />
           </Button>
         </DialogFooter>

@@ -1,0 +1,35 @@
+{
+  "mainNavigation": "Main navigation",
+  "toggleSidebar": "Toggle sidebar",
+  "groups": {
+    "overview": "Overview",
+    "research": "Research",
+    "aiVisibility": "AI Visibility",
+    "mySite": "My Site",
+    "aiTools": "AI Tools"
+  },
+  "items": {
+    "dashboard": "Dashboard",
+    "keywordResearch": "Keyword Research",
+    "savedKeywords": "Saved Keywords",
+    "rankTracking": "Rank Tracking",
+    "gscInsights": "GSC Insights",
+    "domainOverview": "Domain Overview",
+    "backlinks": "Backlinks",
+    "siteAudit": "Site Audit",
+    "promptTracking": "Prompt Tracking",
+    "promptResearch": "Prompt Research",
+    "promptExplorer": "Prompt Explorer",
+    "reports": "Reports",
+    "context": "Context",
+    "agentSetup": "Agent setup"
+  },
+  "account": {
+    "helpCommunity": "Help & Community",
+    "openMenu": "Open account menu",
+    "organization": "Organization",
+    "settings": "Settings",
+    "billing": "Billing",
+    "signOut": "Sign out"
+  }
+}

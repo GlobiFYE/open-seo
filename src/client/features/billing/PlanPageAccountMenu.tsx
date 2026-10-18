@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Settings, User } from "lucide-react";
 import { ThemePreferenceDropdownItems } from "@/client/components/ThemePreferenceMenuItems";
+import { LanguagePreferenceDropdownItems } from "@/client/components/LanguagePreference";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/client/components/ui/button";
 import {
   DropdownMenu,
@@ -15,6 +17,7 @@ import { signOutAndRedirect } from "@/lib/auth-client";
 
 // Shared account menu for onboarding and standalone plan pages.
 export function PlanPageAccountMenu({ email }: { email: string | undefined }) {
+  const { t } = useTranslation("nav");
   if (!email) return null;
 
   return (
@@ -25,7 +28,7 @@ export function PlanPageAccountMenu({ email }: { email: string | undefined }) {
             <Button
               variant="ghost"
               size="icon"
-              aria-label="Open account menu"
+              aria-label={t("account.openMenu")}
             />
           }
         >
@@ -38,16 +41,18 @@ export function PlanPageAccountMenu({ email }: { email: string | undefined }) {
             </DropdownMenuLabel>
           </DropdownMenuGroup>
           <DropdownMenuItem render={<Link to="/settings" />}>
-            <Settings className="size-4" /> Settings
+            <Settings className="size-4" /> {t("account.settings")}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <ThemePreferenceDropdownItems />
+          <DropdownMenuSeparator />
+          <LanguagePreferenceDropdownItems />
           <DropdownMenuSeparator />
           <DropdownMenuItem
             variant="destructive"
             onClick={() => signOutAndRedirect()}
           >
-            Sign out
+            {t("account.signOut")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

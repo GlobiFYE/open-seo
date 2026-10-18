@@ -1,5 +1,7 @@
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/client/components/ui/button";
+import { LanguagePreferenceRadio } from "@/client/components/LanguagePreference";
 import {
   getCurrentAuthRedirect,
   getOAuthSignedQuery,
@@ -34,7 +36,7 @@ export function useAuthPageState(redirect: string | undefined) {
 
 export function AuthMethodChooser({
   googleLabel,
-  emailLabel = "Continue with email",
+  emailLabel,
   isBusy,
   disabled,
   onContinueWithGoogle,
@@ -47,6 +49,7 @@ export function AuthMethodChooser({
   onContinueWithGoogle: () => void;
   onContinueWithEmail: () => void;
 }) {
+  const { t } = useTranslation("auth");
   return (
     <div className="space-y-3">
       <Button
@@ -57,7 +60,7 @@ export function AuthMethodChooser({
         disabled={disabled || isBusy}
       >
         <GoogleLogo />
-        {isBusy ? "Opening Google..." : googleLabel}
+        {isBusy ? t("chooser.openingGoogle") : googleLabel}
       </Button>
 
       <Button
@@ -67,7 +70,7 @@ export function AuthMethodChooser({
         onClick={onContinueWithEmail}
         disabled={disabled || isBusy}
       >
-        {emailLabel}
+        {emailLabel ?? t("chooser.continueWithEmail")}
       </Button>
     </div>
   );
@@ -126,6 +129,10 @@ export function AuthPageCard({
       <div className="space-y-4">{children}</div>
 
       {footer ? <div className="text-center">{footer}</div> : null}
+
+      <div className="flex justify-center">
+        <LanguagePreferenceRadio />
+      </div>
     </div>
   );
 }

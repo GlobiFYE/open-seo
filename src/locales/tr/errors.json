@@ -1,0 +1,27 @@
+{
+  "unexpectedHosted": "Bizim tarafımızda bir sorun oluştu. Lütfen tekrar deneyin; sorun devam ederse destek ekibiyle iletişime geçin.",
+  "unexpectedSelfHosted": "Bir sorun oluştu. Lütfen tekrar deneyin veya ayrıntılar için sunucu loglarını kontrol edin.",
+  "generic": "Bir sorun oluştu. Lütfen tekrar deneyin.",
+  "codes": {
+    "UNAUTHENTICATED": "Lütfen giriş yapıp tekrar deneyin.",
+    "AUTH_CONFIG_MISSING": "OpenSEO kimlik doğrulaması yapılandırılmamış. Cloudflare Access için README'deki kurulum adımlarını izleyin.",
+    "PAYMENT_REQUIRED": "OpenSEO'yu kullanabilmek için aktif bir abonelik gerekiyor.",
+    "INSUFFICIENT_CREDITS": "Bu işlem için yeterli krediniz yok. Devam etmek için planınızı yükseltin veya kredi satın alın.",
+    "AUDIT_RENDERING_UNAVAILABLE": "Bu kurulumda JavaScript rendering yapılandırılmamış. Yöneticinizden bir renderer etkinleştirmesini isteyin.",
+    "FORBIDDEN": "Bu içeriğe erişim yetkiniz yok.",
+    "NOT_FOUND": "İstenen içerik bulunamadı.",
+    "AUDIT_CAPACITY_REACHED": "Hesabınızın audit kapasitesi doldu. Yeni bir audit başlatmak için projelerinizdeki eski audit'leri silin.",
+    "AUDIT_PAGE_LIMIT_EXCEEDED": "Ücretsiz planda audit'ler {{count}} sayfayla sınırlıdır. Daha kapsamlı audit'ler için planınızı yükseltin.",
+    "AUDIT_ALREADY_RUNNING": "Aynı anda çalışabilecek audit sınırına ulaştınız. Yenisini başlatmadan önce birinin bitmesini bekleyin veya birini silin.",
+    "VALIDATION_ERROR": "Lütfen girdiğiniz bilgileri kontrol edip tekrar deneyin.",
+    "UNKNOWN_LOCATION": "Bu şehri, ilçeyi veya bölgeyi bulamadık. Listeden bir konum seçin ya da tüm ülkede aramak için alanı boş bırakın.",
+    "CRAWL_TARGET_BLOCKED": "Bu tarama hedefi güvenlik politikası nedeniyle engellendi.",
+    "BACKLINKS_BILLING_ISSUE": "Bağlı DataForSEO hesabında ödeme veya bakiye sorunu var.",
+    "AI_SEARCH_BILLING_ISSUE": "Bağlı DataForSEO hesabında ödeme veya bakiye sorunu var.",
+    "AI_VISIBILITY_ERROR": "AI görünürlüğü isteği tamamlanamadı. Takip ayarlarını gözden geçirip tekrar deneyin.",
+    "DATAFORSEO_AUTH_FAILED": "DataForSEO API anahtarını reddetti. DATAFORSEO_API_KEY değerinin, DataForSEO kullanıcı adı:şifre bilginizin base64 hali olduğundan emin olun.",
+    "RATE_LIMITED": "Çok fazla istek gönderildi. Lütfen biraz bekleyip tekrar deneyin.",
+    "UPSTREAM_UNAVAILABLE": "Veri sağlayıcısına şu an ulaşılamıyor. Lütfen birazdan tekrar deneyin.",
+    "CONFLICT": "Bu istek mevcut verilerle çakışıyor."
+  }
+}

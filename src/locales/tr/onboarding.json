@@ -1,0 +1,40 @@
+{
+  "steps": {
+    "label": "Kurulum adımları",
+    "stepLabel": "Adım {{number}}: {{label}}",
+    "website": "Web sitesi",
+    "searchConsole": "Google Search Console",
+    "agentSetup": "Agent kurulumu"
+  },
+  "website": {
+    "title": "Web siteniz hangisi?",
+    "description": "Siteniz için bir site audit başlatacağız.",
+    "loadProjectFailed": "Projeniz yüklenemedi.",
+    "required": "Web sitenizi girin.",
+    "invalidDomain": "Geçerli bir domain girin, örneğin acme.com.",
+    "label": "Web sitesi",
+    "marketToggle": "Varsayılan ülke ve dili seçin"
+  },
+  "searchConsole": {
+    "title": "Google Search Console'u bağlayın",
+    "description": "Sitenize ziyaretçi getiren Google aramalarını görün.",
+    "checkConnectionFailed": "Google bağlantınız kontrol edilemedi.",
+    "connectedTo": "<property>{{property}}</property> mülküne bağlandı.",
+    "connect": "Google ile bağlan",
+    "opening": "Google açılıyor…"
+  },
+  "agent": {
+    "title": "Agent'ınızı kurun",
+    "description": "OpenSEO'yu otomatik olarak yapılandırması için bu prompt'u agent'ınıza yapıştırın.",
+    "pluginName": "OpenSEO eklentisi",
+    "pluginDetail": "MCP bağlantısı + SEO becerileri",
+    "copyPrompt": "Kurulum prompt'unu kopyala",
+    "promptCopied": "Kurulum prompt'u kopyalandı",
+    "manualSetup": "Manuel kurulum",
+    "anyMcpClient": "veya herhangi bir MCP istemcisi"
+  },
+  "audit": {
+    "unavailable": "Web sitesi kaydedildi ancak ilk tarama başlatılamadı.",
+    "started": "50 sayfalık site taramanız başladı"
+  }
+}

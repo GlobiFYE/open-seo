@@ -43,14 +43,6 @@ export const RESEARCH_SCOPE_LABELS: Record<ResearchScope, string> = {
 export const RESEARCH_SCOPE_PARAM_DESCRIPTION =
   "Research scope: 'domain' (hostname without subdomains), 'subdomains' (hostname plus all subdomains), 'subfolder' (path and its children), or 'exact_url' (one page). Defaults to 'subdomains' for root inputs and 'subfolder' when the input has a path.";
 
-/** One-line explanations shown in the scope dropdown. */
-export const RESEARCH_SCOPE_DESCRIPTIONS: Record<ResearchScope, string> = {
-  exact_url: "One page only",
-  subfolder: "The path and everything under it",
-  domain: "The hostname, without subdomains",
-  subdomains: "The domain plus all its subdomains",
-};
-
 /** Wildcard-style pattern examples shown under each scope option. */
 export const RESEARCH_SCOPE_EXAMPLES: Record<ResearchScope, string> = {
   exact_url: "example.com/path",

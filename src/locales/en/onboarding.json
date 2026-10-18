@@ -1,0 +1,40 @@
+{
+  "steps": {
+    "label": "Onboarding steps",
+    "stepLabel": "Step {{number}}: {{label}}",
+    "website": "Website",
+    "searchConsole": "Google Search Console",
+    "agentSetup": "Agent setup"
+  },
+  "website": {
+    "title": "What’s your website?",
+    "description": "We’ll start a site audit for you.",
+    "loadProjectFailed": "Couldn't load your project.",
+    "required": "Enter your website.",
+    "invalidDomain": "Enter a valid domain, like acme.com.",
+    "label": "Website",
+    "marketToggle": "Choose default country & language"
+  },
+  "searchConsole": {
+    "title": "Connect Google Search Console",
+    "description": "See which Google searches bring people to your site.",
+    "checkConnectionFailed": "Couldn't check your Google connection.",
+    "connectedTo": "Connected to <property>{{property}}</property>.",
+    "connect": "Connect with Google",
+    "opening": "Opening Google…"
+  },
+  "agent": {
+    "title": "Set up your agent",
+    "description": "Paste this prompt into your agent to automatically configure OpenSEO for you.",
+    "pluginName": "OpenSEO plugin",
+    "pluginDetail": "MCP connection + SEO skills",
+    "copyPrompt": "Copy setup prompt",
+    "promptCopied": "Setup prompt copied",
+    "manualSetup": "Manual setup",
+    "anyMcpClient": "or any MCP client"
+  },
+  "audit": {
+    "unavailable": "Website saved. The first scan could not start.",
+    "started": "Your 50-page site scan is running"
+  }
+}

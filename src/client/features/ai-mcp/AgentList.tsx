@@ -5,6 +5,7 @@ import {
   OpenAIIcon,
   OpenClawIcon,
 } from "./AgentIcons";
+import { useTranslation } from "react-i18next";
 
 const AGENTS = [
   { name: "Claude Code", Icon: ClaudeIcon },
@@ -15,6 +16,7 @@ const AGENTS = [
 ];
 
 export function AgentList() {
+  const { t } = useTranslation("onboarding");
   return (
     <ul className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
       {AGENTS.map(({ name, Icon }) => (
@@ -26,7 +28,9 @@ export function AgentList() {
           {name}
         </li>
       ))}
-      <li className="text-xs text-muted-foreground/75">or any MCP client</li>
+      <li className="text-xs text-muted-foreground/75">
+        {t("agent.anyMcpClient")}
+      </li>
     </ul>
   );
 }

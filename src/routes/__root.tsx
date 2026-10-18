@@ -28,6 +28,7 @@ import { isHostedClientAuthMode } from "@/lib/auth-mode";
 import { Toaster } from "sonner";
 import { queryClient } from "@/client/tanstack-db";
 import { getActiveOrganizationId } from "@/lib/auth-session";
+import { getCurrentLanguage } from "@/i18n/config";
 
 // Capture Google link error params before the router starts — a route loader
 // redirect would otherwise replace the URL and lose them. See googleLinkError.ts.
@@ -131,7 +132,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     import.meta.env.DEV && import.meta.env.VITE_SHOW_DEVTOOLS !== "false";
 
   return (
-    <html suppressHydrationWarning translate="no">
+    <html lang={getCurrentLanguage()} suppressHydrationWarning translate="no">
       <head>
         <script
           dangerouslySetInnerHTML={{ __html: themePreferenceInitScript }}

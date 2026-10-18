@@ -3,6 +3,8 @@ import { revalidateLogic } from "@tanstack/react-form";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
+import { i18n } from "@/i18n/config";
 import { useAppForm } from "@/client/components/form/useAppForm";
 import { QueryError } from "@/client/components/QueryState";
 import { Spinner } from "@/client/components/Spinner";
@@ -38,6 +40,7 @@ export function WebsiteOnboardingStep({
   onSkip: () => void;
   suggestedDomain?: string;
 }) {
+  const { t } = useTranslation(["onboarding", "common"]);
   const projectsQuery = useQuery(projectsQueryOptions());
   const project = projectsQuery.data?.[0];
 
@@ -45,10 +48,10 @@ export function WebsiteOnboardingStep({
     <div>
       <div className="mb-8">
         <h1 className="text-2xl font-semibold tracking-tight">
-          What’s your website?
+          {t("website.title")}
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          We’ll start a site audit for you.
+          {t("website.description")}
         </p>
       </div>
       {project ? (
@@ -62,19 +65,22 @@ export function WebsiteOnboardingStep({
       ) : projectsQuery.isError ? (
         <QueryError
           error={projectsQuery.error}
-          fallback="Couldn't load your project."
+          fallback={t("website.loadProjectFailed")}
           onRetry={() => void projectsQuery.refetch()}
           isRetrying={projectsQuery.isFetching}
         />
       ) : (
-        <Spinner size="sm" label="Checking…" />
+        <Spinner size="sm" label={t("common:actions.checking")} />
       )}
     </div>
   );
 }
 
 const websiteSchema = z.object({
-  domain: z.string().trim().min(1, "Enter your website."),
+  domain: z
+    .string()
+    .trim()
+    .min(1, { error: () => i18n.t("onboarding:website.required") }),
   market: z.object({ locationCode: z.number(), languageCode: z.string() }),
 });
 
@@ -89,6 +95,7 @@ function WebsiteForm({
   onNext: () => void;
   onSkip: () => void;
 }) {
+  const { t } = useTranslation(["onboarding", "common"]);
   const queryClient = useQueryClient();
   const saveMutation = useMutation({
     mutationFn: (values: z.infer<typeof websiteSchema>) =>
@@ -134,7 +141,7 @@ function WebsiteForm({
         if (getErrorCode(error) === "VALIDATION_ERROR")
           formApi.setErrorMap({
             onSubmit: {
-              fields: { domain: "Enter a valid domain, like acme.com." },
+              fields: { domain: t("website.invalidDomain") },
             },
           });
         else toast.error(getStandardErrorMessage(error));
@@ -148,7 +155,7 @@ function WebsiteForm({
         <form.AppField name="domain">
           {(field) => (
             <field.TextField
-              label="Website"
+              label={t("website.label")}
               placeholder="example.com"
               maxLength={255}
             />
@@ -157,7 +164,7 @@ function WebsiteForm({
         <Collapsible>
           <CollapsibleTrigger className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
             <ChevronDown className="size-4 transition-transform group-data-panel-open:rotate-180" />
-            Choose default country &amp; language
+            {t("website.marketToggle")}
           </CollapsibleTrigger>
           <CollapsibleContent keepMounted className="pt-4">
             <form.Field name="market">
@@ -173,7 +180,7 @@ function WebsiteForm({
         <WizardFooter
           className="mt-4"
           onSkip={onSkip}
-          skipLabel="Skip for now"
+          skipLabel={t("common:actions.skipForNow")}
           continueAction={
             <form.Subscribe
               selector={(state) => ({
@@ -187,7 +194,8 @@ function WebsiteForm({
                   className="font-semibold disabled:bg-foreground/10 disabled:text-foreground/20 disabled:opacity-100"
                   disabled={empty || submitting}
                 >
-                  Save and continue <ArrowRight className="size-4" />
+                  {t("common:actions.saveAndContinue")}{" "}
+                  <ArrowRight className="size-4" />
                 </Button>
               )}
             </form.Subscribe>

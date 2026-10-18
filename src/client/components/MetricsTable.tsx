@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { ReactNode } from "react";
 import {
   Table,
@@ -15,13 +16,16 @@ export function MetricsTable({
   rows: { label: ReactNode; value: ReactNode; change?: ReactNode }[];
   showChange?: boolean;
 }) {
+  const { t } = useTranslation();
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Metric</TableHead>
-          <TableHead className="text-right">Value</TableHead>
-          {showChange && <TableHead className="text-right">Change</TableHead>}
+          <TableHead>{t("metrics.metric")}</TableHead>
+          <TableHead className="text-right">{t("metrics.value")}</TableHead>
+          {showChange && (
+            <TableHead className="text-right">{t("metrics.change")}</TableHead>
+          )}
         </TableRow>
       </TableHeader>
       <TableBody>

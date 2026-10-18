@@ -1,5 +1,6 @@
 import { toast } from "sonner";
 import { getStandardErrorMessage } from "@/client/lib/error-messages";
+import { i18n } from "@/i18n/config";
 
 /** Tells the user whether saving a website started its first site scan. */
 export function toastInitialAudit(
@@ -9,9 +10,9 @@ export function toastInitialAudit(
     | null,
 ) {
   if (initialAudit?.status === "unavailable")
-    toast.warning("Website saved. The first scan could not start.", {
+    toast.warning(i18n.t("onboarding:audit.unavailable"), {
       description: getStandardErrorMessage(new Error(initialAudit.code)),
     });
   else if (initialAudit?.status === "started")
-    toast.success("Your 50-page site scan is running");
+    toast.success(i18n.t("onboarding:audit.started"));
 }

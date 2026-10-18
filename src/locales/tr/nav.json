@@ -1,0 +1,35 @@
+{
+  "mainNavigation": "Ana menü",
+  "toggleSidebar": "Kenar menüsünü aç/kapat",
+  "groups": {
+    "overview": "Genel Bakış",
+    "research": "Araştırma",
+    "aiVisibility": "AI Görünürlüğü",
+    "mySite": "Sitem",
+    "aiTools": "AI Araçları"
+  },
+  "items": {
+    "dashboard": "Dashboard",
+    "keywordResearch": "Keyword Araştırması",
+    "savedKeywords": "Kayıtlı Keyword'ler",
+    "rankTracking": "Sıralama Takibi",
+    "gscInsights": "GSC Analizleri",
+    "domainOverview": "Domain Analizi",
+    "backlinks": "Backlink'ler",
+    "siteAudit": "Site Audit",
+    "promptTracking": "Prompt Takibi",
+    "promptResearch": "Prompt Araştırması",
+    "promptExplorer": "Prompt Explorer",
+    "reports": "Raporlar",
+    "context": "Proje Bağlamı",
+    "agentSetup": "Agent kurulumu"
+  },
+  "account": {
+    "helpCommunity": "Yardım ve Topluluk",
+    "openMenu": "Hesap menüsünü aç",
+    "organization": "Organizasyon",
+    "settings": "Ayarlar",
+    "billing": "Faturalandırma",
+    "signOut": "Çıkış yap"
+  }
+}

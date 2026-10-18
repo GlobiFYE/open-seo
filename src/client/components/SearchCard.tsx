@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { ComponentProps, FormEvent, ReactNode } from "react";
 import { Search } from "lucide-react";
 import { cn } from "cn";
@@ -32,6 +33,7 @@ export function SearchCard({
   /** More fields below the row, still inside the form so Enter submits. */
   secondRow?: ReactNode;
 }) {
+  const { t } = useTranslation();
   return (
     <Card>
       <CardContent className="space-y-3">
@@ -39,7 +41,7 @@ export function SearchCard({
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
             {children}
             <Button type="submit" className="px-6" pending={pending}>
-              Search
+              {t("actions.search")}
             </Button>
           </div>
           {secondRow}

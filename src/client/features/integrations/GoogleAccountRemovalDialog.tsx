@@ -1,4 +1,5 @@
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getStandardErrorMessage } from "@/client/lib/error-messages";
 import { Button } from "@/client/components/ui/button";
@@ -28,6 +29,7 @@ export function GoogleAccountRemovalDialog({
   onClose: () => void;
   onRemoved: () => void;
 }) {
+  const { t } = useTranslation(["integrations", "common"]);
   const queryClient = useQueryClient();
   const impact = useQuery({
     queryKey: ["googleAccountRemovalImpact", provider, accountId],
@@ -61,11 +63,11 @@ export function GoogleAccountRemovalDialog({
       await Promise.all(
         keys.map((key) => queryClient.invalidateQueries({ queryKey: [key] })),
       );
-      toast.success("Google account removed");
+      toast.success(t("removal.removed"));
       onRemoved();
     },
   });
-  const name = provider === "gsc" ? "Search Console" : "Google Analytics";
+  const name = t(`providers.${provider}`);
   return (
     <Dialog
       open
@@ -75,38 +77,37 @@ export function GoogleAccountRemovalDialog({
     >
       <DialogContent className="sm:max-w-md" showCloseButton={false}>
         <DialogHeader>
-          <DialogTitle>Remove Google account?</DialogTitle>
+          <DialogTitle>{t("removal.title")}</DialogTitle>
           <DialogDescription>
-            This removes the account’s {name} connection from OpenSEO. You can
-            reconnect it anytime.
+            {t("removal.description", { provider: name })}
           </DialogDescription>
         </DialogHeader>
         <p className="break-all text-sm font-medium">{label}</p>
         {impact.isPending ? (
           <p role="status" className="text-sm text-muted-foreground">
-            Checking connected projects…
+            {t("removal.checking")}
           </p>
         ) : impact.isError ? (
           <div role="alert" className="text-sm">
-            <p className="text-destructive">
-              Couldn't check connected projects.
-            </p>
+            <p className="text-destructive">{t("removal.checkFailed")}</p>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => void impact.refetch()}
             >
-              Try again
+              {t("common:actions.retry")}
             </Button>
           </div>
         ) : impact.data.projectCount > 0 ? (
           <p className="text-sm font-medium">
-            This will also disconnect {name} from {impact.data.projectCount}{" "}
-            project{impact.data.projectCount === 1 ? "" : "s"}.
+            {t("removal.affects", {
+              provider: name,
+              count: impact.data.projectCount,
+            })}
           </p>
         ) : (
           <p className="text-sm text-muted-foreground">
-            No projects will be affected.
+            {t("removal.noImpact")}
           </p>
         )}
         {removal.isError ? (
@@ -121,7 +122,7 @@ export function GoogleAccountRemovalDialog({
             disabled={removal.isPending}
             onClick={onClose}
           >
-            Cancel
+            {t("common:actions.cancel")}
           </Button>
           <Button
             variant="destructive"
@@ -131,7 +132,9 @@ export function GoogleAccountRemovalDialog({
             }
             onClick={() => removal.mutate()}
           >
-            {removal.isPending ? "Removing…" : "Remove account"}
+            {removal.isPending
+              ? t("common:actions.removing")
+              : t("removal.submit")}
           </Button>
         </DialogFooter>
       </DialogContent>

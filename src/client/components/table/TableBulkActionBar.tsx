@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Download, X } from "lucide-react";
 import type { ReactNode } from "react";
 import { Button } from "@/client/components/ui/button";
@@ -19,20 +20,21 @@ export function TableBulkActionBar({
   actions: ReactNode;
   onClear: () => void;
 }) {
+  const { t } = useTranslation();
   if (selectedCount === 0) return null;
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-6 z-30 flex justify-center px-4">
       <div
         role="toolbar"
-        aria-label="Bulk actions"
+        aria-label={t("table.bulkActions")}
         className="pointer-events-auto flex items-stretch rounded-xl border border-border bg-popover/90 text-popover-foreground shadow-2xl backdrop-blur"
       >
         <div className="flex items-center gap-2 border-r border-border py-2 pr-3 pl-2 text-sm">
           <Button
             variant="ghost"
             size="icon-xs"
-            aria-label="Clear selection"
+            aria-label={t("table.clearSelection")}
             className="text-muted-foreground"
             onClick={onClear}
           >
@@ -90,13 +92,14 @@ export function TableBulkExportMenu({
   }>;
   busy?: boolean;
 }) {
+  const { t } = useTranslation();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
         render={<Button variant="ghost" size="sm" pending={busy} />}
       >
         {busy ? null : <Download data-icon="inline-start" />}
-        Export
+        {t("actions.export")}
       </DropdownMenuTrigger>
       <DropdownMenuContent side="top" align="end" className="w-52">
         {actions.map((action, index) => (

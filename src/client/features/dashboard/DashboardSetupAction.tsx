@@ -4,8 +4,8 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAgentSetupPrompt } from "@/client/features/ai-mcp/agentSetupPrompt";
 import {
+  AgentSetupDescription,
   AgentSetupPanel,
-  AGENT_SETUP_DESCRIPTION,
 } from "@/client/features/ai-mcp/AgentSetupPanel";
 import { CopyButton } from "@/client/components/CopyButton";
 import { CreateProjectModal } from "@/client/features/projects/CreateProjectModal";
@@ -130,7 +130,7 @@ export function DashboardSetupAction({
     return (
       <div className="max-w-2xl space-y-4">
         <p className="text-sm leading-relaxed text-muted-foreground">
-          {AGENT_SETUP_DESCRIPTION}
+          <AgentSetupDescription />
         </p>
         <AgentSetupPanel
           prompt={getAgentSetupPrompt(

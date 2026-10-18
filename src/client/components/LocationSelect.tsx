@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   Combobox,
   ComboboxContent,
@@ -6,9 +7,13 @@ import {
   ComboboxItem,
   ComboboxList,
 } from "@/client/components/ui/combobox";
+import { useMemo } from "react";
 import { LOCATION_OPTIONS } from "@/shared/keyword-locations";
+import { localizeCountryOptions } from "@/i18n/format";
+import { getCurrentLocale } from "@/i18n/config";
 
 type LocationOption = (typeof LOCATION_OPTIONS)[number];
+type LocalizedLocationOption = LocationOption & { englishLabel: string };
 
 type Props = {
   value: number;
@@ -19,11 +24,12 @@ type Props = {
   className?: string;
 };
 
-function matches(option: LocationOption, query: string): boolean {
+function matches(option: LocalizedLocationOption, query: string): boolean {
   const needle = query.trim().toLowerCase();
   if (!needle) return true;
   return (
     option.label.toLowerCase().includes(needle) ||
+    option.englishLabel.toLowerCase().includes(needle) ||
     option.shortLabel.toLowerCase().includes(needle)
   );
 }
@@ -35,11 +41,18 @@ export function LocationSelect({
   options = LOCATION_OPTIONS,
   className = "w-full",
 }: Props) {
-  const selected = options.find((option) => option.code === value) ?? null;
+  const { t } = useTranslation();
+  const locale = getCurrentLocale();
+  const localizedOptions = useMemo(
+    () => localizeCountryOptions(options, locale),
+    [options, locale],
+  );
+  const selected =
+    localizedOptions.find((option) => option.code === value) ?? null;
 
   return (
     <Combobox
-      items={options}
+      items={localizedOptions}
       value={selected}
       itemToStringLabel={(option) => option.label}
       autoHighlight
@@ -50,11 +63,11 @@ export function LocationSelect({
     >
       <ComboboxInput
         className={className}
-        placeholder="Select country"
-        aria-label="Country"
+        placeholder={t("location.selectCountry")}
+        aria-label={t("location.country")}
       />
       <ComboboxContent>
-        <ComboboxEmpty>No countries match.</ComboboxEmpty>
+        <ComboboxEmpty>{t("location.noCountries")}</ComboboxEmpty>
         <ComboboxList>
           {(option: LocationOption) => (
             <ComboboxItem key={option.code} value={option}>

@@ -22,15 +22,21 @@ import { captureClientEvent } from "@/client/lib/posthog";
 import { authClient } from "@/lib/auth-client";
 import { getSignInSearch, getVerifyEmailSearch } from "@/lib/auth-redirect";
 import { z } from "zod";
+import { Trans, useTranslation } from "react-i18next";
+import { i18n } from "@/i18n/config";
+import { getAuthErrorMessage } from "@/client/features/auth/authErrorMessage";
 
 const signUpSchema = z
   .object({
-    email: z.string().trim().email("Enter a valid email address."),
+    email: z
+      .string()
+      .trim()
+      .email({ error: () => i18n.t("auth:validation.invalidEmail") }),
     password: passwordSchema,
     confirmPassword: z.string(),
   })
   .refine((value) => value.password === value.confirmPassword, {
-    message: "Passwords do not match.",
+    error: () => i18n.t("auth:validation.passwordsMismatch"),
     path: ["confirmPassword"],
   });
 
@@ -44,6 +50,7 @@ export const Route = createFileRoute("/_auth/sign-up")({
 });
 
 function SignUpPage() {
+  const { t } = useTranslation("auth");
   const search = Route.useSearch();
   const navigate = useNavigate();
   const { redirectTo, isHostedMode } = useAuthPageState(search.redirect);
@@ -109,7 +116,7 @@ function SignUpPage() {
           if (isTurnstileEnabled) captcha.reset();
           formApi.setErrorMap({
             onSubmit: {
-              form: result.error.message || "Unable to create account.",
+              form: getAuthErrorMessage(result.error, t("signUp.failed")),
               fields: {},
             },
           });
@@ -128,7 +135,7 @@ function SignUpPage() {
         if (isTurnstileEnabled) captcha.reset();
         formApi.setErrorMap({
           onSubmit: {
-            form: "Unable to create account right now. Please try again.",
+            form: t("signUp.unavailable"),
             fields: {},
           },
         });
@@ -138,7 +145,7 @@ function SignUpPage() {
 
   return (
     <AuthPageCard
-      title="Create your account"
+      title={t("signUp.title")}
       footer={
         isHostedMode ? (
           showEmailForm ? (
@@ -150,41 +157,49 @@ function SignUpPage() {
                 google.clearError();
               }}
             >
-              Back to signup
+              {t("signUp.backToSignup")}
             </button>
           ) : (
             <div className="space-y-4">
               <p className="text-sm leading-relaxed text-muted-foreground">
-                By signing up, you agree to our{" "}
-                <a
-                  href="https://openseo.so/terms-and-conditions"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-foreground underline underline-offset-2 hover:text-foreground/80 transition-colors"
-                >
-                  Terms
-                </a>{" "}
-                and{" "}
-                <a
-                  href="https://openseo.so/privacy"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-foreground underline underline-offset-2 hover:text-foreground/80 transition-colors"
-                >
-                  Privacy Policy
-                </a>
-                .
+                <Trans
+                  t={t}
+                  i18nKey="signUp.legal"
+                  components={{
+                    termsLink: (
+                      <a
+                        href="https://openseo.so/terms-and-conditions"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-foreground underline underline-offset-2 hover:text-foreground/80 transition-colors"
+                      />
+                    ),
+                    privacyLink: (
+                      <a
+                        href="https://openseo.so/privacy"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-foreground underline underline-offset-2 hover:text-foreground/80 transition-colors"
+                      />
+                    ),
+                  }}
+                />
               </p>
 
               <p className="text-sm text-foreground/50">
-                Already have an account?{" "}
-                <Link
-                  to="/sign-in"
-                  search={getSignInSearch(redirectTo)}
-                  className="text-foreground underline underline-offset-2 hover:text-foreground/80 transition-colors"
-                >
-                  Sign in
-                </Link>
+                <Trans
+                  t={t}
+                  i18nKey="signUp.haveAccount"
+                  components={{
+                    signInLink: (
+                      <Link
+                        to="/sign-in"
+                        search={getSignInSearch(redirectTo)}
+                        className="text-foreground underline underline-offset-2 hover:text-foreground/80 transition-colors"
+                      />
+                    ),
+                  }}
+                />
               </p>
             </div>
           )
@@ -194,7 +209,7 @@ function SignUpPage() {
       {!showEmailForm ? (
         <>
           <AuthMethodChooser
-            googleLabel="Continue with Google"
+            googleLabel={t("chooser.continueWithGoogle")}
             disabled={!isHostedMode}
             isBusy={google.isStarting}
             onContinueWithGoogle={() => {
@@ -215,11 +230,11 @@ function SignUpPage() {
             <form.AppField name="email">
               {(field) => (
                 <field.TextField
-                  label="Email address"
+                  label={t("fields.email")}
                   hideLabel
                   className={authInputClassName}
                   type="email"
-                  placeholder="Email address..."
+                  placeholder={t("fields.emailPlaceholder")}
                   autoComplete="email"
                   required
                 />
@@ -228,11 +243,11 @@ function SignUpPage() {
             <form.AppField name="password">
               {(field) => (
                 <field.TextField
-                  label="Password"
+                  label={t("fields.password")}
                   hideLabel
                   className={authInputClassName}
                   type="password"
-                  placeholder="Password..."
+                  placeholder={t("fields.passwordPlaceholder")}
                   autoComplete="new-password"
                   required
                 />
@@ -241,11 +256,11 @@ function SignUpPage() {
             <form.AppField name="confirmPassword">
               {(field) => (
                 <field.TextField
-                  label="Confirm password"
+                  label={t("fields.confirmPassword")}
                   hideLabel
                   className={authInputClassName}
                   type="password"
-                  placeholder="Confirm password..."
+                  placeholder={t("fields.confirmPasswordPlaceholder")}
                   autoComplete="new-password"
                   required
                 />
@@ -279,7 +294,9 @@ function SignUpPage() {
                       pending={isSubmitting}
                       disabled={isTurnstileEnabled && !captcha.hasToken}
                     >
-                      {isSubmitting ? "Creating account..." : "Create account"}
+                      {isSubmitting
+                        ? t("signUp.submitting")
+                        : t("signUp.submit")}
                     </Button>
                   </>
                 );

@@ -1,0 +1,139 @@
+{
+  "appName": "OpenSEO",
+  "actions": {
+    "dismiss": "Kapat",
+    "cancel": "Vazgeç",
+    "save": "Kaydet",
+    "saving": "Kaydediliyor...",
+    "delete": "Sil",
+    "close": "Kapat",
+    "retry": "Tekrar dene",
+    "back": "Geri",
+    "continue": "Devam et",
+    "home": "Ana sayfa",
+    "goHome": "Ana sayfaya dön",
+    "learnMore": "Daha fazla bilgi",
+    "skip": "Atla",
+    "skipForNow": "Şimdilik atla",
+    "saveAndContinue": "Kaydet ve devam et",
+    "finish": "Bitir",
+    "savingEllipsis": "Kaydediliyor…",
+    "checking": "Kontrol ediliyor…",
+    "refresh": "Yenile",
+    "refreshing": "Yenileniyor…",
+    "removing": "Kaldırılıyor…",
+    "tryAgain": "Tekrar dene",
+    "goBack": "Geri dön",
+    "remove": "Kaldır",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "export": "Dışa aktar",
+    "clearFilters": "Filtreleri temizle",
+    "clearAll": "Tümünü temizle",
+    "search": "Ara",
+    "openSetupGuide": "Kurulum rehberini aç",
+    "backToApp": "OpenSEO'ya dön"
+  },
+  "theme": {
+    "label": "Tema",
+    "system": "Sistem",
+    "light": "Açık",
+    "dark": "Koyu"
+  },
+  "language": {
+    "label": "Dil"
+  },
+  "notFound": {
+    "message": "Aradığınız sayfa bulunamadı."
+  },
+  "time": {
+    "justNow": "az önce"
+  },
+  "setup": {
+    "helpPage": "yardım sayfasındaki",
+    "missingKeyBanner": "Kurulum gerekiyor: OpenSEO özelliklerini kullanmak için DataForSEO API anahtarınızı ekleyin. Kısa adımlar için <helpLink /> rehbere göz atın.",
+    "unverifiedBanner": "DataForSEO kurulumunuzu doğrulayamadık. Özellikler çalışmıyorsa <helpLink /> kurulum adımlarını kontrol edin.",
+    "modalTitle": "Tek bir kurulum adımı kaldı",
+    "modalDescription": "OpenSEO'yu kullanmaya başlamak için DataForSEO API anahtarınızı ekleyin.",
+    "openGuide": "Kurulum rehberini aç"
+  },
+  "billingRedirect": "Aboneliğinizi başlatabilmeniz için faturalandırma sayfasına yönlendiriliyorsunuz.",
+  "loading": "Yükleniyor",
+  "somethingWentWrong": "Bir sorun oluştu",
+  "permissionHint": "{{action}} için organizasyon sahibine veya yöneticisine başvurun.",
+  "authConfig": {
+    "title": "Kimlik doğrulama kurulumu gerekiyor",
+    "hosted": "Hosted mod için kurulumda <code>BETTER_AUTH_SECRET</code> (en az 32 karakter), <code>BETTER_AUTH_URL</code> ve Google OAuth bilgileri tanımlı olmalıdır.",
+    "cloudflare": "Cloudflare Access modu için kurulumda <code>TEAM_DOMAIN</code> (tam bir https adresi) ve <code>POLICY_AUD</code> tanımlı olmalı, bu alan adı da bir Access uygulamasıyla korunmalıdır.",
+    "unauthenticatedTitle": "Kimlik doğrulama gerekiyor",
+    "unauthenticatedBody": "Bu kurulum harici kimlik doğrulama kullanıyor. Erişim oturumunuzu yenileyip tekrar deneyin."
+  },
+  "notAvailable": {
+    "title": "Kullanılamıyor",
+    "description": "Bu sayfa şu an kullanılamıyor."
+  },
+  "table": {
+    "filters": "Filtreler",
+    "activeCount": "{{count}} aktif",
+    "refineResults": "Sonuçları daralt",
+    "min": "Min",
+    "max": "Maks",
+    "minOf": "{{label}} min",
+    "maxOf": "{{label}} maks",
+    "rowsPerPage": "Sayfa başına satır",
+    "page": "Sayfa {{page}}",
+    "pageOf": "Sayfa {{page}} / {{total}}",
+    "rangeOf": "{{start}}–{{end}} / {{total}}",
+    "previousPage": "Önceki sayfa",
+    "nextPage": "Sonraki sayfa",
+    "selectAll": "Tüm satırları seç",
+    "selectRow": "Satırı seç",
+    "noMatchesTitle": "Bu filtrelere uyan satır yok",
+    "noMatchesDescription": "Daha fazla satır görmek için filtreleri değiştirin veya temizleyin.",
+    "bulkActions": "Toplu işlemler",
+    "clearSelection": "Seçimi temizle",
+    "sheetsCopied_one": "{{count}} satır panoya kopyalandı",
+    "sheetsCopied_other": "{{count}} satır panoya kopyalandı",
+    "sheetsDescription": "Yeni bir Google E-Tablo açıp yapıştırarak doldurun.",
+    "openSheet": "Yeni Google E-Tablo aç"
+  },
+  "export": {
+    "sheets": "Sheets'e aktar",
+    "csv": "CSV olarak indir",
+    "excel": "Excel olarak indir",
+    "json": "JSON indir",
+    "copyJson": "JSON kopyala",
+    "copyList": "Listeyi kopyala"
+  },
+  "location": {
+    "selectCountry": "Ülke seçin",
+    "country": "Ülke",
+    "searchCountries": "Ülke ara",
+    "noCountries": "Eşleşen ülke yok.",
+    "searchCities": "Şehir ara...",
+    "language": "Dil"
+  },
+  "metrics": {
+    "metric": "Metrik",
+    "value": "Değer",
+    "change": "Değişim"
+  },
+  "recentSearches": {
+    "count_one": "{{count}} son arama",
+    "count_other": "{{count}} son arama",
+    "remove": "Son aramalardan kaldır"
+  },
+  "researchScope": "Araştırma kapsamı",
+  "researchScopes": {
+    "exact_url": "Tam URL",
+    "subfolder": "Alt klasör",
+    "domain": "Domain",
+    "subdomains": "Alt domain'ler",
+    "descriptions": {
+      "exact_url": "Yalnızca tek sayfa",
+      "subfolder": "Bu yol ve altındaki her şey",
+      "domain": "Alt domain'ler hariç host adı",
+      "subdomains": "Domain ve tüm alt domain'leri"
+    }
+  }
+}

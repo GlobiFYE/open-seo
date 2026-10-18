@@ -1,3 +1,5 @@
+import { i18n } from "@/i18n/config";
+import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, type ReactNode } from "react";
 import { Button } from "@/client/components/ui/button";
@@ -53,6 +55,7 @@ export function TablePagination<TSize extends number>({
   onPageSizeChange,
   renderPageButton = PageButton,
 }: Props<TSize>) {
+  const { t } = useTranslation();
   const totalPages =
     pageRange?.pageCount ??
     (totalCount != null ? Math.max(1, Math.ceil(totalCount / pageSize)) : null);
@@ -80,7 +83,7 @@ export function TablePagination<TSize extends number>({
       <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
         {pageSizes && onPageSizeChange ? (
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span className="whitespace-nowrap">Rows per page</span>
+            <span className="whitespace-nowrap">{t("table.rowsPerPage")}</span>
             <Select
               value={pageSize}
               onValueChange={(value) => {
@@ -91,7 +94,7 @@ export function TablePagination<TSize extends number>({
               <SelectTrigger
                 size="sm"
                 className="w-20"
-                aria-label="Rows per page"
+                aria-label={t("table.rowsPerPage")}
               >
                 <SelectValue />
               </SelectTrigger>
@@ -108,14 +111,18 @@ export function TablePagination<TSize extends number>({
 
         <div className="flex items-center gap-2">
           <span className="whitespace-nowrap text-sm tabular-nums text-muted-foreground">
-            Page {currentPage.toLocaleString()}
-            {totalPages != null ? ` of ${totalPages.toLocaleString()}` : ""}
+            {totalPages != null
+              ? t("table.pageOf", {
+                  page: currentPage.toLocaleString(),
+                  total: totalPages.toLocaleString(),
+                })
+              : t("table.page", { page: currentPage.toLocaleString() })}
           </span>
           <div className="flex items-center gap-1">
             {renderPageButton({
               page: currentPage - 1,
               disabled: !canGoPrev || isLoading,
-              label: "Previous page",
+              label: t("table.previousPage"),
               children: <ChevronLeft />,
               onPageChange,
             })}
@@ -133,7 +140,7 @@ export function TablePagination<TSize extends number>({
               renderPageButton({
                 page: currentPage + 1,
                 disabled: !canGoNext || isLoading,
-                label: "Next page",
+                label: t("table.nextPage"),
                 children: <ChevronRight />,
                 onPageChange,
               })
@@ -178,5 +185,9 @@ function formatRange(
     return `${start.toLocaleString()}–${pageEnd.toLocaleString()}`;
   }
   const end = Math.min(totalCount, pageEnd);
-  return `${start.toLocaleString()}–${end.toLocaleString()} of ${totalCount.toLocaleString()}`;
+  return i18n.t("table.rangeOf", {
+    start: start.toLocaleString(),
+    end: end.toLocaleString(),
+    total: totalCount.toLocaleString(),
+  });
 }

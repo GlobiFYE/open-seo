@@ -1,5 +1,6 @@
 import * as React from "react";
 import { X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import {
   Alert,
   AlertAction,
@@ -14,11 +15,6 @@ import {
   reportGoogleLinkErrorOnce,
 } from "./googleLinkError";
 import type { GoogleLinkProvider } from "@/shared/google-link";
-
-const PROVIDER_LABELS: Record<GoogleLinkProvider, string> = {
-  gsc: "Search Console",
-  ga4: "Google Analytics",
-};
 
 /**
  * Inline error shown on a connect surface after a failed Google link flow.
@@ -35,6 +31,7 @@ export function GoogleLinkErrorAlert({
   provider: GoogleLinkProvider;
   className?: string;
 }) {
+  const { t } = useTranslation("integrations");
   const [error] = React.useState(() => getGoogleLinkError(provider));
   const [dismissed, setDismissed] = React.useState(false);
 
@@ -43,7 +40,7 @@ export function GoogleLinkErrorAlert({
   }, [error]);
 
   if (!error || dismissed) return null;
-  const copy = googleAuthErrorCopy(error.code, PROVIDER_LABELS[provider]);
+  const copy = googleAuthErrorCopy(error.code, t(`providers.${provider}`));
 
   return (
     <Alert variant="destructive" className={className}>
@@ -53,7 +50,7 @@ export function GoogleLinkErrorAlert({
         <Button
           variant="ghost"
           size="icon-xs"
-          aria-label="Dismiss"
+          aria-label={t("dismiss")}
           onClick={() => {
             setDismissed(true);
             clearGoogleLinkError();

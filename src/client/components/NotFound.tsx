@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/client/components/ui/button";
 import {
   Card,
@@ -9,6 +10,7 @@ import {
 } from "@/client/components/ui/card";
 
 export function NotFound() {
+  const { t } = useTranslation();
   return (
     <div className="flex min-h-full items-center justify-center p-4">
       <Card className="w-full max-w-md">
@@ -16,11 +18,11 @@ export function NotFound() {
           <CardTitle>404</CardTitle>
         </CardHeader>
         <CardContent className="text-muted-foreground">
-          The page you are looking for does not exist.
+          {t("notFound.message")}
         </CardContent>
         <CardFooter>
           <Button nativeButton={false} render={<Link to="/" />}>
-            Home
+            {t("actions.home")}
           </Button>
         </CardFooter>
       </Card>

@@ -1,0 +1,56 @@
+{
+  "providers": {
+    "gsc": "Search Console",
+    "ga4": "Google Analytics"
+  },
+  "picker": {
+    "googleAccount": "Google hesabı · {{suffix}}",
+    "saveProperty": "Mülkü kaydet",
+    "manageAccounts": "Google hesaplarını yönet",
+    "chooseProperty": "Mülk seçin",
+    "selectProperty": "Bir mülk seçin…",
+    "propertiesRegion": "Google mülkleri",
+    "searchLabel": "Mülk veya hesap ara",
+    "searchPlaceholder": "Mülk veya hesap ara…",
+    "loadingProperties": "Mülkler yükleniyor…",
+    "loadPropertiesFailed": "Mülkler yüklenemedi.",
+    "removeAccount": "Hesabı kaldır",
+    "removeAccountLabel": "{{account}} hesabını kaldır",
+    "connectionExpired": "Bağlantının süresi doldu",
+    "reconnect": "Yeniden bağlan",
+    "reconnectLabel": "{{account}} hesabını yeniden bağla",
+    "apiDisabled": "Search Console API etkin değil",
+    "propertiesUnavailable": "Mülkler yüklenemedi",
+    "gscNeedsAccess": "Mülk sahibinden Tam erişim isteyin veya Search Console'da sahipliği doğrulayın.",
+    "noVerifiedAccess": "Doğrulanmış erişim yok",
+    "noMatches": "Eşleşen mülk veya hesap bulunamadı",
+    "addAccountHint": "Mülkleri bulmak için bir Google hesabı ekleyin.",
+    "addAccount": "Google hesabı ekle",
+    "openingGoogle": "Google açılıyor…"
+  },
+  "gscHelp": {
+    "notFoundTitle": "Web sitenizi bulamadık",
+    "checked": "Kontrol edilen hesaplar: {{accounts}}.",
+    "addSite_one": "Sitenizi Search Console'a ekleyin veya siteyi yöneten kişiden bu hesaba erişim vermesini isteyin.",
+    "addSite_other": "Sitenizi Search Console'a ekleyin veya siteyi yöneten kişiden bu hesaplardan birine erişim vermesini isteyin.",
+    "openSearchConsole": "Search Console'u aç ↗",
+    "setupGuide": "Kurulum rehberi",
+    "loadFailed": "Search Console siteleri yüklenemedi.",
+    "differentAccount": "Farklı bir Google hesabı kullan",
+    "noMatchesInAccount": "Bu hesapta eşleşen mülk yok",
+    "noWebsites": "Bu hesapta web sitesi bulunamadı. <guideLink>Web sitesi ekleyin veya erişim alın</guideLink>, ardından listeyi yenileyin.",
+    "noProperties": "Kullanılabilir mülk yok"
+  },
+  "removal": {
+    "title": "Google hesabı kaldırılsın mı?",
+    "description": "Bu işlem, hesabın OpenSEO'daki {{provider}} bağlantısını kaldırır. İstediğiniz zaman yeniden bağlayabilirsiniz.",
+    "checking": "Bağlı projeler kontrol ediliyor…",
+    "checkFailed": "Bağlı projeler kontrol edilemedi.",
+    "affects_one": "Bu işlem {{provider}} bağlantısını {{count}} projeden de kaldıracak.",
+    "affects_other": "Bu işlem {{provider}} bağlantısını {{count}} projeden de kaldıracak.",
+    "noImpact": "Hiçbir proje etkilenmeyecek.",
+    "removed": "Google hesabı kaldırıldı",
+    "submit": "Hesabı kaldır"
+  },
+  "dismiss": "Kapat"
+}

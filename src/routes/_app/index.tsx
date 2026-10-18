@@ -3,9 +3,10 @@ import { projectsQueryOptions } from "@/client/features/projects/projectQueries"
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getLastProjectId } from "@/client/lib/active-project";
+import { useTranslation } from "react-i18next";
 import {
   getErrorCode,
-  UNEXPECTED_ERROR_MESSAGE,
+  getUnexpectedErrorMessage,
 } from "@/client/lib/error-messages";
 import { AuthErrorCard } from "@/client/components/AuthErrorCard";
 import { QueryError } from "@/client/components/QueryState";
@@ -18,6 +19,7 @@ export const Route = createFileRoute("/_app/")({
 });
 
 function IndexRedirect() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   // Open the remembered project at once instead of waiting on the project
@@ -49,12 +51,7 @@ function IndexRedirect() {
     const errorCode = getErrorCode(error);
 
     if (errorCode === "PAYMENT_REQUIRED") {
-      return (
-        <StatusScreen
-          pending
-          description="Redirecting you to billing so you can start a hosted subscription."
-        />
-      );
+      return <StatusScreen pending description={t("billingRedirect")} />;
     }
 
     return (
@@ -65,7 +62,7 @@ function IndexRedirect() {
           <StatusScreen>
             <QueryError
               error={error}
-              fallback={UNEXPECTED_ERROR_MESSAGE}
+              fallback={getUnexpectedErrorMessage()}
               onRetry={() => void refetch()}
               isRetrying={isFetching}
             />

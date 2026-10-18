@@ -1,8 +1,11 @@
 import { Package } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { CopyButton } from "@/client/components/CopyButton";
 
-export const AGENT_SETUP_DESCRIPTION =
-  "Paste this prompt into your agent to automatically configure OpenSEO for you.";
+export function AgentSetupDescription() {
+  const { t } = useTranslation("onboarding");
+  return t("agent.description");
+}
 
 export function AgentSetupPanel({
   prompt,
@@ -11,6 +14,7 @@ export function AgentSetupPanel({
   prompt: string;
   onCopy?: () => void;
 }) {
+  const { t } = useTranslation("onboarding");
   return (
     <>
       <div className="rounded-xl border border-border bg-background/25 p-5">
@@ -19,9 +23,9 @@ export function AgentSetupPanel({
             <Package className="size-5 text-muted-foreground" />
           </span>
           <div>
-            <p className="text-sm font-medium">OpenSEO plugin</p>
+            <p className="text-sm font-medium">{t("agent.pluginName")}</p>
             <p className="mt-1 text-xs text-muted-foreground">
-              MCP connection + SEO skills
+              {t("agent.pluginDetail")}
             </p>
           </div>
         </div>
@@ -30,8 +34,8 @@ export function AgentSetupPanel({
           size="lg"
           className="w-full"
           value={prompt}
-          label="Copy setup prompt"
-          successMessage="Setup prompt copied"
+          label={t("agent.copyPrompt")}
+          successMessage={t("agent.promptCopied")}
           onCopy={onCopy}
         />
       </div>
@@ -42,7 +46,7 @@ export function AgentSetupPanel({
           rel="noreferrer"
           className="text-xs text-muted-foreground underline decoration-muted-foreground/25 underline-offset-4 hover:text-foreground"
         >
-          Manual setup
+          {t("agent.manualSetup")}
         </a>
       </div>
     </>

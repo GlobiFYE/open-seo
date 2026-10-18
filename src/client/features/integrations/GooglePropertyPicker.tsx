@@ -8,14 +8,14 @@ import { QueryError } from "@/client/components/QueryState";
 import { Spinner } from "@/client/components/Spinner";
 import { Button } from "@/client/components/ui/button";
 import { Input } from "@/client/components/ui/input";
-import {
-  useId,
-  useRef,
-  useState,
-  type KeyboardEvent,
-  type ReactNode,
-} from "react";
+import { useId, useRef, useState, type ReactNode } from "react";
 import { Check, ChevronDown, Plus, Search } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import {
+  AccountStatusRow,
+  accountLabel,
+  handlePropertyKeyDown,
+} from "./GooglePropertyPickerParts";
 
 export type GooglePickerSelection = { accountId: string; propertyId: string };
 type Property = {
@@ -39,10 +39,6 @@ type SecondaryAction = {
   disabled?: boolean;
 };
 
-function accountLabel(account: GooglePickerAccount) {
-  return account.email ?? `Google account · ${account.accountId.slice(-6)}`;
-}
-
 export function GooglePropertyPicker({
   provider,
   readOnly = false,
@@ -54,7 +50,7 @@ export function GooglePropertyPicker({
   onSelect,
   onSave,
   saving,
-  saveLabel = "Save property",
+  saveLabel,
   onRetry,
   onReconnect,
   secondaryAction,
@@ -76,6 +72,7 @@ export function GooglePropertyPicker({
   secondaryAction?: SecondaryAction;
   renderActions?: (disabled: boolean) => ReactNode;
 }) {
+  const { t } = useTranslation(["integrations", "common"]);
   const [open, setOpen] = useState(false);
   const [removing, setRemoving] = useState<GooglePickerAccount | null>(null);
   const [search, setSearch] = useState("");
@@ -118,7 +115,9 @@ export function GooglePropertyPicker({
   };
   const saveButton = readOnly ? null : (
     <Button size="sm" onClick={onSave} disabled={!canSave || saving}>
-      {saving ? "Saving…" : saveLabel}
+      {saving
+        ? t("common:actions.savingEllipsis")
+        : (saveLabel ?? t("picker.saveProperty"))}
     </Button>
   );
   return (
@@ -150,7 +149,7 @@ export function GooglePropertyPicker({
       {!emptyGsc || readOnly ? (
         <div>
           <p className="mb-2 text-sm font-medium">
-            {readOnly ? "Manage Google accounts" : "Choose property"}
+            {readOnly ? t("picker.manageAccounts") : t("picker.chooseProperty")}
           </p>
           <Button
             ref={trigger}
@@ -166,7 +165,7 @@ export function GooglePropertyPicker({
           >
             <span className="min-w-0">
               <span className="block truncate">
-                {selected?.name ?? "Select a property…"}
+                {selected?.name ?? t("picker.selectProperty")}
               </span>
               {selectedAccount ? (
                 <span className="mt-0.5 block truncate text-xs text-muted-foreground">
@@ -180,7 +179,7 @@ export function GooglePropertyPicker({
             <div
               id={panelId}
               role="region"
-              aria-label="Google properties"
+              aria-label={t("picker.propertiesRegion")}
               className="mt-2 overflow-hidden rounded-lg border border-border bg-popover shadow-sm"
               onKeyDown={(event) => handlePropertyKeyDown(event, close)}
             >
@@ -189,8 +188,8 @@ export function GooglePropertyPicker({
                 <Input
                   autoFocus
                   type="search"
-                  aria-label="Search properties or accounts"
-                  placeholder="Search properties or accounts…"
+                  aria-label={t("picker.searchLabel")}
+                  placeholder={t("picker.searchPlaceholder")}
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
                   className="h-auto min-w-0 border-0 bg-transparent p-0 shadow-none focus-visible:ring-0"
@@ -200,12 +199,12 @@ export function GooglePropertyPicker({
                 {loading ? (
                   <Spinner
                     size="sm"
-                    label="Loading properties…"
+                    label={t("picker.loadingProperties")}
                     className="p-3"
                   />
                 ) : error ? (
                   <QueryError
-                    fallback="Couldn't load properties."
+                    fallback={t("picker.loadPropertiesFailed")}
                     onRetry={onRetry}
                   />
                 ) : (
@@ -227,38 +226,21 @@ export function GooglePropertyPicker({
                             className="shrink-0 text-destructive"
                             disabled={saving}
                             onClick={() => setRemoving(account)}
-                            aria-label={`Remove ${accountLabel(account)}`}
+                            aria-label={t("picker.removeAccountLabel", {
+                              account: accountLabel(account),
+                            })}
                           >
-                            Remove account
+                            {t("picker.removeAccount")}
                           </Button>
                         </div>
-                        {account.requiresReconnect ? (
-                          <div className="flex flex-wrap items-center justify-between gap-2 px-2 pb-2 text-sm">
-                            <span className="text-muted-foreground">
-                              Connection expired
-                            </span>
-                            <Button
-                              variant="ghost"
-                              size="xs"
-                              onClick={onReconnect}
-                              aria-label={`Reconnect ${accountLabel(account)}`}
-                              disabled={linking}
-                              aria-busy={linking}
-                            >
-                              {linking ? "Opening Google…" : "Reconnect"}
-                            </Button>
-                          </div>
-                        ) : account.unavailable ? (
-                          <div className="flex flex-wrap items-center justify-between gap-2 px-2 pb-2 text-sm">
-                            <span className="text-muted-foreground">
-                              {account.apiDisabled
-                                ? "Search Console API isn't enabled"
-                                : "Couldn't load properties"}
-                            </span>
-                            <Button variant="ghost" size="xs" onClick={onRetry}>
-                              Try again
-                            </Button>
-                          </div>
+                        {account.requiresReconnect || account.unavailable ? (
+                          <AccountStatusRow
+                            account={account}
+                            label={accountLabel(account)}
+                            linking={linking}
+                            onReconnect={onReconnect}
+                            onRetry={onRetry}
+                          />
                         ) : account.properties.length === 0 ? (
                           <p className="px-2 pb-3 text-sm text-muted-foreground">
                             <EmptyAccountMessage
@@ -302,8 +284,8 @@ export function GooglePropertyPicker({
                                   {!property.selectable ? (
                                     <span className="block text-xs">
                                       {provider === "gsc"
-                                        ? "Ask the property owner for Full access, or verify ownership in Search Console."
-                                        : "No verified access"}
+                                        ? t("picker.gscNeedsAccess")
+                                        : t("picker.noVerifiedAccess")}
                                     </span>
                                   ) : null}
                                 </span>
@@ -319,8 +301,8 @@ export function GooglePropertyPicker({
                     {filtered.length === 0 ? (
                       <p className="p-3 text-sm text-muted-foreground">
                         {query
-                          ? "No matching properties or accounts"
-                          : "Add a Google account to find properties."}
+                          ? t("picker.noMatches")
+                          : t("picker.addAccountHint")}
                       </p>
                     ) : null}
                   </>
@@ -335,7 +317,7 @@ export function GooglePropertyPicker({
                   pending={linking}
                 >
                   {linking ? null : <Plus className="size-4" />}
-                  {linking ? "Opening Google…" : "Add Google account"}
+                  {linking ? t("picker.openingGoogle") : t("picker.addAccount")}
                 </Button>
               </div>
             </div>
@@ -361,33 +343,4 @@ export function GooglePropertyPicker({
       )}
     </div>
   );
-}
-
-function handlePropertyKeyDown(
-  event: KeyboardEvent<HTMLDivElement>,
-  close: () => void,
-) {
-  if (event.key === "Escape") {
-    event.preventDefault();
-    close();
-  }
-  if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
-  const buttons = Array.from(
-    event.currentTarget.querySelectorAll<HTMLButtonElement>(
-      "button[data-property]:not(:disabled)",
-    ),
-  );
-  if (!buttons.length) return;
-  event.preventDefault();
-  const index = buttons.findIndex(
-    (button) => button === document.activeElement,
-  );
-  const nextIndex =
-    index < 0
-      ? event.key === "ArrowDown"
-        ? 0
-        : buttons.length - 1
-      : (index + (event.key === "ArrowDown" ? 1 : buttons.length - 1)) %
-        buttons.length;
-  buttons[nextIndex]?.focus();
 }

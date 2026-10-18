@@ -1,3 +1,4 @@
+import { Trans, useTranslation } from "react-i18next";
 import { Button } from "@/client/components/ui/button";
 import { QueryError } from "@/client/components/QueryState";
 import type { GooglePickerAccount } from "./GooglePropertyPicker";
@@ -21,30 +22,29 @@ export function GscPropertySetupHelp({
   onRetry: () => void;
   onReconnect: () => void;
 }) {
+  const { t } = useTranslation(["integrations", "common"]);
   if (!emptyGsc && !error) return null;
 
   return (
     <>
       {emptyGsc ? (
         <div className="space-y-3 rounded-lg border border-border bg-muted/30 p-4 text-sm">
-          <h2 className="font-semibold">We couldn’t find your website</h2>
+          <h2 className="font-semibold">{t("gscHelp.notFoundTitle")}</h2>
           <p className="break-words text-muted-foreground">
-            We checked{" "}
-            {accounts
-              .map(
-                (account) =>
-                  account.email ??
-                  `Google account · ${account.accountId.slice(-6)}`,
-              )
-              .join(", ")}
-            .
+            {t("gscHelp.checked", {
+              accounts: accounts
+                .map(
+                  (account) =>
+                    account.email ??
+                    t("picker.googleAccount", {
+                      suffix: account.accountId.slice(-6),
+                    }),
+                )
+                .join(", "),
+            })}
           </p>
           <p className="text-muted-foreground">
-            Add your site to Search Console, or ask whoever manages it to give
-            {accounts.length === 1
-              ? " this account"
-              : " one of these accounts"}{" "}
-            access.
+            {t("gscHelp.addSite", { count: accounts.length })}
           </p>
           <div className="flex flex-wrap gap-x-4 gap-y-2">
             <a
@@ -53,7 +53,7 @@ export function GscPropertySetupHelp({
               rel="noopener noreferrer"
               className="underline underline-offset-4"
             >
-              Open Search Console ↗
+              {t("gscHelp.openSearchConsole")}
             </a>
             <a
               href="https://openseo.so/blogs/google-search-console-setup"
@@ -61,17 +61,14 @@ export function GscPropertySetupHelp({
               rel="noopener noreferrer"
               className="underline underline-offset-4"
             >
-              Setup guide
+              {t("gscHelp.setupGuide")}
             </a>
           </div>
         </div>
       ) : null}
       <div className="space-y-2">
         {error ? (
-          <QueryError
-            fallback="Couldn't load Search Console websites."
-            onRetry={onRetry}
-          />
+          <QueryError fallback={t("gscHelp.loadFailed")} onRetry={onRetry} />
         ) : null}
         {emptyGsc ? (
           <div className="flex flex-wrap gap-2">
@@ -81,7 +78,9 @@ export function GscPropertySetupHelp({
               onClick={onRetry}
               disabled={loading || busy}
             >
-              {loading ? "Refreshing…" : "Refresh"}
+              {loading
+                ? t("common:actions.refreshing")
+                : t("common:actions.refresh")}
             </Button>
             <Button
               variant="ghost"
@@ -90,7 +89,9 @@ export function GscPropertySetupHelp({
               disabled={loading || busy}
               pending={linking}
             >
-              {linking ? "Opening Google…" : "Use a different Google account"}
+              {linking
+                ? t("picker.openingGoogle")
+                : t("gscHelp.differentAccount")}
             </Button>
           </div>
         ) : null}
@@ -106,27 +107,24 @@ export function EmptyAccountMessage({
   provider: "gsc" | "ga4";
   filtered: boolean;
 }) {
+  const { t } = useTranslation("integrations");
+  if (filtered) return t("gscHelp.noMatchesInAccount");
+  if (provider !== "gsc") return t("gscHelp.noProperties");
   return (
-    <>
-      {filtered ? (
-        "No matching properties in this account"
-      ) : provider === "gsc" ? (
-        <>
-          No websites found for this account.{" "}
+    <Trans
+      t={t}
+      i18nKey="gscHelp.noWebsites"
+      components={{
+        guideLink: (
           <a
             href="https://openseo.so/blogs/google-search-console-setup"
             target="_blank"
             rel="noopener noreferrer"
             className="underline underline-offset-4"
-          >
-            Add a website or get access
-          </a>
-          , then refresh the list.
-        </>
-      ) : (
-        "No properties available"
-      )}
-    </>
+          />
+        ),
+      }}
+    />
   );
 }
 

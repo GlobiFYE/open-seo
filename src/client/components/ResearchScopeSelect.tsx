@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   Select,
   SelectContent,
@@ -7,9 +8,7 @@ import {
 } from "@/client/components/ui/select";
 import {
   RESEARCH_SCOPES,
-  RESEARCH_SCOPE_DESCRIPTIONS,
   RESEARCH_SCOPE_EXAMPLES,
-  RESEARCH_SCOPE_LABELS,
   type ResearchScope,
 } from "@/shared/researchScope";
 
@@ -22,11 +21,6 @@ type Props = {
   "aria-label"?: string;
 };
 
-const SCOPE_ITEMS = RESEARCH_SCOPES.map((scope) => ({
-  value: scope,
-  label: RESEARCH_SCOPE_LABELS[scope],
-}));
-
 /**
  * The shared research-scope selector: Exact URL / Subfolder / Domain /
  * Subdomains. Each option explains what it covers. Every research input that
@@ -38,11 +32,15 @@ export function ResearchScopeSelect({
   onChange,
   disabledReason,
   className,
-  "aria-label": ariaLabel = "Research scope",
+  "aria-label": ariaLabel,
 }: Props) {
+  const { t } = useTranslation();
   return (
     <Select
-      items={SCOPE_ITEMS}
+      items={RESEARCH_SCOPES.map((scope) => ({
+        value: scope,
+        label: t(`researchScopes.${scope}`),
+      }))}
       value={value}
       onValueChange={(scope) => {
         if (scope != null) onChange(scope);
@@ -51,7 +49,7 @@ export function ResearchScopeSelect({
     >
       <SelectTrigger
         className={className}
-        aria-label={ariaLabel}
+        aria-label={ariaLabel ?? t("researchScope")}
         title={disabledReason}
       >
         <SelectValue />
@@ -60,9 +58,9 @@ export function ResearchScopeSelect({
         {RESEARCH_SCOPES.map((scope) => (
           <SelectItem key={scope} value={scope} className="items-start py-1.5">
             <span className="flex flex-col whitespace-normal">
-              <span>{RESEARCH_SCOPE_LABELS[scope]}</span>
+              <span>{t(`researchScopes.${scope}`)}</span>
               <span className="text-xs text-muted-foreground">
-                {RESEARCH_SCOPE_DESCRIPTIONS[scope]}
+                {t(`researchScopes.descriptions.${scope}`)}
               </span>
               <span className="font-mono text-xs text-muted-foreground/70">
                 {RESEARCH_SCOPE_EXAMPLES[scope]}

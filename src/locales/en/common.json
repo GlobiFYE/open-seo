@@ -1,0 +1,139 @@
+{
+  "appName": "OpenSEO",
+  "actions": {
+    "dismiss": "Dismiss",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving...",
+    "delete": "Delete",
+    "close": "Close",
+    "retry": "Try again",
+    "back": "Back",
+    "continue": "Continue",
+    "home": "Home",
+    "goHome": "Go home",
+    "learnMore": "Learn more",
+    "skip": "Skip",
+    "skipForNow": "Skip for now",
+    "saveAndContinue": "Save and continue",
+    "finish": "Finish",
+    "savingEllipsis": "Saving…",
+    "checking": "Checking…",
+    "refresh": "Refresh",
+    "refreshing": "Refreshing…",
+    "removing": "Removing…",
+    "tryAgain": "Try again",
+    "goBack": "Go back",
+    "remove": "Remove",
+    "copy": "Copy",
+    "copied": "Copied",
+    "export": "Export",
+    "clearFilters": "Clear filters",
+    "clearAll": "Clear all",
+    "search": "Search",
+    "openSetupGuide": "Open setup guide",
+    "backToApp": "Back to OpenSEO"
+  },
+  "theme": {
+    "label": "Theme",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "notFound": {
+    "message": "The page you are looking for does not exist."
+  },
+  "time": {
+    "justNow": "just now"
+  },
+  "setup": {
+    "helpPage": "help page",
+    "missingKeyBanner": "Setup needed: add your DataForSEO API key to use OpenSEO features. See the quick steps on the <helpLink />.",
+    "unverifiedBanner": "We could not verify your DataForSEO setup. If features are not working, check the setup steps on the <helpLink />.",
+    "modalTitle": "One quick setup step",
+    "modalDescription": "Add your DataForSEO API key to start using OpenSEO.",
+    "openGuide": "Open setup guide"
+  },
+  "billingRedirect": "Redirecting you to billing so you can start a hosted subscription.",
+  "loading": "Loading",
+  "somethingWentWrong": "Something went wrong",
+  "permissionHint": "Ask an organization owner or admin to {{action}}.",
+  "authConfig": {
+    "title": "Authentication setup required",
+    "hosted": "Hosted mode requires <code>BETTER_AUTH_SECRET</code> (32+ characters), <code>BETTER_AUTH_URL</code>, and Google OAuth credentials on the deployment.",
+    "cloudflare": "Cloudflare Access mode requires <code>TEAM_DOMAIN</code> (a full https URL) and <code>POLICY_AUD</code> set on the deployment, with an Access application protecting this hostname.",
+    "unauthenticatedTitle": "Authentication required",
+    "unauthenticatedBody": "This deployment uses external authentication. Refresh your access session, then try again."
+  },
+  "notAvailable": {
+    "title": "Not available",
+    "description": "This page isn't available right now."
+  },
+  "table": {
+    "filters": "Filters",
+    "activeCount": "{{count}} active",
+    "refineResults": "Refine results",
+    "min": "Min",
+    "max": "Max",
+    "minOf": "{{label}} min",
+    "maxOf": "{{label}} max",
+    "rowsPerPage": "Rows per page",
+    "page": "Page {{page}}",
+    "pageOf": "Page {{page}} of {{total}}",
+    "rangeOf": "{{start}}–{{end}} of {{total}}",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "selectAll": "Select all rows",
+    "selectRow": "Select row",
+    "noMatchesTitle": "No rows match these filters",
+    "noMatchesDescription": "Change or clear the filters to see more rows.",
+    "bulkActions": "Bulk actions",
+    "clearSelection": "Clear selection",
+    "sheetsCopied_one": "Copied {{count}} row to your clipboard",
+    "sheetsCopied_other": "Copied {{count}} rows to your clipboard",
+    "sheetsDescription": "Open a new Google Sheet and paste to fill it.",
+    "openSheet": "Open new Google Sheet"
+  },
+  "export": {
+    "sheets": "Export to Sheets",
+    "csv": "Export CSV",
+    "excel": "Export Excel",
+    "json": "Download JSON",
+    "copyJson": "Copy JSON",
+    "copyList": "Copy list"
+  },
+  "location": {
+    "selectCountry": "Select country",
+    "country": "Country",
+    "searchCountries": "Search countries",
+    "noCountries": "No countries match.",
+    "searchCities": "Search cities...",
+    "language": "Language"
+  },
+  "metrics": {
+    "metric": "Metric",
+    "value": "Value",
+    "change": "Change"
+  },
+  "recentSearches": {
+    "count_one": "{{count}} recent search",
+    "count_other": "{{count}} recent searches",
+    "remove": "Remove from recent searches"
+  },
+  "researchScope": "Research scope",
+  "researchScopes": {
+    "exact_url": "Exact URL",
+    "subfolder": "Subfolder",
+    "domain": "Domain",
+    "subdomains": "Subdomains",
+    "descriptions": {
+      "exact_url": "One page only",
+      "subfolder": "The path and everything under it",
+      "domain": "The hostname, without subdomains",
+      "subdomains": "The domain plus all its subdomains"
+    }
+  }
+}

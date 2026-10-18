@@ -2,6 +2,8 @@ import { useState } from "react";
 import { captureClientEvent } from "@/client/lib/posthog";
 import { authClient } from "@/lib/auth-client";
 import { toAuthCallbackURL } from "@/lib/auth-redirect";
+import { i18n } from "@/i18n/config";
+import { getAuthErrorMessage } from "@/client/features/auth/authErrorMessage";
 
 export function useGoogleAuth({
   redirectTo,
@@ -33,16 +35,19 @@ export function useGoogleAuth({
           : {}),
       });
       if (!result.error) return;
-      setError(result.error.message || fallbackMessage);
+      setError(getAuthErrorMessage(result.error, getFallbackMessage()));
     } catch {
-      setError(fallbackMessage);
+      setError(getFallbackMessage());
     }
     setIsStarting(false);
   }
 
-  const fallbackMessage = isSignUp
-    ? "Google sign up is not available right now."
-    : "Google sign in is not available right now.";
+  const getFallbackMessage = () =>
+    i18n.t(
+      isSignUp
+        ? "auth:chooser.googleSignUpUnavailable"
+        : "auth:chooser.googleSignInUnavailable",
+    );
 
   return { isStarting, error, start, clearError: () => setError(null) };
 }

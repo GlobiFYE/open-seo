@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { OnboardingCard } from "./OnboardingCard";
 import { ONBOARDING_STEPS } from "./onboardingModel";
 import { WebsiteOnboardingStep } from "./WebsiteOnboardingStep";
@@ -29,12 +30,17 @@ export function PostSignupOnboarding({
   accountMenu,
   suggestedDomain,
 }: PostSignupOnboardingProps) {
+  const { t } = useTranslation("onboarding");
   return (
     <>
       {accountMenu}
       <OnboardingCard
         step={step + 1}
-        steps={["Website", "Google Search Console", "Agent setup"]}
+        steps={[
+          t("steps.website"),
+          t("steps.searchConsole"),
+          t("steps.agentSetup"),
+        ]}
         onStepChange={onStepChange}
         disabled={isSaving}
       >

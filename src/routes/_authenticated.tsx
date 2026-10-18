@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Link, Outlet, createFileRoute } from "@tanstack/react-router";
 import { AuthPageCard, AuthPageShell } from "@/client/features/auth/AuthPage";
 import { useHostedAuthRouteGuard } from "@/client/features/auth/useHostedAuthRouteGuard";
@@ -9,6 +10,7 @@ export const Route = createFileRoute("/_authenticated")({
 });
 
 function AuthenticatedShellLayout() {
+  const { t } = useTranslation();
   const authGate = useHostedAuthRouteGuard();
 
   // Every page under this layout is hosted-only.
@@ -16,8 +18,8 @@ function AuthenticatedShellLayout() {
     return (
       <AuthPageShell>
         <AuthPageCard
-          title="Not available"
-          helperText="This page isn't available right now."
+          title={t("notAvailable.title")}
+          helperText={t("notAvailable.description")}
         >
           <Button
             nativeButton={false}
@@ -25,7 +27,7 @@ function AuthenticatedShellLayout() {
             variant="secondary"
             className="w-full"
           >
-            Back to OpenSEO
+            {t("actions.backToApp")}
           </Button>
         </AuthPageCard>
       </AuthPageShell>

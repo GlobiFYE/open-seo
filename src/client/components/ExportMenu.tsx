@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Fragment, type ReactNode } from "react";
 import {
   ChevronDown,
@@ -24,13 +25,25 @@ import type { ExportFormat } from "@/client/lib/exportRows";
 /** Every `exportRows()` format, plus a plain list copy (one item per line). */
 type ExportAction = ExportFormat | "copy-list";
 
-const ACTION_ITEMS: Record<ExportAction, { label: string; icon: ReactNode }> = {
-  sheets: { label: "Export to Sheets", icon: <Sheet /> },
-  csv: { label: "Export CSV", icon: <FileDown /> },
-  excel: { label: "Export Excel", icon: <FileSpreadsheet /> },
-  json: { label: "Download JSON", icon: <FileJson /> },
-  "copy-json": { label: "Copy JSON", icon: <Copy /> },
-  "copy-list": { label: "Copy list", icon: <List /> },
+const ACTION_ITEMS: Record<
+  ExportAction,
+  {
+    labelKey:
+      | "export.sheets"
+      | "export.csv"
+      | "export.excel"
+      | "export.json"
+      | "export.copyJson"
+      | "export.copyList";
+    icon: ReactNode;
+  }
+> = {
+  sheets: { labelKey: "export.sheets", icon: <Sheet /> },
+  csv: { labelKey: "export.csv", icon: <FileDown /> },
+  excel: { labelKey: "export.excel", icon: <FileSpreadsheet /> },
+  json: { labelKey: "export.json", icon: <FileJson /> },
+  "copy-json": { labelKey: "export.copyJson", icon: <Copy /> },
+  "copy-list": { labelKey: "export.copyList", icon: <List /> },
 };
 
 /**
@@ -57,13 +70,14 @@ export function ExportMenu<A extends ExportAction>({
   copyListLabel?: string;
   scopes?: { id: string; label: string; actions?: A[] }[];
 }) {
+  const { t } = useTranslation();
   const renderItems = (scope?: string, scopeActions: A[] = actions) =>
     scopeActions.map((action) => (
       <DropdownMenuItem key={action} onClick={() => onExport(action, scope)}>
         {ACTION_ITEMS[action].icon}
         {action === "copy-list" && copyListLabel
           ? copyListLabel
-          : ACTION_ITEMS[action].label}
+          : t(ACTION_ITEMS[action].labelKey)}
       </DropdownMenuItem>
     ));
 
@@ -80,7 +94,7 @@ export function ExportMenu<A extends ExportAction>({
         }
       >
         {busy ? null : <Download data-icon="inline-start" />}
-        Export
+        {t("actions.export")}
         <ChevronDown data-icon="inline-end" className="opacity-60" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">

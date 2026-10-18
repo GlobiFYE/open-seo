@@ -1,4 +1,6 @@
 import { useId } from "react";
+import { useTranslation } from "react-i18next";
+import { getLanguageName } from "@/i18n/format";
 import { CountryCombobox } from "@/client/components/CountryCombobox";
 import { Field, FieldLabel } from "@/client/components/ui/field";
 import {
@@ -33,10 +35,14 @@ export function ProjectMarketFields({
   /** Defaults to the full country list. */
   countryOptions?: typeof LOCATION_OPTIONS;
 }) {
+  const { t } = useTranslation();
   const countryId = useId();
   const languageId = useId();
   const languageItems = getLanguageOptions(value.locationCode).map(
-    (option) => ({ value: option.code, label: option.label }),
+    (option) => ({
+      value: option.code,
+      label: getLanguageName(option.code, option.label),
+    }),
   );
   // Most countries have exactly one language DataForSEO serves, so the
   // select is only a real choice where there's more than one.
@@ -45,7 +51,7 @@ export function ProjectMarketFields({
   return (
     <div className="grid gap-4 sm:grid-cols-2">
       <Field>
-        <FieldLabel htmlFor={countryId}>Country</FieldLabel>
+        <FieldLabel htmlFor={countryId}>{t("location.country")}</FieldLabel>
         <CountryCombobox
           id={countryId}
           value={value.locationCode}
@@ -62,7 +68,7 @@ export function ProjectMarketFields({
         className={hideLanguageOnMobile ? "hidden sm:flex" : undefined}
         data-disabled={languageDisabled}
       >
-        <FieldLabel htmlFor={languageId}>Language</FieldLabel>
+        <FieldLabel htmlFor={languageId}>{t("location.language")}</FieldLabel>
         <Select
           items={languageItems}
           value={value.languageCode}

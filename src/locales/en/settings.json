@@ -1,0 +1,23 @@
+{
+  "title": "Settings",
+  "sections": "Settings sections",
+  "tabs": {
+    "personal": "Personal",
+    "organization": "Organization"
+  },
+  "appearance": "Appearance",
+  "theme": "Theme",
+  "language": "Language",
+  "languageDescription": "Choose the language of the OpenSEO interface.",
+  "analytics": {
+    "title": "Analytics",
+    "label": "Help improve OpenSEO",
+    "description": "Share analytics and usage data.",
+    "toggle": "Enable product analytics",
+    "failed": "We couldn't update your analytics setting.",
+    "enabled": "Analytics enabled",
+    "disabled": "Analytics disabled"
+  },
+  "about": "About",
+  "version": "Version"
+}

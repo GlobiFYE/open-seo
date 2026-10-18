@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, Database, KeyRound, User } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -19,17 +20,18 @@ export const Route = createFileRoute("/_authenticated/oauth-consent")({
 const SCOPES = [
   {
     icon: Database,
-    label: "Read your OpenSEO data",
-    description: "Projects, keyword reports, and audit results.",
+    labelKey: "consent.readScope",
+    descriptionKey: "consent.readScopeDescription",
   },
   {
     icon: KeyRound,
-    label: "Act on your behalf via MCP",
-    description: "Run tools and write results back to your organization.",
+    labelKey: "consent.actScope",
+    descriptionKey: "consent.actScopeDescription",
   },
-];
+] as const;
 
 function OAuthConsentPage() {
+  const { t } = useTranslation("auth");
   const { data: session } = useSession();
   const [pendingAction, setPendingAction] = useState<
     "authorize" | "cancel" | null
@@ -64,15 +66,15 @@ function OAuthConsentPage() {
       } = await response.json();
 
       if (!response.ok) {
-        setError(data.error ?? "Unable to complete authorization.");
+        setError(data.error ?? t("consent.failed"));
       } else if (data.redirectTo) {
         window.location.assign(data.redirectTo);
         return;
       } else {
-        setError("Authorization response did not include a redirect URL.");
+        setError(t("consent.missingRedirect"));
       }
     } catch {
-      setError("We couldn't reach OpenSEO. Please try again.");
+      setError(t("consent.unreachable"));
     }
     setPendingAction(null);
   }
@@ -86,10 +88,10 @@ function OAuthConsentPage() {
           className="size-10 rounded-lg"
         />
         <CardTitle className="mt-5 text-xl">
-          <h1>Authorize MCP access</h1>
+          <h1>{t("consent.title")}</h1>
         </CardTitle>
         <p className="mt-2 text-sm text-muted-foreground">
-          An MCP client is requesting access to your OpenSEO workspace.
+          {t("consent.description")}
         </p>
       </CardHeader>
       <CardContent>
@@ -99,23 +101,25 @@ function OAuthConsentPage() {
             <User className="size-4" />
           </div>
           <div className="flex-1">
-            <div className="text-xs text-muted-foreground">Signed in as</div>
+            <div className="text-xs text-muted-foreground">
+              {t("consent.signedInAs")}
+            </div>
             <div className="font-medium">{session?.user.email}</div>
           </div>
         </div>
 
         <div className="mt-6">
           <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            This will allow it to
+            {t("consent.willAllow")}
           </div>
           <ul className="mt-3 space-y-3">
             {SCOPES.map((scope) => (
-              <li key={scope.label} className="flex gap-3">
+              <li key={scope.labelKey} className="flex gap-3">
                 <Check className="mt-0.5 size-4 shrink-0 text-primary" />
                 <div>
-                  <div className="text-sm font-medium">{scope.label}</div>
+                  <div className="text-sm font-medium">{t(scope.labelKey)}</div>
                   <div className="text-xs text-muted-foreground">
-                    {scope.description}
+                    {t(scope.descriptionKey)}
                   </div>
                 </div>
               </li>
@@ -138,7 +142,9 @@ function OAuthConsentPage() {
             disabled={pendingAction !== null}
             onClick={() => void respond(false)}
           >
-            {pendingAction === "cancel" ? "Canceling..." : "Cancel"}
+            {pendingAction === "cancel"
+              ? t("consent.canceling")
+              : t("consent.cancel")}
           </Button>
           <Button
             type="button"
@@ -147,12 +153,14 @@ function OAuthConsentPage() {
             disabled={pendingAction !== null}
             onClick={() => void respond(true)}
           >
-            {pendingAction === "authorize" ? "Authorizing..." : "Authorize"}
+            {pendingAction === "authorize"
+              ? t("consent.authorizing")
+              : t("consent.authorize")}
           </Button>
         </div>
 
         <p className="mt-6 text-center text-xs text-muted-foreground">
-          You can revoke access at any time in Settings.
+          {t("consent.revokeHint")}
         </p>
       </CardContent>
     </Card>

@@ -20,10 +20,18 @@ import {
   toAuthCallbackURL,
 } from "@/lib/auth-redirect";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
+import { i18n } from "@/i18n/config";
+import { getAuthErrorMessage } from "@/client/features/auth/authErrorMessage";
 
 const signInSchema = z.object({
-  email: z.string().trim().email("Enter a valid email address."),
-  password: z.string().min(1, "Enter your password."),
+  email: z
+    .string()
+    .trim()
+    .email({ error: () => i18n.t("auth:validation.invalidEmail") }),
+  password: z
+    .string()
+    .min(1, { error: () => i18n.t("auth:validation.passwordRequired") }),
 });
 
 export const Route = createFileRoute("/_auth/sign-in")({
@@ -32,6 +40,7 @@ export const Route = createFileRoute("/_auth/sign-in")({
 });
 
 function SignInPage() {
+  const { t } = useTranslation("auth");
   const search = Route.useSearch();
   const navigate = useNavigate();
   const { redirectTo, oauthQuery, isHostedMode } = useAuthPageState(
@@ -85,14 +94,14 @@ function SignInPage() {
 
         formApi.setErrorMap({
           onSubmit: {
-            form: result.error.message || "We couldn't sign you in.",
+            form: getAuthErrorMessage(result.error, t("signIn.failed")),
             fields: {},
           },
         });
       } catch {
         formApi.setErrorMap({
           onSubmit: {
-            form: "Unable to sign in right now. Please try again.",
+            form: t("signIn.unavailable"),
             fields: {},
           },
         });
@@ -102,7 +111,7 @@ function SignInPage() {
 
   return (
     <AuthPageCard
-      title="Sign in"
+      title={t("signIn.title")}
       footer={
         isHostedMode ? (
           <div
@@ -118,7 +127,7 @@ function SignInPage() {
                 search={getSignInSearch(redirectTo)}
                 className="text-foreground underline underline-offset-2 hover:text-foreground/80 transition-colors"
               >
-                Forgot password?
+                {t("signIn.forgotPassword")}
               </Link>
             ) : null}
             <Link
@@ -126,7 +135,7 @@ function SignInPage() {
               search={getSignInSearch(redirectTo)}
               className="text-foreground underline underline-offset-2 hover:text-foreground/80 transition-colors"
             >
-              Create account
+              {t("signIn.createAccount")}
             </Link>
           </div>
         ) : null
@@ -135,7 +144,7 @@ function SignInPage() {
       {!showEmailForm ? (
         <>
           <AuthMethodChooser
-            googleLabel="Continue with Google"
+            googleLabel={t("chooser.continueWithGoogle")}
             disabled={!isHostedMode}
             isBusy={google.isStarting}
             onContinueWithGoogle={() => {
@@ -156,11 +165,11 @@ function SignInPage() {
             <form.AppField name="email">
               {(field) => (
                 <field.TextField
-                  label="Email address"
+                  label={t("fields.email")}
                   hideLabel
                   className={authInputClassName}
                   type="email"
-                  placeholder="Email address..."
+                  placeholder={t("fields.emailPlaceholder")}
                   autoComplete="email"
                   required
                 />
@@ -169,11 +178,11 @@ function SignInPage() {
             <form.AppField name="password">
               {(field) => (
                 <field.TextField
-                  label="Password"
+                  label={t("fields.password")}
                   hideLabel
                   className={authInputClassName}
                   type="password"
-                  placeholder="Password..."
+                  placeholder={t("fields.passwordPlaceholder")}
                   autoComplete="current-password"
                   required
                 />
@@ -199,7 +208,9 @@ function SignInPage() {
                       className={authSubmitClassName}
                       pending={isSubmitting}
                     >
-                      {isSubmitting ? "Signing in..." : "Sign in"}
+                      {isSubmitting
+                        ? t("signIn.submitting")
+                        : t("signIn.submit")}
                     </Button>
                   </>
                 );

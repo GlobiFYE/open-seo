@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { ReactNode } from "react";
 import { CircleAlert } from "lucide-react";
 import { EmptyState } from "@/client/components/EmptyState";
@@ -32,6 +33,7 @@ export function ErrorState({
   action?: ReactNode;
   variant?: "inline" | "card" | "page";
 }) {
+  const { t } = useTranslation();
   const button =
     action ??
     (onRetry ? (
@@ -41,7 +43,7 @@ export function ErrorState({
         pending={isRetrying}
         onClick={onRetry}
       >
-        Try again
+        {t("actions.tryAgain")}
       </Button>
     ) : null);
 
@@ -51,7 +53,7 @@ export function ErrorState({
         kind="error"
         variant="plain"
         size="lg"
-        title={title ?? "Something went wrong"}
+        title={title ?? t("somethingWentWrong")}
         description={message}
         action={button}
       />

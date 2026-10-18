@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Button } from "@/client/components/ui/button";
 
 /** The Cancel and submit buttons at the end of a form. */
@@ -12,6 +13,7 @@ export function FormActions({
   onCancel: () => void;
   size?: "xs" | "sm" | "default";
 }) {
+  const { t } = useTranslation();
   return (
     <div className="flex justify-end gap-2">
       <Button
@@ -21,10 +23,10 @@ export function FormActions({
         onClick={onCancel}
         disabled={pending}
       >
-        Cancel
+        {t("actions.cancel")}
       </Button>
       <Button type="submit" size={size} disabled={disabled} pending={pending}>
-        Save
+        {t("actions.save")}
       </Button>
     </div>
   );

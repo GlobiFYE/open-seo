@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { MapPin } from "lucide-react";
@@ -45,10 +46,11 @@ export function SerpLocationCombobox({
   value,
   onChange,
   countryCode,
-  placeholder = "Search cities...",
+  placeholder,
   id,
   invalid,
 }: Props) {
+  const { t } = useTranslation();
   // The list lines up with the whole field, not only the text input.
   const anchor = useComboboxAnchor();
   const [query, setQuery] = useState("");
@@ -108,7 +110,7 @@ export function SerpLocationCombobox({
           id={id}
           aria-invalid={invalid || undefined}
           className="w-full"
-          placeholder={placeholder}
+          placeholder={placeholder ?? t("location.searchCities")}
           showTrigger={false}
         >
           <InputGroupAddon align="inline-start">

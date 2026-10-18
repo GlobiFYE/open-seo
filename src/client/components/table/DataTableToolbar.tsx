@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { RotateCcw, SlidersHorizontal } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 import { Badge } from "@/client/components/ui/badge";
@@ -73,12 +74,16 @@ export function DataTableFilterToggle({
   activeCount: number;
   onToggle: () => void;
 }) {
+  const { t } = useTranslation();
   return (
     <Button variant="outline" size="sm" aria-expanded={open} onClick={onToggle}>
       <SlidersHorizontal data-icon="inline-start" />
-      Filters
+      {t("table.filters")}
       {activeCount > 0 ? (
-        <Badge size="sm" aria-label={`${activeCount} active`}>
+        <Badge
+          size="sm"
+          aria-label={t("table.activeCount", { count: activeCount })}
+        >
           {activeCount}
         </Badge>
       ) : null}
@@ -95,13 +100,16 @@ export function DataTableFilterPanel({
   onReset: () => void;
   children: ReactNode;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="space-y-3 border-b border-border bg-foreground/[0.02] px-4 py-3">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <p className="text-sm font-semibold">Refine results</p>
+          <p className="text-sm font-semibold">{t("table.refineResults")}</p>
           {activeCount > 0 ? (
-            <Badge size="sm">{activeCount} active</Badge>
+            <Badge size="sm">
+              {t("table.activeCount", { count: activeCount })}
+            </Badge>
           ) : null}
         </div>
         <Button
@@ -111,7 +119,7 @@ export function DataTableFilterPanel({
           disabled={activeCount === 0}
         >
           <RotateCcw data-icon="inline-start" />
-          Clear all
+          {t("actions.clearAll")}
         </Button>
       </div>
       {children}
@@ -152,20 +160,21 @@ export function DataTableRangeFilter({
   min: ComponentProps<typeof Input>;
   max: ComponentProps<typeof Input>;
 }) {
+  const { t } = useTranslation();
   return (
     <DataTableFilterGroup label={label}>
       <div className="grid grid-cols-2 gap-2">
         <Input
           type="number"
-          placeholder="Min"
-          aria-label={`${label} min`}
+          placeholder={t("table.min")}
+          aria-label={t("table.minOf", { label })}
           className="h-7"
           {...min}
         />
         <Input
           type="number"
-          placeholder="Max"
-          aria-label={`${label} max`}
+          placeholder={t("table.max")}
+          aria-label={t("table.maxOf", { label })}
           className="h-7"
           {...max}
         />

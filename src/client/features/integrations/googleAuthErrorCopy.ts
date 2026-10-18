@@ -8,41 +8,44 @@
  * failure came from a connect flow; without it the copy reads as a Google
  * sign-in failure.
  */
+import { i18n } from "@/i18n/config";
+
 export function googleAuthErrorCopy(
   code: string,
   providerLabel?: string,
 ): { title: string; description: string } {
-  const what = providerLabel ? `${providerLabel} connection` : "Google sign-in";
+  const what = providerLabel
+    ? i18n.t("auth:google.connection", { provider: providerLabel })
+    : i18n.t("auth:google.signIn");
+  const provider = providerLabel ?? "Google";
 
   switch (code) {
     case "state_mismatch":
       return {
-        title: `${what} didn't finish`,
-        description:
-          "The attempt expired or was interrupted. Try again in a single browser tab and finish the Google steps within 10 minutes. If it keeps happening, make sure your browser allows cookies for this site.",
+        title: i18n.t("auth:google.stateMismatchTitle", { what }),
+        description: i18n.t("auth:google.stateMismatchDescription"),
       };
     case "access_denied":
       return {
-        title: `${what} was canceled`,
-        description:
-          "Google's permission screen was closed or declined. Try again whenever you're ready.",
+        title: i18n.t("auth:google.accessDeniedTitle", { what }),
+        description: i18n.t("auth:google.accessDeniedDescription"),
       };
     case "scope_not_granted":
       return {
-        title: `${what} is missing a permission`,
-        description: `OpenSEO didn't get access to your ${providerLabel ?? "Google"} data because a box on Google's permission screen wasn't checked. Try again and check every box before you continue.`,
+        title: i18n.t("auth:google.scopeNotGrantedTitle", { what }),
+        description: i18n.t("auth:google.scopeNotGrantedDescription", {
+          provider,
+        }),
       };
     case "connection_save_failed":
       return {
-        title: `${what} didn't finish`,
-        description:
-          "We couldn't save the connection. Please try again — if it keeps failing, contact support.",
+        title: i18n.t("auth:google.saveFailedTitle", { what }),
+        description: i18n.t("auth:google.saveFailedDescription"),
       };
     default:
       return {
-        title: `${what} didn't finish`,
-        description:
-          "Something went wrong while talking to Google. Please try again — if it keeps failing, contact support.",
+        title: i18n.t("auth:google.unknownTitle", { what }),
+        description: i18n.t("auth:google.unknownDescription"),
       };
   }
 }
