@@ -102,6 +102,7 @@ export const {
   projectCompetitors,
   projectKeyPages,
   projectResearchLog,
+  projectBlogPosts,
   reports,
   reportTemplates,
   audits,

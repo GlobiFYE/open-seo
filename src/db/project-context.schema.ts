@@ -116,3 +116,29 @@ export const projectResearchLog = sqliteTable(
     ),
   ],
 );
+
+export const projectBlogPosts = sqliteTable(
+  "project_blog_posts",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    url: text("url").notNull(),
+    title: text("title"),
+    targetKeyword: text("target_keyword"),
+    publishedAt: text("published_at"),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(current_timestamp)`),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(current_timestamp)`),
+  },
+  (table) => [
+    uniqueIndex("project_blog_posts_project_url_idx").on(
+      table.projectId,
+      table.url,
+    ),
+  ],
+);

@@ -1,0 +1,87 @@
+{
+  "title": "Blog Tracking",
+  "description": "Follow every post's clicks, impressions and ranking from Google Search Console, and spot the ones that need a refresh.",
+  "addPosts": "Add posts",
+  "ranges": {
+    "last_28_days": "Last 28 days",
+    "last_3_months": "Last 3 months",
+    "last_6_months": "Last 6 months"
+  },
+  "rangeLabel": "Date range",
+  "connectHint": "Connect Google Search Console to see each post's traffic. You can add posts now; their data appears once Search Console is connected.",
+  "loadFailed": "Couldn't load blog tracking.",
+  "summary": {
+    "total": "Tracked posts",
+    "clicks": "Clicks",
+    "rising": "Rising",
+    "declining": "Need a refresh"
+  },
+  "status": {
+    "new": "New",
+    "rising": "Rising",
+    "stable": "Stable",
+    "declining": "Declining",
+    "no_data": "No data"
+  },
+  "columns": {
+    "post": "Post",
+    "status": "Status",
+    "clicks": "Clicks",
+    "change": "Change",
+    "impressions": "Impressions",
+    "ctr": "CTR",
+    "position": "Avg. position",
+    "targetKeyword": "Target keyword",
+    "actions": "Actions"
+  },
+  "noTarget": "Not set",
+  "notRanking": "Not ranking",
+  "positionValue": "#{{position}}",
+  "empty": {
+    "title": "No posts tracked yet",
+    "description": "Add your blog posts to follow their traffic and rankings over time."
+  },
+  "row": {
+    "showQueries": "Show queries",
+    "hideQueries": "Hide queries",
+    "edit": "Edit",
+    "remove": "Remove",
+    "removeConfirm": "Remove this post from tracking?",
+    "removed": "Post removed from tracking",
+    "openPost": "Open post",
+    "actionsFor": "Actions for {{title}}"
+  },
+  "queries": {
+    "title": "Top queries for this post",
+    "loading": "Loading queries…",
+    "empty": "No search queries for this post in this period.",
+    "failed": "Couldn't load queries.",
+    "query": "Query"
+  },
+  "add": {
+    "title": "Add blog posts",
+    "urlsLabel": "Post URLs",
+    "urlsHint": "One post per line. Optionally add the target keyword after a comma: https://site.com/blogs/news/post, tote bags",
+    "urlsPlaceholder": "https://example.com/blogs/news/first-post\nhttps://example.com/blogs/news/second-post, target keyword",
+    "suggestionsTitle": "Blog pages found in Search Console",
+    "suggestionsHint": "Pages that look like blog posts and already get impressions.",
+    "suggestionMeta": "{{clicks}} clicks · {{impressions}} impressions",
+    "selectAll": "Select all",
+    "submit_one": "Add {{count}} post",
+    "submit_other": "Add {{count}} posts",
+    "nothingToAdd": "Enter at least one URL or pick a suggested page.",
+    "invalidLines": "Some lines aren't valid URLs: {{lines}}",
+    "added_one": "{{count}} post added",
+    "added_other": "{{count}} posts added"
+  },
+  "edit": {
+    "title": "Edit post",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Shown instead of the URL",
+    "targetKeywordLabel": "Target keyword",
+    "targetKeywordPlaceholder": "The keyword this post should rank for",
+    "publishedAtLabel": "Published on",
+    "publishedAtHint": "Posts published in the last 30 days are marked as new.",
+    "saved": "Post updated"
+  }
+}

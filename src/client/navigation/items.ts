@@ -9,6 +9,7 @@ import {
   LayoutDashboard,
   Link2,
   MessageSquare,
+  Newspaper,
   Search,
   TrendingUp,
 } from "lucide-react";
@@ -43,6 +44,11 @@ const projectNavItems = [
     to: "/p/$projectId/search-performance" as const,
     label: "nav:items.gscInsights" as const,
     icon: GoogleGlyphMuted,
+  },
+  {
+    to: "/p/$projectId/blog-tracking" as const,
+    label: "nav:items.blogTracking" as const,
+    icon: Newspaper,
   },
   {
     to: "/p/$projectId/domain" as const,
@@ -145,6 +151,7 @@ export function getProjectNavGroups(projectId: string) {
       items: [
         byPath("/p/$projectId/search-performance"),
         byPath("/p/$projectId/rank-tracking"),
+        byPath("/p/$projectId/blog-tracking"),
         byPath("/p/$projectId/saved"),
         byPath("/p/$projectId/audit"),
       ],

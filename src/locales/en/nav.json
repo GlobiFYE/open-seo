@@ -22,7 +22,8 @@
     "promptExplorer": "Prompt Explorer",
     "reports": "Reports",
     "context": "Context",
-    "agentSetup": "Agent setup"
+    "agentSetup": "Agent setup",
+    "blogTracking": "Blog Tracking"
   },
   "account": {
     "helpCommunity": "Help & Community",

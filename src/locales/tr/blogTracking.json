@@ -1,0 +1,87 @@
+{
+  "title": "Blog Takibi",
+  "description": "Her yazının tıklama, gösterim ve sıralamasını Google Search Console'dan takip edin, yenilenmesi gereken yazıları kolayca görün.",
+  "addPosts": "Yazı ekle",
+  "ranges": {
+    "last_28_days": "Son 28 gün",
+    "last_3_months": "Son 3 ay",
+    "last_6_months": "Son 6 ay"
+  },
+  "rangeLabel": "Tarih aralığı",
+  "connectHint": "Yazılarınızın trafiğini görmek için Google Search Console'u bağlayın. Yazılarınızı şimdiden ekleyebilirsiniz, Search Console bağlandığında verileri görünecek.",
+  "loadFailed": "Blog takibi yüklenemedi.",
+  "summary": {
+    "total": "Takip edilen yazı",
+    "clicks": "Tıklama",
+    "rising": "Yükselişte",
+    "declining": "Yenilenmeli"
+  },
+  "status": {
+    "new": "Yeni",
+    "rising": "Yükselişte",
+    "stable": "Sabit",
+    "declining": "Düşüşte",
+    "no_data": "Veri yok"
+  },
+  "columns": {
+    "post": "Yazı",
+    "status": "Durum",
+    "clicks": "Tıklama",
+    "change": "Değişim",
+    "impressions": "Gösterim",
+    "ctr": "CTR",
+    "position": "Ort. pozisyon",
+    "targetKeyword": "Hedef keyword",
+    "actions": "İşlemler"
+  },
+  "noTarget": "Belirlenmedi",
+  "notRanking": "Sıralamada yok",
+  "positionValue": "{{position}}. sıra",
+  "empty": {
+    "title": "Henüz takip edilen yazı yok",
+    "description": "Trafiklerini ve sıralamalarını zaman içinde izlemek için blog yazılarınızı ekleyin."
+  },
+  "row": {
+    "showQueries": "Sorguları göster",
+    "hideQueries": "Sorguları gizle",
+    "edit": "Düzenle",
+    "remove": "Kaldır",
+    "removeConfirm": "Bu yazı takipten kaldırılsın mı?",
+    "removed": "Yazı takipten kaldırıldı",
+    "openPost": "Yazıyı aç",
+    "actionsFor": "{{title}} için işlemler"
+  },
+  "queries": {
+    "title": "Bu yazının en çok trafik getiren sorguları",
+    "loading": "Sorgular yükleniyor…",
+    "empty": "Bu dönemde bu yazı için arama sorgusu yok.",
+    "failed": "Sorgular yüklenemedi.",
+    "query": "Sorgu"
+  },
+  "add": {
+    "title": "Blog yazısı ekle",
+    "urlsLabel": "Yazı adresleri",
+    "urlsHint": "Her satıra bir yazı. İsterseniz virgülden sonra hedef keyword'ü ekleyin: https://site.com/blogs/news/yazi, bez çanta",
+    "urlsPlaceholder": "https://ornek.com/blogs/news/ilk-yazi\nhttps://ornek.com/blogs/news/ikinci-yazi, hedef keyword",
+    "suggestionsTitle": "Search Console'da bulunan blog sayfaları",
+    "suggestionsHint": "Blog yazısına benzeyen ve gösterim almaya başlamış sayfalar.",
+    "suggestionMeta": "{{clicks}} tıklama · {{impressions}} gösterim",
+    "selectAll": "Tümünü seç",
+    "submit_one": "{{count}} yazı ekle",
+    "submit_other": "{{count}} yazı ekle",
+    "nothingToAdd": "En az bir adres girin veya önerilen bir sayfa seçin.",
+    "invalidLines": "Bazı satırlar geçerli bir adres değil: {{lines}}",
+    "added_one": "{{count}} yazı eklendi",
+    "added_other": "{{count}} yazı eklendi"
+  },
+  "edit": {
+    "title": "Yazıyı düzenle",
+    "titleLabel": "Başlık",
+    "titlePlaceholder": "Adres yerine gösterilir",
+    "targetKeywordLabel": "Hedef keyword",
+    "targetKeywordPlaceholder": "Bu yazının sıralanması gereken keyword",
+    "publishedAtLabel": "Yayın tarihi",
+    "publishedAtHint": "Son 30 günde yayınlanan yazılar \"Yeni\" olarak işaretlenir.",
+    "saved": "Yazı güncellendi"
+  }
+}

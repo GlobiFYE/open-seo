@@ -111,3 +111,25 @@ export const projectResearchLog = pgTable(
     ),
   ],
 );
+
+export const projectBlogPosts = pgTable(
+  "project_blog_posts",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    url: text("url").notNull(),
+    title: text("title"),
+    targetKeyword: text("target_keyword"),
+    publishedAt: text("published_at"),
+    createdAt: text("created_at").notNull().default(isoNow),
+    updatedAt: text("updated_at").notNull().default(isoNow),
+  },
+  (table) => [
+    uniqueIndex("project_blog_posts_project_url_idx").on(
+      table.projectId,
+      table.url,
+    ),
+  ],
+);

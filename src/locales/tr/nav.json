@@ -22,7 +22,8 @@
     "promptExplorer": "Prompt Explorer",
     "reports": "Raporlar",
     "context": "Proje Bağlamı",
-    "agentSetup": "Agent kurulumu"
+    "agentSetup": "Agent kurulumu",
+    "blogTracking": "Blog Takibi"
   },
   "account": {
     "helpCommunity": "Yardım ve Topluluk",

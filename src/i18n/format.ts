@@ -56,3 +56,10 @@ export function localizeCountryOptions<
   }));
   return sort(localized, (a, b) => a.label.localeCompare(b.label, locale));
 }
+
+export function formatNumber(
+  value: number,
+  options?: Intl.NumberFormatOptions,
+) {
+  return new Intl.NumberFormat(getCurrentLocale(), options).format(value);
+}
