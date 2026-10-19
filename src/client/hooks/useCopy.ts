@@ -1,3 +1,4 @@
+import { i18n } from "@/i18n/config";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -13,7 +14,7 @@ export function useCopy() {
     try {
       await navigator.clipboard.writeText(value);
     } catch {
-      toast.error("Could not copy to clipboard");
+      toast.error(i18n.t("copyFailed"));
       return false;
     }
     toast.success(successMessage);

@@ -1,5 +1,6 @@
 import enAuth from "./en/auth.json";
 import enBlogTracking from "./en/blogTracking.json";
+import enBlogWriter from "./en/blogWriter.json";
 import enCommon from "./en/common.json";
 import enErrors from "./en/errors.json";
 import enNav from "./en/nav.json";
@@ -8,6 +9,7 @@ import enOnboarding from "./en/onboarding.json";
 import enIntegrations from "./en/integrations.json";
 import trAuth from "./tr/auth.json";
 import trBlogTracking from "./tr/blogTracking.json";
+import trBlogWriter from "./tr/blogWriter.json";
 import trCommon from "./tr/common.json";
 import trErrors from "./tr/errors.json";
 import trNav from "./tr/nav.json";
@@ -19,6 +21,7 @@ export const resources = {
   en: {
     auth: enAuth,
     blogTracking: enBlogTracking,
+    blogWriter: enBlogWriter,
     common: enCommon,
     errors: enErrors,
     nav: enNav,
@@ -29,6 +32,7 @@ export const resources = {
   tr: {
     auth: trAuth,
     blogTracking: trBlogTracking,
+    blogWriter: trBlogWriter,
     common: trCommon,
     errors: trErrors,
     nav: trNav,

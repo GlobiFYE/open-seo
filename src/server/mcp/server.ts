@@ -1,4 +1,10 @@
 import {
+  getBlogDraftTool,
+  getSiteLinkTargetsTool,
+  saveBlogDraftTool,
+  startBlogPostTool,
+} from "@/server/mcp/tools/blog-writer-tools";
+import {
   getAiVisibilityTrackerTool,
   generateAiVisibilityPromptsTool,
   researchAiVisibilityPromptsTool,
@@ -175,7 +181,7 @@ export function createOpenSeoMcpServer(authProps: McpProps) {
       title: "MericSEO",
       version: "0.0.12",
       description:
-        "SEO research tools for AI agents: keyword research and metrics, SERP and local SERP results, domain and backlink analysis, rank tracking, and Google Search Console performance.",
+        "SEO research tools for AI agents: keyword research and metrics, SERP and local SERP results, domain and backlink analysis, rank tracking, Google Search Console performance, and a guided blog writer (start with start_blog_post).",
       websiteUrl: "https://openseo.so",
       icons: [
         {
@@ -276,6 +282,10 @@ export function createOpenSeoMcpServer(authProps: McpProps) {
   register(listReportTemplatesTool);
   register(saveReportTemplateTool);
   register(deleteReportTemplateTool);
+  register(startBlogPostTool);
+  register(getSiteLinkTargetsTool);
+  register(saveBlogDraftTool);
+  register(getBlogDraftTool);
 
   return server;
 }

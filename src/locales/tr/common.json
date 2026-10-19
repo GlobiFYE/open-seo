@@ -135,5 +135,6 @@
       "domain": "Alt domain'ler hariç host adı",
       "subdomains": "Domain ve tüm alt domain'leri"
     }
-  }
+  },
+  "copyFailed": "Panoya kopyalanamadı"
 }

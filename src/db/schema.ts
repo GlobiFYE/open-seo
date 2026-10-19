@@ -103,6 +103,7 @@ export const {
   projectKeyPages,
   projectResearchLog,
   projectBlogPosts,
+  projectBlogDrafts,
   reports,
   reportTemplates,
   audits,

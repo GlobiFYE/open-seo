@@ -47,6 +47,7 @@ import { Route as AppPProjectIdIndexRouteImport } from './routes/_app/p/$project
 import { Route as AppPProjectIdAiVisibilityRouteImport } from './routes/_app/p/$projectId/ai-visibility'
 import { Route as AppPProjectIdBacklinksRouteImport } from './routes/_app/p/$projectId/backlinks'
 import { Route as AppPProjectIdBlogTrackingRouteImport } from './routes/_app/p/$projectId/blog-tracking'
+import { Route as AppPProjectIdBlogWriterRouteImport } from './routes/_app/p/$projectId/blog-writer'
 import { Route as AppPProjectIdBrandLookupRouteImport } from './routes/_app/p/$projectId/brand-lookup'
 import { Route as AppPProjectIdContextRouteImport } from './routes/_app/p/$projectId/context'
 import { Route as AppPProjectIdDomainRouteImport } from './routes/_app/p/$projectId/domain'
@@ -265,6 +266,11 @@ const AppPProjectIdBlogTrackingRoute =
     path: '/blog-tracking',
     getParentRoute: () => AppPProjectIdRouteRoute,
   } as any)
+const AppPProjectIdBlogWriterRoute = AppPProjectIdBlogWriterRouteImport.update({
+  id: '/blog-writer',
+  path: '/blog-writer',
+  getParentRoute: () => AppPProjectIdRouteRoute,
+} as any)
 const AppPProjectIdBrandLookupRoute =
   AppPProjectIdBrandLookupRouteImport.update({
     id: '/brand-lookup',
@@ -442,6 +448,7 @@ export interface FileRoutesByFullPath {
   '/p/$projectId/ai-visibility': typeof AppPProjectIdAiVisibilityRouteWithChildren
   '/p/$projectId/backlinks': typeof AppPProjectIdBacklinksRoute
   '/p/$projectId/blog-tracking': typeof AppPProjectIdBlogTrackingRoute
+  '/p/$projectId/blog-writer': typeof AppPProjectIdBlogWriterRoute
   '/p/$projectId/brand-lookup': typeof AppPProjectIdBrandLookupRoute
   '/p/$projectId/context': typeof AppPProjectIdContextRoute
   '/p/$projectId/domain': typeof AppPProjectIdDomainRoute
@@ -501,6 +508,7 @@ export interface FileRoutesByTo {
   '/s/$token': typeof STokenIndexRoute
   '/p/$projectId/backlinks': typeof AppPProjectIdBacklinksRoute
   '/p/$projectId/blog-tracking': typeof AppPProjectIdBlogTrackingRoute
+  '/p/$projectId/blog-writer': typeof AppPProjectIdBlogWriterRoute
   '/p/$projectId/brand-lookup': typeof AppPProjectIdBrandLookupRoute
   '/p/$projectId/context': typeof AppPProjectIdContextRoute
   '/p/$projectId/domain': typeof AppPProjectIdDomainRoute
@@ -565,6 +573,7 @@ export interface FileRoutesById {
   '/_app/p/$projectId/ai-visibility': typeof AppPProjectIdAiVisibilityRouteWithChildren
   '/_app/p/$projectId/backlinks': typeof AppPProjectIdBacklinksRoute
   '/_app/p/$projectId/blog-tracking': typeof AppPProjectIdBlogTrackingRoute
+  '/_app/p/$projectId/blog-writer': typeof AppPProjectIdBlogWriterRoute
   '/_app/p/$projectId/brand-lookup': typeof AppPProjectIdBrandLookupRoute
   '/_app/p/$projectId/context': typeof AppPProjectIdContextRoute
   '/_app/p/$projectId/domain': typeof AppPProjectIdDomainRoute
@@ -629,6 +638,7 @@ export interface FileRouteTypes {
     | '/p/$projectId/ai-visibility'
     | '/p/$projectId/backlinks'
     | '/p/$projectId/blog-tracking'
+    | '/p/$projectId/blog-writer'
     | '/p/$projectId/brand-lookup'
     | '/p/$projectId/context'
     | '/p/$projectId/domain'
@@ -688,6 +698,7 @@ export interface FileRouteTypes {
     | '/s/$token'
     | '/p/$projectId/backlinks'
     | '/p/$projectId/blog-tracking'
+    | '/p/$projectId/blog-writer'
     | '/p/$projectId/brand-lookup'
     | '/p/$projectId/context'
     | '/p/$projectId/domain'
@@ -751,6 +762,7 @@ export interface FileRouteTypes {
     | '/_app/p/$projectId/ai-visibility'
     | '/_app/p/$projectId/backlinks'
     | '/_app/p/$projectId/blog-tracking'
+    | '/_app/p/$projectId/blog-writer'
     | '/_app/p/$projectId/brand-lookup'
     | '/_app/p/$projectId/context'
     | '/_app/p/$projectId/domain'
@@ -1068,6 +1080,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppPProjectIdBlogTrackingRouteImport
       parentRoute: typeof AppPProjectIdRouteRoute
     }
+    '/_app/p/$projectId/blog-writer': {
+      id: '/_app/p/$projectId/blog-writer'
+      path: '/blog-writer'
+      fullPath: '/p/$projectId/blog-writer'
+      preLoaderRoute: typeof AppPProjectIdBlogWriterRouteImport
+      parentRoute: typeof AppPProjectIdRouteRoute
+    }
     '/_app/p/$projectId/brand-lookup': {
       id: '/_app/p/$projectId/brand-lookup'
       path: '/brand-lookup'
@@ -1319,6 +1338,7 @@ interface AppPProjectIdRouteRouteChildren {
   AppPProjectIdAiVisibilityRoute: typeof AppPProjectIdAiVisibilityRouteWithChildren
   AppPProjectIdBacklinksRoute: typeof AppPProjectIdBacklinksRoute
   AppPProjectIdBlogTrackingRoute: typeof AppPProjectIdBlogTrackingRoute
+  AppPProjectIdBlogWriterRoute: typeof AppPProjectIdBlogWriterRoute
   AppPProjectIdBrandLookupRoute: typeof AppPProjectIdBrandLookupRoute
   AppPProjectIdContextRoute: typeof AppPProjectIdContextRoute
   AppPProjectIdDomainRoute: typeof AppPProjectIdDomainRoute
@@ -1341,6 +1361,7 @@ const AppPProjectIdRouteRouteChildren: AppPProjectIdRouteRouteChildren = {
   AppPProjectIdAiVisibilityRoute: AppPProjectIdAiVisibilityRouteWithChildren,
   AppPProjectIdBacklinksRoute: AppPProjectIdBacklinksRoute,
   AppPProjectIdBlogTrackingRoute: AppPProjectIdBlogTrackingRoute,
+  AppPProjectIdBlogWriterRoute: AppPProjectIdBlogWriterRoute,
   AppPProjectIdBrandLookupRoute: AppPProjectIdBrandLookupRoute,
   AppPProjectIdContextRoute: AppPProjectIdContextRoute,
   AppPProjectIdDomainRoute: AppPProjectIdDomainRoute,

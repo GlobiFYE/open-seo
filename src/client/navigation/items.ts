@@ -10,6 +10,7 @@ import {
   Link2,
   MessageSquare,
   Newspaper,
+  PenLine,
   Search,
   TrendingUp,
 } from "lucide-react";
@@ -49,6 +50,11 @@ const projectNavItems = [
     to: "/p/$projectId/blog-tracking" as const,
     label: "nav:items.blogTracking" as const,
     icon: Newspaper,
+  },
+  {
+    to: "/p/$projectId/blog-writer" as const,
+    label: "nav:items.blogWriter" as const,
+    icon: PenLine,
   },
   {
     to: "/p/$projectId/domain" as const,
@@ -152,6 +158,7 @@ export function getProjectNavGroups(projectId: string) {
         byPath("/p/$projectId/search-performance"),
         byPath("/p/$projectId/rank-tracking"),
         byPath("/p/$projectId/blog-tracking"),
+        byPath("/p/$projectId/blog-writer"),
         byPath("/p/$projectId/saved"),
         byPath("/p/$projectId/audit"),
       ],

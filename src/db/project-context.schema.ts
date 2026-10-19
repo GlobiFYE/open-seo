@@ -1,5 +1,6 @@
 import {
   index,
+  integer,
   primaryKey,
   sqliteTable,
   text,
@@ -139,6 +140,47 @@ export const projectBlogPosts = sqliteTable(
     uniqueIndex("project_blog_posts_project_url_idx").on(
       table.projectId,
       table.url,
+    ),
+  ],
+);
+
+export const projectBlogDrafts = sqliteTable(
+  "project_blog_drafts",
+  {
+    id: text("id").primaryKey(),
+    projectId: text("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    status: text("status", { enum: ["draft", "published"] })
+      .notNull()
+      .default("draft"),
+    targetKeyword: text("target_keyword").notNull(),
+    secondaryKeywords: text("secondary_keywords"),
+    languageCode: text("language_code"),
+    title: text("title").notNull(),
+    metaTitle: text("meta_title"),
+    metaDescription: text("meta_description"),
+    slug: text("slug"),
+    excerpt: text("excerpt"),
+    contentHtml: text("content_html").notNull(),
+    faqJson: text("faq_json"),
+    imageSuggestionsJson: text("image_suggestions_json"),
+    internalLinksJson: text("internal_links_json"),
+    researchNotes: text("research_notes"),
+    wordCount: integer("word_count").notNull().default(0),
+    publishedUrl: text("published_url"),
+    updatedBy: text("updated_by", { enum: ["user", "sam", "mcp"] }).notNull(),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(current_timestamp)`),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(current_timestamp)`),
+  },
+  (table) => [
+    index("project_blog_drafts_project_updated_idx").on(
+      table.projectId,
+      table.updatedAt,
     ),
   ],
 );

@@ -135,5 +135,6 @@
       "domain": "The hostname, without subdomains",
       "subdomains": "The domain plus all its subdomains"
     }
-  }
+  },
+  "copyFailed": "Could not copy to clipboard"
 }

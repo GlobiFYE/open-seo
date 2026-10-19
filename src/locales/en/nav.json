@@ -23,7 +23,8 @@
     "reports": "Reports",
     "context": "Context",
     "agentSetup": "Agent setup",
-    "blogTracking": "Blog Tracking"
+    "blogTracking": "Blog Tracking",
+    "blogWriter": "Blog Writer"
   },
   "account": {
     "helpCommunity": "Help & Community",

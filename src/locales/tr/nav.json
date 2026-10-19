@@ -23,7 +23,8 @@
     "reports": "Raporlar",
     "context": "Proje Bağlamı",
     "agentSetup": "Agent kurulumu",
-    "blogTracking": "Blog Takibi"
+    "blogTracking": "Blog Takibi",
+    "blogWriter": "Blog Yazarı"
   },
   "account": {
     "helpCommunity": "Yardım ve Topluluk",
