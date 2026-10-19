@@ -26,6 +26,18 @@ async function list(projectId: string) {
     .orderBy(desc(projectBlogDrafts.updatedAt));
 }
 
+async function listRecentNotes(projectId: string, limit: number) {
+  return db
+    .select({
+      title: projectBlogDrafts.title,
+      researchNotes: projectBlogDrafts.researchNotes,
+    })
+    .from(projectBlogDrafts)
+    .where(eq(projectBlogDrafts.projectId, projectId))
+    .orderBy(desc(projectBlogDrafts.updatedAt))
+    .limit(limit);
+}
+
 async function get(projectId: string, id: string): Promise<DraftRow | null> {
   const [row] = await db
     .select()
@@ -76,4 +88,11 @@ async function remove(projectId: string, id: string) {
     );
 }
 
-export const BlogDraftRepository = { list, get, create, update, remove };
+export const BlogDraftRepository = {
+  list,
+  listRecentNotes,
+  get,
+  create,
+  update,
+  remove,
+};

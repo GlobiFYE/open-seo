@@ -47,6 +47,7 @@ export const startBlogPostTool = {
         searchConsole: looseObjectOutputSchema,
         savedKeywords: z.array(looseObjectOutputSchema),
         alreadyTargeted: z.array(looseObjectOutputSchema),
+        recentFormats: z.array(looseObjectOutputSchema),
         ...optionalMetaOutputSchema,
       })
       .passthrough(),
@@ -87,6 +88,15 @@ export const startBlogPostTool = {
               )
               .join("\n")
           : "None yet.";
+      const formats =
+        brief.recentFormats.length > 0
+          ? brief.recentFormats
+              .map(
+                (item) =>
+                  `- ${item.title}: ${item.format ?? "format not recorded"}`,
+              )
+              .join("\n")
+          : "No previous drafts.";
       const text = [
         brief.workflow,
         "# Project",
@@ -98,6 +108,8 @@ export const startBlogPostTool = {
         saved,
         "# Keywords already targeted by posts or drafts (cannibalization risk)",
         targeted,
+        "# Recent post formats (pick a different opener, body shape and table)",
+        formats,
       ].join("\n\n");
       return mcpResponse({
         text,
@@ -112,6 +124,7 @@ export const startBlogPostTool = {
           searchConsole: brief.searchConsole,
           savedKeywords: brief.savedKeywords,
           alreadyTargeted: brief.alreadyTargeted,
+          recentFormats: brief.recentFormats,
         },
       });
     },

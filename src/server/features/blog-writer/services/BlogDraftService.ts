@@ -34,6 +34,7 @@ type Author = "user" | "sam" | "mcp";
 const STRIKING_FETCH_LIMIT = 2000;
 const STRIKING_LIMIT = 40;
 const SAVED_KEYWORD_LIMIT = 50;
+const RECENT_FORMAT_LIMIT = 6;
 
 const FAQ_HEADINGS: Record<string, string> = {
   tr: "Sıkça Sorulan Sorular",
@@ -123,20 +124,38 @@ async function getStrikingDistance(projectId: string) {
   }
 }
 
+async function getRecentFormats(projectId: string) {
+  const rows = await BlogDraftRepository.listRecentNotes(
+    projectId,
+    RECENT_FORMAT_LIMIT,
+  );
+  return rows.map((row) => ({
+    title: row.title,
+    format:
+      row.researchNotes
+        ?.split("\n")
+        .find((line) => line.trim().toLowerCase().startsWith("format:"))
+        ?.trim() ?? null,
+  }));
+}
+
 async function getStartBrief(projectId: string) {
   const project = await requireProject(projectId);
-  const [context, striking, saved, targeted] = await Promise.all([
-    ProjectContextService.getProjectContext(projectId),
-    getStrikingDistance(projectId),
-    KeywordResearchService.getSavedKeywords({
-      projectId,
-      page: 1,
-      pageSize: SAVED_KEYWORD_LIMIT,
-      sort: "searchVolume",
-      order: "desc",
-    }),
-    listTargetedKeywords(projectId),
-  ]);
+  const [context, striking, saved, targeted, recentFormats] = await Promise.all(
+    [
+      ProjectContextService.getProjectContext(projectId),
+      getStrikingDistance(projectId),
+      KeywordResearchService.getSavedKeywords({
+        projectId,
+        page: 1,
+        pageSize: SAVED_KEYWORD_LIMIT,
+        sort: "searchVolume",
+        order: "desc",
+      }),
+      listTargetedKeywords(projectId),
+      getRecentFormats(projectId),
+    ],
+  );
 
   return {
     workflow: BLOG_WRITER_WORKFLOW,
@@ -158,6 +177,7 @@ async function getStartBrief(projectId: string) {
       intent: row.intent,
     })),
     alreadyTargeted: targeted,
+    recentFormats,
   };
 }
 
