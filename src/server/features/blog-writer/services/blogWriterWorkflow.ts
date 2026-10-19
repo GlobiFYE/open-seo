@@ -32,9 +32,16 @@ Write the article as clean HTML and call save_blog_draft. Rules:
 - Answer the search intent in the first 2–3 sentences (an "answer-first" summary AI search engines can quote). Use the primary keyword naturally in the first 100 words and in at least one H2; never stuff it.
 - Short paragraphs, descriptive subheadings, lists and a comparison table where they genuinely help. Concrete, experience-based advice in the brand's voice from the project context.
 - Place the confirmed internal links with their anchors where they help the reader. End with a short call to action toward the main category.
+- Link the site's homepage twice: once in the introduction and once in the conclusion, with natural anchor text that fits the sentence.
+- Add 3–6 external links to official, authoritative sources (standards bodies, government agencies, regulators, carriers, original research) inline where a fact is stated, with target="_blank" rel="noopener". Never link to competitors. Open every external URL before using it and only keep the ones that load.
+- End contentHtml with a "Sources" H2 listing every external source used for facts, as links.
+- Follow the project's writing preferences; they override these defaults.
 - Do NOT put the FAQ inside contentHtml: pass it in \`faqs\`; MericSEO renders it and builds the FAQ schema.
 - Also pass metaTitle (≤60 chars), metaDescription (≤155 chars, includes the keyword and a reason to click), slug (short, keyword-based, lowercase, hyphens, ASCII), excerpt (1–2 sentences), secondaryKeywords, internalLinks you used, 3–5 imageSuggestions (placement + descriptive alt text), and researchNotes (the keyword data and SERP findings that justified the choices).
 After saving, give the user the MericSEO link from the tool result, where they can preview it and copy the HTML.
+
+## Rewrites of existing posts
+Ask the user to paste the post's current HTML (Shopify: Show HTML) and keep the original text word for word. Add the new sections, update title, meta, links and image alt text, keep the same slug, and apply the same link and Sources rules.
 
 ## Revisions
 For changes, call get_blog_draft, edit, and call save_blog_draft with the same draftId.`;
