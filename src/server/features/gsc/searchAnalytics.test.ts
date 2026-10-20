@@ -12,7 +12,19 @@ describe("resolveDateRange", () => {
       { dateRange: "last_28_days" },
       TODAY,
     );
-    expect(startDate).toBe("2026-04-27");
+    // Both bounds are inclusive, so exactly 28 calendar days
+    // (2026-04-28 .. 2026-05-25) must be covered, not 29.
+    expect(startDate).toBe("2026-04-28");
+    expect(endDate).toBe("2026-05-25");
+  });
+
+  it("computes a 7-day window from the lagged end", () => {
+    const { startDate, endDate } = resolveDateRange(
+      { dateRange: "last_7_days" },
+      TODAY,
+    );
+    // Inclusive bounds: 2026-05-19 .. 2026-05-25 is exactly 7 days.
+    expect(startDate).toBe("2026-05-19");
     expect(endDate).toBe("2026-05-25");
   });
 
