@@ -56,7 +56,9 @@ declare namespace Cloudflare {
     MINIMAX_API_KEY?: string;
     MINIMAX_REGION?: "global" | "cn";
     MINIMAX_API_FORMAT?: "anthropic" | "openai";
+    MINIMAX_MODEL?: string;
     MINIMAX_THINKING?: "adaptive" | "disabled";
+    MINIMAX_REASONING_EFFORT?: "low" | "medium" | "high" | "xhigh" | "max";
   }
 }
 

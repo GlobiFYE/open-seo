@@ -9,16 +9,21 @@ import { getEnvValueSync, getOptionalEnvValue } from "@/server/lib/runtime-env";
 
 // OpenRouter model slug used for the in-app chat agents (onboarding + SAM).
 // Override with OPENROUTER_MODEL to swap models without a code change.
+// Flash's current gateway endpoint is not verified for our ZDR routing policy.
 const DEFAULT_CHAT_AGENT_MODEL = "minimax/minimax-m3";
+const DEFAULT_MINIMAX_MODEL = "MiniMax-M3.1-Flash";
+const MINIMAX_EFFORTS = ["low", "medium", "high", "xhigh", "max"] as const;
 
 export const MINIMAX_M3_PROFILE = {
   modelId: "MiniMax-M3",
   contextWindow: 1_000_000,
   pricingUsdPerMillionTokens: {
-    input: 0.6,
-    output: 2.4,
-    cacheRead: 0.12,
+    input: 0.3,
+    output: 1.2,
+    cacheRead: 0.06,
     cacheWrite: null,
+    above512k: { input: 0.6, output: 2.4, cacheRead: 0.12 },
+    priorityMultiplier: 1.5,
   },
   inputModalities: ["text", "image", "video"],
   thinkingModes: ["adaptive", "disabled"],
@@ -34,6 +39,20 @@ export const MINIMAX_M3_PROFILE = {
   },
 } as const;
 
+export const MINIMAX_FLASH_PROFILE = {
+  modelId: DEFAULT_MINIMAX_MODEL,
+  contextWindow: 1_000_000,
+  maxOutputTokens: 524_288,
+  pricingUsdPerMillionTokens: {
+    input: 0.15,
+    output: 0.6,
+    cacheRead: 0.015,
+    cacheWrite: null,
+  },
+  inputModalities: ["text", "image", "video"],
+  thinkingModes: ["adaptive"],
+} as const;
+
 type MiniMaxRegion = keyof typeof MINIMAX_M3_PROFILE.endpoints;
 type MiniMaxApiFormat = keyof (typeof MINIMAX_M3_PROFILE.endpoints)["global"];
 type MiniMaxThinking = (typeof MINIMAX_M3_PROFILE.thinkingModes)[number];
@@ -45,7 +64,9 @@ export type ChatAgentConfig =
       apiKey: string;
       region: MiniMaxRegion;
       apiFormat: MiniMaxApiFormat;
+      modelId: string;
       thinking: MiniMaxThinking;
+      effort?: (typeof MINIMAX_EFFORTS)[number];
     };
 
 const CHAT_ENV_NAMES = [
@@ -53,6 +74,8 @@ const CHAT_ENV_NAMES = [
   "MINIMAX_REGION",
   "MINIMAX_API_FORMAT",
   "MINIMAX_THINKING",
+  "MINIMAX_MODEL",
+  "MINIMAX_REASONING_EFFORT",
   "OPENROUTER_API_KEY",
   "OPENROUTER_MODEL",
 ] as const;
@@ -79,27 +102,48 @@ export function resolveChatAgentConfig(env: object): ChatAgentConfig | null {
   const read = (name: string) => getEnvValueSync(env, name);
   const minimaxApiKey = read("MINIMAX_API_KEY");
   if (minimaxApiKey) {
+    const modelId = read("MINIMAX_MODEL") ?? DEFAULT_MINIMAX_MODEL;
+    const apiFormat = choice(
+      "MINIMAX_API_FORMAT",
+      read("MINIMAX_API_FORMAT"),
+      ["anthropic", "openai"],
+      "anthropic",
+    );
+    const thinking = choice(
+      "MINIMAX_THINKING",
+      read("MINIMAX_THINKING"),
+      MINIMAX_M3_PROFILE.thinkingModes,
+      modelId === "MiniMax-M3" && apiFormat === "anthropic"
+        ? "disabled"
+        : "adaptive",
+    );
+    if (modelId === DEFAULT_MINIMAX_MODEL && thinking === "disabled") {
+      throw new Error(
+        "MiniMax-M3.1-Flash requires adaptive thinking; select MiniMax-M3 to disable thinking",
+      );
+    }
     return {
       kind: "minimax",
       apiKey: minimaxApiKey,
+      modelId,
+      thinking,
+      ...(modelId === DEFAULT_MINIMAX_MODEL
+        ? {
+            effort: choice(
+              "MINIMAX_REASONING_EFFORT",
+              read("MINIMAX_REASONING_EFFORT"),
+              MINIMAX_EFFORTS,
+              "max",
+            ),
+          }
+        : {}),
       region: choice(
         "MINIMAX_REGION",
         read("MINIMAX_REGION"),
         ["global", "cn"],
         "global",
       ),
-      apiFormat: choice(
-        "MINIMAX_API_FORMAT",
-        read("MINIMAX_API_FORMAT"),
-        ["anthropic", "openai"],
-        "anthropic",
-      ),
-      thinking: choice(
-        "MINIMAX_THINKING",
-        read("MINIMAX_THINKING"),
-        MINIMAX_M3_PROFILE.thinkingModes,
-        "adaptive",
-      ),
+      apiFormat,
     };
   }
 
@@ -154,6 +198,12 @@ export async function getChatAgentModel(): Promise<LanguageModelV3> {
  */
 export function buildChatAgentModel(config: ChatAgentConfig): LanguageModelV3 {
   if (config.kind === "minimax") {
+    if (
+      config.modelId === DEFAULT_MINIMAX_MODEL &&
+      config.thinking === "disabled"
+    ) {
+      throw new Error("MiniMax-M3.1-Flash requires adaptive thinking");
+    }
     const endpoints = MINIMAX_M3_PROFILE.endpoints[config.region];
     if (config.apiFormat === "openai") {
       return createOpenAICompatible({
@@ -165,15 +215,18 @@ export function buildChatAgentModel(config: ChatAgentConfig): LanguageModelV3 {
           ...body,
           thinking: { type: config.thinking },
           reasoning_split: true,
+          ...(config.modelId === DEFAULT_MINIMAX_MODEL
+            ? { reasoning_effort: config.effort ?? "max" }
+            : {}),
         }),
-      }).chatModel(MINIMAX_M3_PROFILE.modelId);
+      }).chatModel(config.modelId);
     }
 
     const model = createAnthropic({
       authToken: config.apiKey,
       baseURL: `${endpoints.anthropic}/v1`,
       name: "minimax.anthropic",
-    })(MINIMAX_M3_PROFILE.modelId);
+    })(config.modelId);
     return wrapLanguageModel({
       model,
       middleware: {
@@ -185,6 +238,9 @@ export function buildChatAgentModel(config: ChatAgentConfig): LanguageModelV3 {
             anthropic: {
               ...params.providerOptions?.anthropic,
               thinking: { type: config.thinking },
+              ...(config.modelId === DEFAULT_MINIMAX_MODEL
+                ? { effort: config.effort ?? "max" }
+                : {}),
               cacheControl: { type: "ephemeral" },
             },
           },
