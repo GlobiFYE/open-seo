@@ -87,10 +87,11 @@
     "downloadAll": "Hepsini ZIP indir ({{count}})",
     "downloadSelected": "Seçilenleri indir ({{count}})",
     "downloadCsv": "URL listesini indir (CSV)",
+    "inBody": "Yazıda",
     "preparing": "ZIP hazırlanıyor…",
     "downloaded": "{{count}} görsel indirildi",
     "skipped": "{{count}} görsel indirilemedi",
-    "hint": "Dosyalar alt metinlerine göre adlandırılır. ZIP içinde her dosyanın alt metni, yerleşimi, kaynak linki ve fotoğrafçı bilgisini içeren images.csv de var. Stok fotoğraflar ücretsiz kullanılabilir (Pexels, Unsplash, Pixabay lisansları); kaynak belirtmek zorunlu değil ama iyi olur.",
-    "howTo": "Claude'dan bu taslak için görsel bulmasını iste: Pexels, Unsplash, Pixabay ve sitenin ürünlerinde arayıp 20 öneriyi buraya kaydeder."
+    "hint": "Dosyalar alt metinlerine göre adlandırılır. ZIP içinde her dosyanın alt metni, yerleşimi, kaynak linki ve fotoğrafçı bilgisini içeren images.csv de var. Stok fotoğraflar ücretsiz kullanılabilir (Pexels, Unsplash, Pixabay lisansları); kaynak belirtmek zorunlu değil ama iyi olur. \"Yazıda\" işaretli görseller yazıya eklendi; yayınlamadan önce CMS'ine yükleyip linkleri değiştir.",
+    "howTo": "Claude'dan bu taslak için görsel bulmasını iste: Pexels, Unsplash, Pixabay ve sitenin ürünlerinde arayıp 20 öneriyi buraya kaydeder, en uygunlarını da yazıya yerleştirir."
   }
 }

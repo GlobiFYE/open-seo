@@ -1,4 +1,5 @@
 import { Parser } from "htmlparser2";
+import type { BlogImageSuggestion } from "@/types/schemas/blog-writer";
 
 const ALLOWED_TAGS = new Set([
   "h2",
@@ -196,6 +197,109 @@ export function buildPublishHtml(
     faqHtml(faqs, faqHeading),
     `<script type="application/ld+json">\n${buildFaqSchema(faqs)}\n</script>`,
   ].join("\n\n");
+}
+
+const MAX_BODY_IMAGE_WIDTH = 1600;
+const FIGURE_BLOCK = /<figure>[\s\S]*?<\/figure>\n?/g;
+const HEADING_BLOCK = /<(h2|h3)>([\s\S]*?)<\/\1>\n?/g;
+
+function normalizeHeading(value: string) {
+  return value
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&[a-z#0-9]+;/gi, " ")
+    .toLocaleLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
+}
+
+function bodyFigureHtml(image: BlogImageSuggestion) {
+  const attributes = [
+    `src="${escapeAttribute(image.url ?? "")}"`,
+    `alt="${escapeAttribute(image.alt)}"`,
+  ];
+  if (image.width && image.height) {
+    const width = Math.min(image.width, MAX_BODY_IMAGE_WIDTH);
+    const height = Math.round((image.height * width) / image.width);
+    attributes.push(`width="${width}"`, `height="${height}"`);
+  }
+  attributes.push('loading="lazy"');
+  const img = `<img ${attributes.join(" ")}>`;
+  if (image.source === "product" && image.productUrl) {
+    return `<figure><a href="${escapeAttribute(image.productUrl)}">${img}</a></figure>`;
+  }
+  const creditHref = image.creditUrl ?? image.pageUrl;
+  const caption = image.credit
+    ? creditHref
+      ? `<figcaption><a href="${escapeAttribute(creditHref)}" target="_blank" rel="noopener">${escapeText(image.credit)}</a></figcaption>`
+      : `<figcaption>${escapeText(image.credit)}</figcaption>`
+    : "";
+  return `<figure>${img}${caption}</figure>`;
+}
+
+function findHeadingEnd(html: string, placement: string) {
+  const target = normalizeHeading(placement);
+  if (!target) return undefined;
+  const headings = [...html.matchAll(HEADING_BLOCK)].map((match) => ({
+    text: normalizeHeading(match[2] ?? ""),
+    end: (match.index ?? 0) + match[0].length,
+  }));
+  const exact = headings.find((heading) => heading.text === target);
+  if (exact) return exact.end;
+  return headings.find(
+    (heading) =>
+      heading.text.length >= 4 &&
+      (target.includes(heading.text) || heading.text.includes(target)),
+  )?.end;
+}
+
+function afterFirstParagraph(html: string, start: number) {
+  const paragraph = /^\s*<p>[\s\S]*?<\/p>\n?/.exec(html.slice(start));
+  return paragraph ? start + paragraph[0].length : start;
+}
+
+export function placeBodyImages(
+  html: string,
+  images: BlogImageSuggestion[],
+  previousImages: BlogImageSuggestion[],
+) {
+  const previousSources = previousImages
+    .filter((image) => image.inBody && image.url)
+    .map((image) => `src="${escapeAttribute(image.url ?? "")}"`);
+  const cleaned = html.replace(FIGURE_BLOCK, (figure) =>
+    previousSources.some((source) => figure.includes(source)) ? "" : figure,
+  );
+
+  const insertions = new Map<number, string[]>();
+  const unmatched: string[] = [];
+  for (const image of images) {
+    if (!image.inBody || !image.url) continue;
+    const headingEnd = findHeadingEnd(cleaned, image.placement);
+    if (headingEnd === undefined) {
+      unmatched.push(image.placement);
+      continue;
+    }
+    const position = afterFirstParagraph(cleaned, headingEnd);
+    insertions.set(position, [
+      ...(insertions.get(position) ?? []),
+      bodyFigureHtml(image),
+    ]);
+  }
+
+  let output = "";
+  let last = 0;
+  for (const match of cleaned.matchAll(HEADING_BLOCK)) {
+    const position = afterFirstParagraph(
+      cleaned,
+      (match.index ?? 0) + match[0].length,
+    );
+    const figures = insertions.get(position);
+    if (!figures || position < last) continue;
+    output += `${cleaned.slice(last, position)}${figures.join("\n")}\n`;
+    last = position;
+  }
+  output += cleaned.slice(last);
+  return { html: sanitizeBlogHtml(output), unmatched };
 }
 
 export function slugify(value: string) {

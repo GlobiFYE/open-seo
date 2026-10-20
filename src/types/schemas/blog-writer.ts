@@ -32,6 +32,7 @@ export const blogImageSuggestionSchema = z.object({
   productTitle: z.string().trim().max(300).optional(),
   width: z.number().int().positive().optional(),
   height: z.number().int().positive().optional(),
+  inBody: z.boolean().optional(),
 });
 
 export type BlogImageSuggestion = z.infer<typeof blogImageSuggestionSchema>;
