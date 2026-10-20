@@ -1,7 +1,11 @@
 import { z } from "zod";
 import { AppError } from "@/server/lib/errors";
 import { BlogDraftRepository } from "@/server/features/blog-writer/repositories/BlogDraftRepository";
-import { slugify } from "@/server/features/blog-writer/services/blogHtml";
+import {
+  countWords,
+  placeBodyImages,
+  slugify,
+} from "@/server/features/blog-writer/services/blogHtml";
 import {
   buildImageZip,
   isAllowedImageHost,
@@ -86,13 +90,26 @@ async function saveImages(
       "VALIDATION_ERROR",
       `Image URLs must come from find_blog_images: ${rejected.map((image) => image.url).join(", ")}`,
     );
+  const placed = placeBodyImages(
+    draft.contentHtml,
+    images,
+    parseImages(draft.imageSuggestionsJson),
+  );
+  if (placed.unmatched.length > 0)
+    throw new AppError(
+      "VALIDATION_ERROR",
+      `No H2/H3 in the post matches these inBody placements: ${placed.unmatched.join(", ")}. Use the exact heading text.`,
+    );
   await BlogDraftRepository.update(projectId, draftId, {
+    contentHtml: placed.html,
+    wordCount: countWords(placed.html),
     imageSuggestionsJson: images.length > 0 ? JSON.stringify(images) : null,
     updatedBy: "mcp",
   });
   return {
     saved: images.length,
     products: images.filter((image) => image.source === "product").length,
+    inBody: images.filter((image) => image.inBody).length,
   };
 }
 

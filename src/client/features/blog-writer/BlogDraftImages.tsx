@@ -91,6 +91,9 @@ function ImageCard({
               {t(`images.source.${image.source}`)}
             </Badge>
           ) : null}
+          {image.inBody ? (
+            <Badge variant="default">{t("images.inBody")}</Badge>
+          ) : null}
           <span className="truncate text-xs text-muted-foreground">
             {image.placement || "–"}
           </span>

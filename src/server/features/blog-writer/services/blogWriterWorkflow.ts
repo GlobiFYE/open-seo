@@ -32,7 +32,7 @@ First call find_blog_images with 3–6 photo queries for the post's sections, th
 - Answer the search intent within the first 100 words, in the shape your chosen opener calls for (not always a bold summary). Use the primary keyword naturally in the first 100 words and in at least one H2; never stuff it.
 - Follow every rule in "Style and anti-AI rules". Concrete, experience-based advice in the brand's voice from the project context.
 - Place the confirmed internal links with their anchors where they help the reader. End with a short call to action toward the main category.
-- Recommend 1–2 of the site's own products inside the body, each as a linked product image <a href="PRODUCT_URL"><img src="PRODUCT_IMAGE_URL" alt="..."></a> placed in the section where the product fits, plus a sentence that links the product by name. Use the product and image URLs exactly as find_blog_images returned them. Never put stock photo URLs in contentHtml.
+- Recommend 1–2 of the site's own products inside the body (2 only in long posts), each with a sentence that links the product by name in the section where it fits. Send readers to the main category page as well; one category link plus 1–2 product links is the commercial goal. Do NOT write <img> tags for new images: Step 7 places them.
 - Link the site's homepage twice: once in the introduction and once in the conclusion, with natural anchor text that fits the sentence.
 - Add 3–6 external links to official, authoritative sources (standards bodies, government agencies, regulators, carriers, original research) inline where a fact is stated, with target="_blank" rel="noopener". Never link to competitors. Open every external URL before using it and only keep the ones that load.
 - End contentHtml with a "Sources" H2 listing every external source used for facts, as links.
@@ -42,13 +42,27 @@ First call find_blog_images with 3–6 photo queries for the post's sections, th
 After saving, give the user the MericSEO link from the tool result, where they can preview it and copy the HTML.
 
 ## Step 7 — Images
-Choose 20 images from find_blog_images and call save_blog_images with the draftId:
-- At least 2 product images from the site (the ones used in the body first), the rest stock photos matched to specific sections. Mix sources and scenes; prefer landscape; skip photos with visible brand logos, watermarks or text.
+Choose 20 images from find_blog_images and call save_blog_images with the draftId. All 20 are the alternatives pool; mark the ones that go into the article with inBody: true and MericSEO places them.
+
+The pool:
+- At least 2 product images from the site (the products recommended in the body first), the rest stock photos matched to specific sections. Mix sources and scenes; prefer landscape; skip photos with visible brand logos, watermarks or text.
 - If fewer than 20 fit well, call find_blog_images again with different queries instead of padding with weak matches.
-- Alt text: 8–15 words describing what is actually in the photo, the keyword used naturally in a few of them, never "image of" or "picture of". Each alt becomes the downloaded file name, so make every alt unique.
-- placement: the H2 (or "featured image") where the image belongs.
+- placement: the exact H2/H3 text where the image belongs, or "featured image".
 - Copy every other field from find_blog_images unchanged.
-Tell the user they can review the images and download them as a ZIP (files named by alt text, plus a CSV with URLs and credits) on the draft page.
+
+Picking the inBody images (pick them as an editor would, not by formula):
+- Roughly one image per 300–400 words, so about 4–5 in a 1,500-word post and 6–8 in a 2,600-word post. Never all 20.
+- Skip sections that already have an image in the HTML, short sections, the FAQ and the Sources list. Don't put two images under one heading, and don't give every H2 an image in a row: let some sections breathe so the rhythm doesn't look generated.
+- Put each image where it shows what that section is about. A photo that only loosely fits stays in the pool.
+- The 1–2 recommended products go in as product images (inBody) in the section that names them; MericSEO links them to the product page. No other product images in the body.
+- Prefer Unsplash photos and product images for inBody; Pixabay and Pexels discourage hotlinking, so keep those in the pool unless nothing else fits.
+- Don't mark the "featured image" inBody; the CMS shows it above the title.
+
+Alt text (all 20):
+- 8–15 words describing what is actually in the photo, written the way a person would describe it to someone who can't see it. Use the keyword naturally in two or three alts at most, never "image of" or "picture of".
+- Vary how alts start and how they're built; ten alts that all open with "A ..." or end with the keyword read as machine-written. Every alt must be unique (it becomes the file name).
+
+Calling save_blog_images again replaces the earlier placement without duplicating images. Tell the user how many images went into the post and that the full set (files named by alt text, plus a CSV with URLs and credits) is on the draft page, ready to upload to their CMS before swapping the URLs.
 
 ## Style and anti-AI rules
 Readers and search engines notice templated AI writing. Write like an experienced person at the brand who has an opinion.

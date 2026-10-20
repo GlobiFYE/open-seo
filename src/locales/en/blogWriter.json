@@ -87,10 +87,11 @@
     "downloadAll": "Download all as ZIP ({{count}})",
     "downloadSelected": "Download selected ({{count}})",
     "downloadCsv": "Download URL list (CSV)",
+    "inBody": "In post",
     "preparing": "Preparing ZIP…",
     "downloaded": "{{count}} images downloaded",
     "skipped": "{{count}} images couldn't be downloaded",
-    "hint": "Files are named after their alt text. The ZIP also includes images.csv with each file's alt text, placement, source URL and photographer credit. Stock photos are free to use (Pexels, Unsplash, Pixabay licenses); credit is appreciated but not required.",
-    "howTo": "Ask Claude to find images for this draft: it searches Pexels, Unsplash and Pixabay plus your site's products and saves 20 suggestions here."
+    "hint": "Files are named after their alt text. The ZIP also includes images.csv with each file's alt text, placement, source URL and photographer credit. Stock photos are free to use (Pexels, Unsplash, Pixabay licenses); credit is appreciated but not required. Images marked \"In post\" are already in the article; upload them to your CMS and swap the URLs before publishing.",
+    "howTo": "Ask Claude to find images for this draft: it searches Pexels, Unsplash and Pixabay plus your site's products and saves 20 suggestions here, placing the best fits into the post."
   }
 }

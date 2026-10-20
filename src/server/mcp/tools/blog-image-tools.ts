@@ -118,7 +118,7 @@ const saveInputSchema = {
     .min(1)
     .max(BLOG_IMAGE_LIMIT)
     .describe(
-      "The chosen images in reading order. Copy source, sourceId, url, previewUrl, pageUrl, downloadLocation, credit, creditUrl, productUrl, productTitle, width and height from find_blog_images unchanged; write alt (descriptive, keyword-aware, no 'image of') and placement (the H2 or spot in the post) yourself.",
+      "The chosen images in reading order. Copy source, sourceId, url, previewUrl, pageUrl, downloadLocation, credit, creditUrl, productUrl, productTitle, width and height from find_blog_images unchanged; write alt (descriptive, keyword-aware, no 'image of') and placement (the exact H2/H3 text, or 'featured image') yourself. Set inBody: true on the images that should appear in the article; their placement must be the exact text of a heading in the post.",
     ),
 } as const;
 
@@ -127,12 +127,13 @@ export const saveBlogImagesTool = {
   config: {
     title: "Save blog images",
     description:
-      "Save the image set for a blog draft (replaces the draft's previous image suggestions; the article itself is untouched). The user sees them in MericSEO and downloads them as a ZIP named by alt text. Uses no credits.",
+      "Save the image set for a blog draft (replaces the draft's previous image suggestions). Images marked inBody are placed into the article as <figure> blocks under the first paragraph of their heading: stock photos with a linked credit caption, product images linked to the product page. Images this tool placed earlier are removed first, so calling it again re-places the set without duplicates; images written into the HTML by hand are kept. The rest stay as alternatives the user sees in MericSEO and downloads as a ZIP named by alt text. Uses no credits.",
     inputSchema: saveInputSchema,
     outputSchema: z
       .object({
         saved: z.number(),
         products: z.number(),
+        inBody: z.number(),
         ...optionalMetaOutputSchema,
       })
       .passthrough(),
@@ -156,7 +157,7 @@ export const saveBlogImagesTool = {
         { draft: args.draftId },
       );
       return mcpResponse({
-        text: `Saved ${result.saved} images (${result.products} product images). The user can review and download them here: ${meta.url ?? writerPath(args.projectId)}`,
+        text: `Saved ${result.saved} images (${result.products} product images); ${result.inBody} placed in the article. The user can review the post and download the images here: ${meta.url ?? writerPath(args.projectId)}`,
         meta,
         structuredContent: result,
       });
