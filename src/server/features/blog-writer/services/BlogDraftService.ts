@@ -256,7 +256,12 @@ async function saveDraft(
   if (content.draftId) {
     const existing = await BlogDraftRepository.get(projectId, content.draftId);
     if (!existing) throw new AppError("NOT_FOUND");
-    await BlogDraftRepository.update(projectId, content.draftId, values);
+    const { imageSuggestionsJson, ...rest } = values;
+    await BlogDraftRepository.update(
+      projectId,
+      content.draftId,
+      imageSuggestionsJson ? values : rest,
+    );
     return { id: content.draftId, wordCount: values.wordCount, conflicts };
   }
   const id = await BlogDraftRepository.create(projectId, values);

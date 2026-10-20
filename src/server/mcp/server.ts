@@ -1,4 +1,8 @@
 import {
+  findBlogImagesTool,
+  saveBlogImagesTool,
+} from "@/server/mcp/tools/blog-image-tools";
+import {
   getBlogDraftTool,
   getSiteLinkTargetsTool,
   saveBlogDraftTool,
@@ -286,6 +290,8 @@ export function createOpenSeoMcpServer(authProps: McpProps) {
   register(getSiteLinkTargetsTool);
   register(saveBlogDraftTool);
   register(getBlogDraftTool);
+  register(findBlogImagesTool);
+  register(saveBlogImagesTool);
 
   return server;
 }

@@ -19,6 +19,7 @@ import {
 } from "@/client/components/ui/tabs";
 import { getStandardErrorMessage } from "@/client/lib/error-messages";
 import { projectsQueryOptions } from "@/client/features/projects/projectQueries";
+import { BlogDraftImages } from "@/client/features/blog-writer/BlogDraftImages";
 import { BlogDraftPublishDialog } from "@/client/features/blog-writer/BlogDraftPublishDialog";
 import { BlogDraftSections } from "@/client/features/blog-writer/BlogDraftSections";
 import { BlogDraftSeoForm } from "@/client/features/blog-writer/BlogDraftSeoForm";
@@ -190,6 +191,9 @@ function DraftBody({
           <TabsTrigger value="preview">{t("detail.preview")}</TabsTrigger>
           <TabsTrigger value="html">{t("detail.html")}</TabsTrigger>
           <TabsTrigger value="seo">{t("detail.seo")}</TabsTrigger>
+          <TabsTrigger value="images">
+            {t("detail.images")} ({draft.imageSuggestions.length})
+          </TabsTrigger>
           <TabsTrigger value="details">
             {t("detail.faq")} · {t("detail.links")}
           </TabsTrigger>
@@ -239,6 +243,9 @@ function DraftBody({
             projectId={projectId}
             draft={draft}
           />
+        </TabsContent>
+        <TabsContent value="images" className="pt-4">
+          <BlogDraftImages projectId={projectId} draft={draft} />
         </TabsContent>
         <TabsContent value="details" className="max-w-3xl pt-4">
           <BlogDraftSections draft={draft} />

@@ -60,7 +60,7 @@ function labelFor(pathname: string) {
   return decoded.replace(/[-_]+/g, " ").trim() || pathname;
 }
 
-function tokens(value: string) {
+export function tokens(value: string) {
   return value
     .toLocaleLowerCase()
     .normalize("NFKD")
@@ -69,7 +69,7 @@ function tokens(value: string) {
     .filter((token) => token.length > 2);
 }
 
-function relevanceFor(label: string, topicTokens: string[]) {
+export function relevanceFor(label: string, topicTokens: string[]) {
   if (topicTokens.length === 0) return 0;
   const labelTokens = tokens(label);
   let score = 0;

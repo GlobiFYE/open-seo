@@ -27,18 +27,28 @@ Call get_site_link_targets with the keyword as topic. Propose 3–6 links: at le
 Pick this post's format from the menus in "Style and anti-AI rules" below: an opener type, a body shape and a table type (or no table). It must differ from every entry under "Recent post formats" in the data below. Then show the format, the H2/H3 outline, the planned word count (match what ranks, usually 1,200–2,000 words), where each internal link goes, and 4–6 FAQ questions (use People Also Ask). Wait for approval.
 
 ## Step 6 — Write and save
-Write the article as clean HTML and call save_blog_draft. Rules:
+First call find_blog_images with 3–6 photo queries for the post's sections, the keyword as topic, and the URLs of the 1–2 site products you will recommend. Then write the article as clean HTML and call save_blog_draft. Rules:
 - No <h1> (the CMS renders the title). Use <h2>/<h3>, <p>, <ul>/<ol>, <table>, <strong>, <a>. No inline styles, classes or scripts.
 - Answer the search intent within the first 100 words, in the shape your chosen opener calls for (not always a bold summary). Use the primary keyword naturally in the first 100 words and in at least one H2; never stuff it.
 - Follow every rule in "Style and anti-AI rules". Concrete, experience-based advice in the brand's voice from the project context.
 - Place the confirmed internal links with their anchors where they help the reader. End with a short call to action toward the main category.
+- Recommend 1–2 of the site's own products inside the body, each as a linked product image <a href="PRODUCT_URL"><img src="PRODUCT_IMAGE_URL" alt="..."></a> placed in the section where the product fits, plus a sentence that links the product by name. Use the product and image URLs exactly as find_blog_images returned them. Never put stock photo URLs in contentHtml.
 - Link the site's homepage twice: once in the introduction and once in the conclusion, with natural anchor text that fits the sentence.
 - Add 3–6 external links to official, authoritative sources (standards bodies, government agencies, regulators, carriers, original research) inline where a fact is stated, with target="_blank" rel="noopener". Never link to competitors. Open every external URL before using it and only keep the ones that load.
 - End contentHtml with a "Sources" H2 listing every external source used for facts, as links.
 - Follow the project's writing preferences; they override these defaults.
 - Do NOT put the FAQ inside contentHtml: pass it in \`faqs\`; MericSEO renders it and builds the FAQ schema.
-- Also pass metaTitle (≤60 chars), metaDescription (≤155 chars, includes the keyword and a reason to click), slug (short, keyword-based, lowercase, hyphens, ASCII), excerpt (1–2 sentences), secondaryKeywords, internalLinks you used, 3–5 imageSuggestions (placement + descriptive alt text), and researchNotes. The FIRST line of researchNotes must be "Format: opener=<type>; body=<shape>; table=<type>; humor=<yes/no>" so later posts can avoid repeating it. Then the keyword data and SERP findings that justified the choices, and any experience details you still need from the user.
+- Also pass metaTitle (≤60 chars), metaDescription (≤155 chars, includes the keyword and a reason to click), slug (short, keyword-based, lowercase, hyphens, ASCII), excerpt (1–2 sentences), secondaryKeywords, internalLinks you used, and researchNotes. Leave imageSuggestions empty: images are saved in Step 7, and a later save_blog_draft without images keeps them. The FIRST line of researchNotes must be "Format: opener=<type>; body=<shape>; table=<type>; humor=<yes/no>" so later posts can avoid repeating it. Then the keyword data and SERP findings that justified the choices, and any experience details you still need from the user.
 After saving, give the user the MericSEO link from the tool result, where they can preview it and copy the HTML.
+
+## Step 7 — Images
+Choose 20 images from find_blog_images and call save_blog_images with the draftId:
+- At least 2 product images from the site (the ones used in the body first), the rest stock photos matched to specific sections. Mix sources and scenes; prefer landscape; skip photos with visible brand logos, watermarks or text.
+- If fewer than 20 fit well, call find_blog_images again with different queries instead of padding with weak matches.
+- Alt text: 8–15 words describing what is actually in the photo, the keyword used naturally in a few of them, never "image of" or "picture of". Each alt becomes the downloaded file name, so make every alt unique.
+- placement: the H2 (or "featured image") where the image belongs.
+- Copy every other field from find_blog_images unchanged.
+Tell the user they can review the images and download them as a ZIP (files named by alt text, plus a CSV with URLs and credits) on the draft page.
 
 ## Style and anti-AI rules
 Readers and search engines notice templated AI writing. Write like an experienced person at the brand who has an opinion.
@@ -67,7 +77,7 @@ Human signals (real only):
 Before saving, reread the draft and fix: repeated sentence openings, triads, banned phrases, more than three bold phrases, headings that match the recent formats, and any claim without a source or real data.
 
 ## Rewrites of existing posts
-Ask the user to paste the post's current HTML (Shopify: Show HTML) and keep the original text word for word. Add the new sections, update title, meta, links and image alt text, keep the same slug, and apply the same link and Sources rules.
+Ask the user to paste the post's current HTML (Shopify: Show HTML) and keep the original text word for word. Add the new sections, update title, meta, links and image alt text, keep the same slug, and apply the same link, Sources, product image and Step 7 image rules.
 
 ## Revisions
 For changes, call get_blog_draft, edit, and call save_blog_draft with the same draftId.`;

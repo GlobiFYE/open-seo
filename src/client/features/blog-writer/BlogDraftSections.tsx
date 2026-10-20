@@ -58,30 +58,6 @@ export function BlogDraftSections({ draft }: { draft: BlogDraft }) {
         </ul>
       </Section>
       <Section
-        title={t("detail.images")}
-        empty={draft.imageSuggestions.length === 0 && t("detail.noImages")}
-      >
-        <ul className="space-y-2">
-          {draft.imageSuggestions.map((image) => (
-            <li
-              key={`${image.placement}-${image.alt}`}
-              className="rounded-lg border border-border p-2.5 text-sm"
-            >
-              <p className="text-xs text-muted-foreground">
-                {t("detail.placement")}: {image.placement || "–"}
-              </p>
-              <p>
-                <span className="font-medium">{t("detail.alt")}:</span>{" "}
-                {image.alt}
-              </p>
-              {image.description ? (
-                <p className="text-muted-foreground">{image.description}</p>
-              ) : null}
-            </li>
-          ))}
-        </ul>
-      </Section>
-      <Section
         title={t("detail.research")}
         empty={!draft.researchNotes && t("detail.noResearch")}
       >

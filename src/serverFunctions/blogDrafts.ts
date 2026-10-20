@@ -1,7 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
 import { BlogDraftService } from "@/server/features/blog-writer/services/BlogDraftService";
+import { BlogImageService } from "@/server/features/blog-writer/services/BlogImageService";
 import { requireProjectContext } from "@/serverFunctions/middleware";
 import {
+  downloadBlogImagesSchema,
   getBlogDraftSchema,
   listBlogDraftsSchema,
   publishBlogDraftSchema,
@@ -50,4 +52,11 @@ export const deleteBlogDraft = createServerFn({ method: "POST" })
   .validator(getBlogDraftSchema)
   .handler(async ({ data, context }) =>
     BlogDraftService.deleteDraft(context.projectId, data.id),
+  );
+
+export const downloadBlogImages = createServerFn({ method: "POST" })
+  .middleware(requireProjectContext)
+  .validator(downloadBlogImagesSchema)
+  .handler(async ({ data, context }) =>
+    BlogImageService.downloadImages(context.projectId, data.id, data.indexes),
   );

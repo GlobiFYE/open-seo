@@ -73,5 +73,24 @@
     "notFound": "Taslak bulunamadı.",
     "loadFailed": "Taslak yüklenemedi.",
     "previewTitle": "Yazı önizlemesi"
+  },
+  "images": {
+    "select": "Görseli seç",
+    "product": "Ürünü gör",
+    "credit": "Fotoğraf: {{credit}}",
+    "source": {
+      "pexels": "Pexels",
+      "unsplash": "Unsplash",
+      "pixabay": "Pixabay",
+      "product": "Ürün"
+    },
+    "downloadAll": "Hepsini ZIP indir ({{count}})",
+    "downloadSelected": "Seçilenleri indir ({{count}})",
+    "downloadCsv": "URL listesini indir (CSV)",
+    "preparing": "ZIP hazırlanıyor…",
+    "downloaded": "{{count}} görsel indirildi",
+    "skipped": "{{count}} görsel indirilemedi",
+    "hint": "Dosyalar alt metinlerine göre adlandırılır. ZIP içinde her dosyanın alt metni, yerleşimi, kaynak linki ve fotoğrafçı bilgisini içeren images.csv de var. Stok fotoğraflar ücretsiz kullanılabilir (Pexels, Unsplash, Pixabay lisansları); kaynak belirtmek zorunlu değil ama iyi olur.",
+    "howTo": "Claude'dan bu taslak için görsel bulmasını iste: Pexels, Unsplash, Pixabay ve sitenin ürünlerinde arayıp 20 öneriyi buraya kaydeder."
   }
 }
