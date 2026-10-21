@@ -52,6 +52,7 @@ import { Route as AppPProjectIdBrandLookupRouteImport } from './routes/_app/p/$p
 import { Route as AppPProjectIdContextRouteImport } from './routes/_app/p/$projectId/context'
 import { Route as AppPProjectIdDomainRouteImport } from './routes/_app/p/$projectId/domain'
 import { Route as AppPProjectIdKeywordsRouteImport } from './routes/_app/p/$projectId/keywords'
+import { Route as AppPProjectIdLeadsRouteImport } from './routes/_app/p/$projectId/leads'
 import { Route as AppPProjectIdPromptExplorerRouteImport } from './routes/_app/p/$projectId/prompt-explorer'
 import { Route as AppPProjectIdRankTrackingRouteImport } from './routes/_app/p/$projectId/rank-tracking'
 import { Route as AppPProjectIdSamRouteImport } from './routes/_app/p/$projectId/sam'
@@ -292,6 +293,11 @@ const AppPProjectIdKeywordsRoute = AppPProjectIdKeywordsRouteImport.update({
   path: '/keywords',
   getParentRoute: () => AppPProjectIdRouteRoute,
 } as any)
+const AppPProjectIdLeadsRoute = AppPProjectIdLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AppPProjectIdRouteRoute,
+} as any)
 const AppPProjectIdPromptExplorerRoute =
   AppPProjectIdPromptExplorerRouteImport.update({
     id: '/prompt-explorer',
@@ -453,6 +459,7 @@ export interface FileRoutesByFullPath {
   '/p/$projectId/context': typeof AppPProjectIdContextRoute
   '/p/$projectId/domain': typeof AppPProjectIdDomainRoute
   '/p/$projectId/keywords': typeof AppPProjectIdKeywordsRoute
+  '/p/$projectId/leads': typeof AppPProjectIdLeadsRoute
   '/p/$projectId/prompt-explorer': typeof AppPProjectIdPromptExplorerRoute
   '/p/$projectId/rank-tracking': typeof AppPProjectIdRankTrackingRouteWithChildren
   '/p/$projectId/sam': typeof AppPProjectIdSamRoute
@@ -513,6 +520,7 @@ export interface FileRoutesByTo {
   '/p/$projectId/context': typeof AppPProjectIdContextRoute
   '/p/$projectId/domain': typeof AppPProjectIdDomainRoute
   '/p/$projectId/keywords': typeof AppPProjectIdKeywordsRoute
+  '/p/$projectId/leads': typeof AppPProjectIdLeadsRoute
   '/p/$projectId/prompt-explorer': typeof AppPProjectIdPromptExplorerRoute
   '/p/$projectId/sam': typeof AppPProjectIdSamRoute
   '/p/$projectId/saved': typeof AppPProjectIdSavedRoute
@@ -578,6 +586,7 @@ export interface FileRoutesById {
   '/_app/p/$projectId/context': typeof AppPProjectIdContextRoute
   '/_app/p/$projectId/domain': typeof AppPProjectIdDomainRoute
   '/_app/p/$projectId/keywords': typeof AppPProjectIdKeywordsRoute
+  '/_app/p/$projectId/leads': typeof AppPProjectIdLeadsRoute
   '/_app/p/$projectId/prompt-explorer': typeof AppPProjectIdPromptExplorerRoute
   '/_app/p/$projectId/rank-tracking': typeof AppPProjectIdRankTrackingRouteWithChildren
   '/_app/p/$projectId/sam': typeof AppPProjectIdSamRoute
@@ -643,6 +652,7 @@ export interface FileRouteTypes {
     | '/p/$projectId/context'
     | '/p/$projectId/domain'
     | '/p/$projectId/keywords'
+    | '/p/$projectId/leads'
     | '/p/$projectId/prompt-explorer'
     | '/p/$projectId/rank-tracking'
     | '/p/$projectId/sam'
@@ -703,6 +713,7 @@ export interface FileRouteTypes {
     | '/p/$projectId/context'
     | '/p/$projectId/domain'
     | '/p/$projectId/keywords'
+    | '/p/$projectId/leads'
     | '/p/$projectId/prompt-explorer'
     | '/p/$projectId/sam'
     | '/p/$projectId/saved'
@@ -767,6 +778,7 @@ export interface FileRouteTypes {
     | '/_app/p/$projectId/context'
     | '/_app/p/$projectId/domain'
     | '/_app/p/$projectId/keywords'
+    | '/_app/p/$projectId/leads'
     | '/_app/p/$projectId/prompt-explorer'
     | '/_app/p/$projectId/rank-tracking'
     | '/_app/p/$projectId/sam'
@@ -1115,6 +1127,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppPProjectIdKeywordsRouteImport
       parentRoute: typeof AppPProjectIdRouteRoute
     }
+    '/_app/p/$projectId/leads': {
+      id: '/_app/p/$projectId/leads'
+      path: '/leads'
+      fullPath: '/p/$projectId/leads'
+      preLoaderRoute: typeof AppPProjectIdLeadsRouteImport
+      parentRoute: typeof AppPProjectIdRouteRoute
+    }
     '/_app/p/$projectId/prompt-explorer': {
       id: '/_app/p/$projectId/prompt-explorer'
       path: '/prompt-explorer'
@@ -1343,6 +1362,7 @@ interface AppPProjectIdRouteRouteChildren {
   AppPProjectIdContextRoute: typeof AppPProjectIdContextRoute
   AppPProjectIdDomainRoute: typeof AppPProjectIdDomainRoute
   AppPProjectIdKeywordsRoute: typeof AppPProjectIdKeywordsRoute
+  AppPProjectIdLeadsRoute: typeof AppPProjectIdLeadsRoute
   AppPProjectIdPromptExplorerRoute: typeof AppPProjectIdPromptExplorerRoute
   AppPProjectIdRankTrackingRoute: typeof AppPProjectIdRankTrackingRouteWithChildren
   AppPProjectIdSamRoute: typeof AppPProjectIdSamRoute
@@ -1366,6 +1386,7 @@ const AppPProjectIdRouteRouteChildren: AppPProjectIdRouteRouteChildren = {
   AppPProjectIdContextRoute: AppPProjectIdContextRoute,
   AppPProjectIdDomainRoute: AppPProjectIdDomainRoute,
   AppPProjectIdKeywordsRoute: AppPProjectIdKeywordsRoute,
+  AppPProjectIdLeadsRoute: AppPProjectIdLeadsRoute,
   AppPProjectIdPromptExplorerRoute: AppPProjectIdPromptExplorerRoute,
   AppPProjectIdRankTrackingRoute: AppPProjectIdRankTrackingRouteWithChildren,
   AppPProjectIdSamRoute: AppPProjectIdSamRoute,

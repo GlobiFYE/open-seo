@@ -1,0 +1,79 @@
+{
+  "title": "Lead Bulucu",
+  "description": "Bir kategorideki yerel işletmeleri bul, web sitelerinden iletişim bilgilerini çek ve gerçekten ulaşabileceklerini ayır.",
+  "form": {
+    "title": "Yeni lead araması",
+    "category": "İşletme kategorisi",
+    "categoryPlaceholder": "Aramak için yaz, örn. staging, florist, interior",
+    "categoryHint": "Önerilerden bir Google İşletme kategorisi seç.",
+    "categorySelected": "Seçili: {{category}}",
+    "noCategories": "Eşleşen kategori yok. Daha kısa bir kelime dene.",
+    "location": "Konum",
+    "locationPlaceholder": "Kadıköy, İstanbul veya Austin, TX",
+    "radius": "Yarıçap (km)",
+    "limit": "Çekilecek işletme sayısı",
+    "minRating": "Minimum puan",
+    "anyRating": "Fark etmez",
+    "nameQuery": "İsimde geçsin (isteğe bağlı)",
+    "submit": "İşletmeleri bul",
+    "costNote": "İşletmeleri çekmek az miktarda kredi kullanır. Web sitelerini okumak ve e-postaları kontrol etmek ücretsiz.",
+    "started": "{{found}} işletme bulundu, {{added}} yeni lead eklendi."
+  },
+  "list": {
+    "title": "Lead aramaları",
+    "empty": "Henüz lead araması yok",
+    "emptyDescription": "İlk lead listeni oluşturmak için yukarıdan bir arama başlat.",
+    "summary": "{{total}} lead · {{ready}} tanesine hemen mail atılabilir",
+    "pending": "{{count}} bekliyor",
+    "ready": "{{count}} hazır"
+  },
+  "detail": {
+    "back": "Tüm lead aramaları",
+    "radius": "{{location}} çevresinde {{radius}} km",
+    "skipped": "{{count}} işletme, daha önceki bir aramada zaten bulunduğu için atlandı.",
+    "progressTitle": "Web siteleri okunuyor",
+    "progress": "{{total}} siteden {{done}} tanesi okundu",
+    "pause": "Duraklat",
+    "resume": "Devam et",
+    "loadFailed": "Bu lead araması yüklenemedi.",
+    "delete": "Aramayı sil",
+    "deleteTitle": "Bu lead araması silinsin mi?",
+    "deleteDescription": "Arama ve içindeki tüm lead'ler silinecek. Bu işletmeler yeni bir aramayla tekrar bulunabilir.",
+    "deleted": "Lead araması silindi",
+    "filterAll": "Tümü",
+    "noLeads": "Bu filtreye uyan lead yok."
+  },
+  "reachability": {
+    "ready": "Mail atılabilir",
+    "social_only": "Sadece telefon veya sosyal medya",
+    "email_unreachable": "E-posta alan adı çalışmıyor",
+    "no_contact": "İletişim bulunamadı",
+    "pending": "Bekliyor"
+  },
+  "reachabilityHint": {
+    "ready": "Bir e-posta bulundu ve alan adı mail kabul ediyor.",
+    "social_only": "Sitede e-posta yok. Telefon, Instagram veya WhatsApp ile ulaşabilirsin.",
+    "email_unreachable": "Sitede e-posta var ama alan adı mail alamıyor.",
+    "no_contact": "Web sitesinde okunabilir bir iletişim bilgisi yoktu.",
+    "pending": "Web sitesi henüz okunmadı."
+  },
+  "emailKind": {
+    "personal": "Kişisel",
+    "role": "Ortak kutu",
+    "free_provider": "Ücretsiz e-posta"
+  },
+  "table": {
+    "business": "İşletme",
+    "email": "En iyi e-posta",
+    "otherEmails": "+{{count}} adres daha",
+    "contact": "Telefon ve sosyal medya",
+    "rating": "Puan",
+    "reviews": "{{count}} yorum",
+    "website": "Web sitesi",
+    "maps": "Haritalar",
+    "noWebsite": "Web sitesi yok"
+  },
+  "export": {
+    "filename": "leadler-{{label}}"
+  }
+}

@@ -3,12 +3,12 @@ import { z } from "zod";
 import {
   createDataforseoClient,
   fetchBusinessDataTaskResult,
-  fetchBusinessListingsCategories,
   fetchLocalSerpTaskResult,
   type BusinessTaskEndpoint,
   type BusinessTaskOutcome,
   type LocalSerpTaskOutcome,
 } from "@/server/lib/dataforseo";
+import { getBusinessCategories } from "@/server/lib/dataforseo/businessCategories";
 import { AppError } from "@/server/lib/errors";
 import { buildCacheKey, getCached, setCached } from "@/server/lib/r2-cache";
 import { buildProjectMeta } from "@/server/mcp/context";
@@ -591,13 +591,6 @@ export const getBusinessUpdatesTool = {
 // list_business_categories
 // ---------------------------------------------------------------------------
 
-const BUSINESS_CATEGORIES_CACHE_NAMESPACE = "local:business-categories";
-const BUSINESS_CATEGORIES_TTL_SECONDS = 7 * 24 * 60 * 60;
-
-const cachedCategoriesSchema = z.array(
-  z.object({ category: z.string(), businessCount: z.number().nullable() }),
-);
-
 const listBusinessCategoriesInputSchema = {
   projectId: projectIdSchema,
   query: z
@@ -653,21 +646,8 @@ export const listBusinessCategoriesTool = {
   },
   handler: withMcpProjectAuth(
     async (args: ListBusinessCategoriesArgs, context) => {
-      // The upstream list takes no parameters, so one cache entry serves every
-      // query/limit combination; filtering happens below, in memory.
-      const cacheKey = await buildCacheKey(
-        BUSINESS_CATEGORIES_CACHE_NAMESPACE,
-        {},
-      );
-      const cached = cachedCategoriesSchema.safeParse(
-        await getCached(cacheKey),
-      );
-      let all = cached.success ? cached.data : null;
-      if (!all) {
-        // Free at DataForSEO, so this skips the metered client — see index.ts.
-        all = (await fetchBusinessListingsCategories()).data;
-        await setCached(cacheKey, all, BUSINESS_CATEGORIES_TTL_SECONDS);
-      }
+      // Free at DataForSEO, so this skips the metered client — see index.ts.
+      const all = await getBusinessCategories();
 
       const query = args.query?.toLowerCase();
       const matched = query

@@ -7,6 +7,7 @@ import enNav from "./en/nav.json";
 import enSettings from "./en/settings.json";
 import enOnboarding from "./en/onboarding.json";
 import enIntegrations from "./en/integrations.json";
+import enLeads from "./en/leads.json";
 import trAuth from "./tr/auth.json";
 import trBlogTracking from "./tr/blogTracking.json";
 import trBlogWriter from "./tr/blogWriter.json";
@@ -16,6 +17,7 @@ import trNav from "./tr/nav.json";
 import trSettings from "./tr/settings.json";
 import trOnboarding from "./tr/onboarding.json";
 import trIntegrations from "./tr/integrations.json";
+import trLeads from "./tr/leads.json";
 
 export const resources = {
   en: {
@@ -28,6 +30,7 @@ export const resources = {
     settings: enSettings,
     onboarding: enOnboarding,
     integrations: enIntegrations,
+    leads: enLeads,
   },
   tr: {
     auth: trAuth,
@@ -39,6 +42,7 @@ export const resources = {
     settings: trSettings,
     onboarding: trOnboarding,
     integrations: trIntegrations,
+    leads: trLeads,
   },
 } as const;
 

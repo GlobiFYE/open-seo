@@ -15,6 +15,7 @@
     "AUDIT_ALREADY_RUNNING": "Aynı anda çalışabilecek audit sınırına ulaştınız. Yenisini başlatmadan önce birinin bitmesini bekleyin veya birini silin.",
     "VALIDATION_ERROR": "Lütfen girdiğiniz bilgileri kontrol edip tekrar deneyin.",
     "UNKNOWN_LOCATION": "Bu şehri, ilçeyi veya bölgeyi bulamadık. Listeden bir konum seçin ya da tüm ülkede aramak için alanı boş bırakın.",
+    "LEAD_LOCATION_NOT_FOUND": "Bu yeri bulamadık. Şehir adını ülke ya da eyaletle birlikte yazmayı dene, örneğin \"Kadıköy, İstanbul\" veya \"Austin, TX\".",
     "CRAWL_TARGET_BLOCKED": "Bu tarama hedefi güvenlik politikası nedeniyle engellendi.",
     "BACKLINKS_BILLING_ISSUE": "Bağlı DataForSEO hesabında ödeme veya bakiye sorunu var.",
     "AI_SEARCH_BILLING_ISSUE": "Bağlı DataForSEO hesabında ödeme veya bakiye sorunu var.",

@@ -253,6 +253,13 @@
       "when": 1792415936745,
       "tag": "0035_blog_drafts",
       "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "7",
+      "when": 1792569761117,
+      "tag": "0036_lead_finder",
+      "breakpoints": true
     }
   ]
 }

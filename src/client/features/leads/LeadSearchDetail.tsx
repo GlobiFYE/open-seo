@@ -1,0 +1,304 @@
+import { useEffect, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { ArrowLeft, Trash2 } from "lucide-react";
+import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
+import { ConfirmDialog } from "@/client/components/ConfirmDialog";
+import { ExportMenu } from "@/client/components/ExportMenu";
+import { QueryError } from "@/client/components/QueryState";
+import { SkeletonPage } from "@/client/components/SkeletonPresets";
+import { Alert, AlertDescription } from "@/client/components/ui/alert";
+import { Button } from "@/client/components/ui/button";
+import { Progress } from "@/client/components/ui/progress";
+import {
+  Table,
+  TableBody,
+  TableCard,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/client/components/ui/table";
+import {
+  leadSearchOptions,
+  leadsQueryKey,
+} from "@/client/features/leads/leadQueries";
+import { LeadTableRow } from "@/client/features/leads/LeadTableRow";
+import { exportRows, type ExportFormat } from "@/client/lib/exportRows";
+import { getStandardErrorMessage } from "@/client/lib/error-messages";
+import { deleteLeadSearch, enrichLeadBatch } from "@/serverFunctions/leads";
+import { LEAD_REACHABILITY_ORDER, type LeadReachability } from "@/shared/leads";
+
+type Filter = LeadReachability | "all";
+
+export function LeadSearchDetail({
+  projectId,
+  searchId,
+}: {
+  projectId: string;
+  searchId: string;
+}) {
+  const { t } = useTranslation("leads");
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const searchQuery = useQuery(leadSearchOptions(projectId, searchId));
+  const [paused, setPaused] = useState(false);
+  const [filter, setFilter] = useState<Filter>("all");
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
+  const enrichMutation = useMutation({
+    mutationFn: () => enrichLeadBatch({ data: { projectId, searchId } }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: leadSearchOptions(projectId, searchId).queryKey,
+      });
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: () => deleteLeadSearch({ data: { projectId, searchId } }),
+    onSuccess: async () => {
+      toast.success(t("detail.deleted"));
+      await queryClient.invalidateQueries({
+        queryKey: leadsQueryKey(projectId),
+      });
+      await navigate({
+        to: "/p/$projectId/leads",
+        params: { projectId },
+        search: {},
+      });
+    },
+  });
+
+  const pending = searchQuery.data?.summary.pending ?? 0;
+  const canEnrich =
+    pending > 0 &&
+    !paused &&
+    !enrichMutation.isPending &&
+    !enrichMutation.isError &&
+    !searchQuery.isFetching;
+  const { mutate: enrich } = enrichMutation;
+  useEffect(() => {
+    if (canEnrich) enrich();
+  }, [canEnrich, enrich]);
+
+  if (searchQuery.isPending) return <SkeletonPage />;
+  if (searchQuery.isError) {
+    return (
+      <div className="p-6">
+        <QueryError
+          error={searchQuery.error}
+          fallback={t("detail.loadFailed")}
+          onRetry={() => void searchQuery.refetch()}
+          isRetrying={searchQuery.isFetching}
+        />
+      </div>
+    );
+  }
+
+  const { search, summary, leads } = searchQuery.data;
+  const total = leads.length;
+  const done = total - pending;
+  const visible =
+    filter === "all"
+      ? leads
+      : leads.filter((lead) => lead.reachability === filter);
+
+  const onExport = (format: ExportFormat) => {
+    const headers = [
+      "status",
+      "name",
+      "email",
+      "other_emails",
+      "phone",
+      "website",
+      "instagram",
+      "facebook",
+      "linkedin",
+      "whatsapp",
+      "rating",
+      "reviews",
+      "address",
+      "maps",
+    ];
+    const rows = visible.map((lead) => [
+      t(`reachability.${lead.reachability}`),
+      lead.name,
+      lead.primaryEmail,
+      lead.emails
+        .filter((email) => email.email !== lead.primaryEmail)
+        .map((email) => email.email)
+        .join(" "),
+      lead.phone,
+      lead.website,
+      lead.instagramUrl,
+      lead.facebookUrl,
+      lead.linkedinUrl,
+      lead.whatsappUrl,
+      lead.rating,
+      lead.reviewsCount,
+      lead.address,
+      lead.mapsUrl,
+    ]);
+    void exportRows({
+      format,
+      feature: "lead_finder",
+      headers,
+      rows,
+      filename: t("export.filename", {
+        label: search.label.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+      }),
+    });
+  };
+
+  return (
+    <div className="overflow-auto px-4 py-4 pb-24 md:px-6 md:py-6 md:pb-8">
+      <div className="mx-auto max-w-6xl space-y-5">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="min-w-0 space-y-1">
+            <Link
+              to="/p/$projectId/leads"
+              params={{ projectId }}
+              search={{}}
+              className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
+            >
+              <ArrowLeft className="size-3" />
+              {t("detail.back")}
+            </Link>
+            <h1 className="text-xl font-semibold tracking-tight">
+              {search.label}
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              {t("detail.radius", {
+                radius: search.radiusKm,
+                location: search.locationLabel,
+              })}
+            </p>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setConfirmDelete(true)}
+          >
+            <Trash2 data-icon="inline-start" />
+            {t("detail.delete")}
+          </Button>
+        </div>
+
+        {search.skippedDuplicates > 0 ? (
+          <p className="text-xs text-muted-foreground">
+            {t("detail.skipped", { count: search.skippedDuplicates })}
+          </p>
+        ) : null}
+
+        {pending > 0 ? (
+          <div className="space-y-2 rounded-xl border border-border bg-card p-4">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-sm font-medium">{t("detail.progressTitle")}</p>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  enrichMutation.reset();
+                  setPaused((value) => !value);
+                }}
+              >
+                {paused ? t("detail.resume") : t("detail.pause")}
+              </Button>
+            </div>
+            <Progress value={total === 0 ? 0 : (done / total) * 100} />
+            <p className="text-xs text-muted-foreground tabular-nums">
+              {t("detail.progress", { done, total })}
+            </p>
+            {enrichMutation.isError ? (
+              <Alert variant="destructive">
+                <AlertDescription className="flex flex-wrap items-center gap-2">
+                  {getStandardErrorMessage(enrichMutation.error)}
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => enrichMutation.reset()}
+                  >
+                    {t("detail.resume")}
+                  </Button>
+                </AlertDescription>
+              </Alert>
+            ) : null}
+          </div>
+        ) : null}
+
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap gap-1.5" role="group">
+            {(["all", ...LEAD_REACHABILITY_ORDER] as Filter[])
+              .filter((key) => key === "all" || summary[key] > 0)
+              .map((key) => (
+                <Button
+                  key={key}
+                  size="sm"
+                  variant={filter === key ? "default" : "outline"}
+                  aria-pressed={filter === key}
+                  onClick={() => setFilter(key)}
+                >
+                  {key === "all"
+                    ? t("detail.filterAll")
+                    : t(`reachability.${key}`)}
+                  <span className="tabular-nums opacity-70">
+                    {key === "all" ? total : summary[key]}
+                  </span>
+                </Button>
+              ))}
+          </div>
+          <ExportMenu
+            actions={["csv", "sheets", "copy-json"]}
+            onExport={onExport}
+          />
+        </div>
+
+        <TableCard>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>{t("table.business")}</TableHead>
+                <TableHead>{t("table.email")}</TableHead>
+                <TableHead>{t("table.contact")}</TableHead>
+                <TableHead className="text-right">
+                  {t("table.rating")}
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {visible.length === 0 ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={4}
+                    className="py-8 text-center text-muted-foreground"
+                  >
+                    {t("detail.noLeads")}
+                  </TableCell>
+                </TableRow>
+              ) : (
+                visible.map((lead) => (
+                  <LeadTableRow key={lead.id} lead={lead} />
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableCard>
+      </div>
+
+      {confirmDelete ? (
+        <ConfirmDialog
+          title={t("detail.deleteTitle")}
+          confirmLabel={t("detail.delete")}
+          destructive
+          pending={deleteMutation.isPending}
+          onConfirm={() => deleteMutation.mutate()}
+          onClose={() => setConfirmDelete(false)}
+        >
+          {t("detail.deleteDescription")}
+        </ConfirmDialog>
+      ) : null}
+    </div>
+  );
+}

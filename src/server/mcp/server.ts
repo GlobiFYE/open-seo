@@ -119,6 +119,11 @@ import {
 } from "@/server/mcp/tools/site-audit-cleanup-tools";
 import { whoamiTool } from "@/server/mcp/tools/whoami";
 import { explorePromptTool } from "@/server/mcp/tools/explore-prompt";
+import {
+  enrichLeadsTool,
+  findLeadsTool,
+  getLeadsTool,
+} from "@/server/mcp/tools/lead-finder-tools";
 
 type ToolSchema = z.ZodType | z.ZodRawShape;
 
@@ -292,6 +297,9 @@ export function createOpenSeoMcpServer(authProps: McpProps) {
   register(getBlogDraftTool);
   register(findBlogImagesTool);
   register(saveBlogImagesTool);
+  register(findLeadsTool);
+  register(enrichLeadsTool);
+  register(getLeadsTool);
 
   return server;
 }

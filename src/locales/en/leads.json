@@ -1,0 +1,79 @@
+{
+  "title": "Lead Finder",
+  "description": "Find local businesses in a category, read their websites for contact details, and keep the ones you can actually reach.",
+  "form": {
+    "title": "New lead search",
+    "category": "Business category",
+    "categoryPlaceholder": "Type to search, e.g. staging, florist, interior",
+    "categoryHint": "Pick a Google Business category from the suggestions.",
+    "categorySelected": "Selected: {{category}}",
+    "noCategories": "No matching categories. Try a shorter word.",
+    "location": "Location",
+    "locationPlaceholder": "Austin, TX or Kadıköy, İstanbul",
+    "radius": "Radius (km)",
+    "limit": "Businesses to pull",
+    "minRating": "Minimum rating",
+    "anyRating": "Any",
+    "nameQuery": "Name contains (optional)",
+    "submit": "Find businesses",
+    "costNote": "Pulling businesses uses a small amount of credits. Reading websites and checking emails is free.",
+    "started": "Found {{found}} businesses, added {{added}} new leads."
+  },
+  "list": {
+    "title": "Lead searches",
+    "empty": "No lead searches yet",
+    "emptyDescription": "Start a search above to build your first lead list.",
+    "summary": "{{total}} leads · {{ready}} ready to email",
+    "pending": "{{count}} pending",
+    "ready": "{{count}} ready"
+  },
+  "detail": {
+    "back": "All lead searches",
+    "radius": "{{radius}} km around {{location}}",
+    "skipped": "{{count}} businesses were skipped because an earlier search already found them.",
+    "progressTitle": "Reading websites",
+    "progress": "{{done}} of {{total}} websites read",
+    "pause": "Pause",
+    "resume": "Resume",
+    "loadFailed": "Couldn't load this lead search.",
+    "delete": "Delete search",
+    "deleteTitle": "Delete this lead search?",
+    "deleteDescription": "The search and all of its leads will be removed. Businesses in it can be found again by a new search.",
+    "deleted": "Lead search deleted",
+    "filterAll": "All",
+    "noLeads": "No leads match this filter."
+  },
+  "reachability": {
+    "ready": "Ready to email",
+    "social_only": "Phone or social only",
+    "email_unreachable": "Email domain dead",
+    "no_contact": "No contact found",
+    "pending": "Pending"
+  },
+  "reachabilityHint": {
+    "ready": "An email was found and its domain accepts mail.",
+    "social_only": "No email on the site. Reach them by phone, Instagram or WhatsApp.",
+    "email_unreachable": "The site shows an email, but its domain can't receive mail.",
+    "no_contact": "The website had no contact details we could read.",
+    "pending": "The website hasn't been read yet."
+  },
+  "emailKind": {
+    "personal": "Person",
+    "role": "Shared inbox",
+    "free_provider": "Free email"
+  },
+  "table": {
+    "business": "Business",
+    "email": "Best email",
+    "otherEmails": "+{{count}} more",
+    "contact": "Phone & social",
+    "rating": "Rating",
+    "reviews": "{{count}} reviews",
+    "website": "Website",
+    "maps": "Maps",
+    "noWebsite": "No website"
+  },
+  "export": {
+    "filename": "leads-{{label}}"
+  }
+}

@@ -24,7 +24,8 @@
     "context": "Proje Bağlamı",
     "agentSetup": "Agent kurulumu",
     "blogTracking": "Blog Takibi",
-    "blogWriter": "Blog Yazarı"
+    "blogWriter": "Blog Yazarı",
+    "leadFinder": "Lead Bulucu"
   },
   "account": {
     "helpCommunity": "Yardım ve Topluluk",

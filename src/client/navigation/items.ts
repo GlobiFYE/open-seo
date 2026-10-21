@@ -13,6 +13,7 @@ import {
   PenLine,
   Search,
   TrendingUp,
+  Users,
 } from "lucide-react";
 import { linkOptions } from "@tanstack/react-router";
 import { GoogleGlyphMuted } from "@/client/features/gsc/GoogleGlyph";
@@ -55,6 +56,11 @@ const projectNavItems = [
     to: "/p/$projectId/blog-writer" as const,
     label: "nav:items.blogWriter" as const,
     icon: PenLine,
+  },
+  {
+    to: "/p/$projectId/leads" as const,
+    label: "nav:items.leadFinder" as const,
+    icon: Users,
   },
   {
     to: "/p/$projectId/domain" as const,
@@ -142,6 +148,7 @@ export function getProjectNavGroups(projectId: string) {
         byPath("/p/$projectId/keywords"),
         byPath("/p/$projectId/domain"),
         byPath("/p/$projectId/backlinks"),
+        byPath("/p/$projectId/leads"),
       ],
     },
     {
